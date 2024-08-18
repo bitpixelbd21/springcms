@@ -7,7 +7,7 @@ use BitPixel\SpringCms\Models\TemplatePage;
 
 class CacheViewFilesCommand extends Command
 {
-    public $signature = 'river:cache-views';
+    public $signature = 'springcms:cache-views';
 
     public $description = 'Cache blade view files';
 

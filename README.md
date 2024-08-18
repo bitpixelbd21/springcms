@@ -6,14 +6,14 @@
 
 `php artisan migrate`
 
-`php artisan river:seed`
+`php artisan springcms:install` 
 
-`php artisan river:cache-views`
+`php artisan springcms:cache-views`
 
 To publish the assets(css, js files) into the public
 directory, run:
 
-`php artisan vendor:publish --tag=river-assets --force`
+`php artisan vendor:publish --tag=springcms-assets --force`
 
 Run the following command to publish laravel-filemanager config && assets: 
 
@@ -27,8 +27,8 @@ Update filesystem config: Open `config/filesystem.php` & change the public disk 
 ```php
 'public' => [
             'driver' => 'local',
-            'root' => public_path('river/assets/files'),
-            'url' => '/river/assets/files',
+            'root' => public_path('springcms/assets/files'),
+            'url' => '/springcms/assets/files',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -36,10 +36,7 @@ Update filesystem config: Open `config/filesystem.php` & change the public disk 
 
 Run the project: `php artisan serve`
 
-Open admin panel: `localhost:8000/admin/login`
-
-email: admin@gmail.com
-password: 1234
+Open admin panel: `localhost:8000/admin/login` & login with the credentials you set during the `springcms:install` command.
 
 ### Package update route
 
@@ -49,8 +46,8 @@ code inside a shared hosting env.
 ```php
 Route::get('/upd', function () {
     $git = new CzProject\GitPhp\Git;
-    \File::deleteDirectory(base_path('vendor/rashidul/river'));
-    $repo = $git->cloneRepository('https://github.com/rashidul-hasan/river.git', base_path('vendor/rashidul/river'));
+    \File::deleteDirectory(base_path('vendor/bitpixel/springcms'));
+    $repo = $git->cloneRepository('https://github.com/bitpixelbd21/springcms.git', base_path('vendor/bitpixel/springcms'));
     die('Done!');
 });
 ```

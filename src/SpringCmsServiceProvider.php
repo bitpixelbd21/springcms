@@ -32,8 +32,8 @@ class SpringCmsServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'river');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->publishes([
-            __DIR__ . '/../public' => public_path('river'),
-        ], 'river-assets');
+            __DIR__ . '/../public' => public_path('springcms'),
+        ], 'springcms-assets');
 
 
         //viewcomposers
