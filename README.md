@@ -1,8 +1,8 @@
-# River - Application framework for Laravel
+# SpringCMS - A Laravel based CMS
 
 ## Install;
 
-`composer require rashidul/river:dev-master`
+`composer require bitpixel/springcms:dev-master`
 
 `php artisan migrate`
 
