@@ -166,7 +166,7 @@ if (! function_exists('river_banner')) {
     {
 
         $banner = Cache::rememberForever(Constants::CACHE_KEY_BANNER, function () {
-             $banner = \Rashidul\River\Models\Banner::where('slug', $slug)->first();
+             $banner = \BitPixel\SpringCms\Models\Banner::where('slug', $slug)->first();
              if ($banner){
                     return $banner->image;
                  }
@@ -185,7 +185,7 @@ if (! function_exists('river_find')) {
     function river_find($type_slug, $filter = [])
     {
         $d = DataType::slug($type_slug)->first();
-        $dataTypeService = new \Rashidul\River\Services\DataTypeService();
+        $dataTypeService = new \BitPixel\SpringCms\Services\DataTypeService();
         $f = $dataTypeService->getFields($type_slug);
 
         $fields = FieldValue::where('data_type_id', $d->id)
@@ -196,7 +196,7 @@ if (! function_exists('river_find')) {
         foreach ($fields as $id => $item) {
             $single = [];
             $single['id'] = $id;
-            $entry = \Rashidul\River\Models\DataEntry::find($id);
+            $entry = \BitPixel\SpringCms\Models\DataEntry::find($id);
             if ($entry) {
                 $single['title'] = $entry->title;
                 $single['slug'] = $entry->slug;
