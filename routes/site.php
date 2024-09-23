@@ -36,7 +36,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['web'],
+    'middleware' => ['web', 'river.checkIfInstalled'],
     'namespace' => 'BitPixel\SpringCms\Http\Controllers',
     'as' => 'riversite.'
 ], function () {
