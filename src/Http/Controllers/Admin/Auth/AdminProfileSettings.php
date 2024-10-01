@@ -48,7 +48,7 @@ class AdminProfileSettings extends Controller
 
         $data = Auth::guard(Constants::AUTH_GUARD_ADMINS)->user();
 
-        return view('river::admin\auth\profile_settings', compact('data'));
+        return view('river::admin.auth.profile_settings', compact('data'));
 
     }
 
