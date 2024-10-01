@@ -72,22 +72,18 @@ class AdminProfileSettings extends Controller
     public function update_password(Request $request, $id) {
 
 
-        $file= Admin::find($id);
-
-
         $request->validate([
             'password' => 'required',
-            'new_password' => 'required',
+            'new_password' => 'required|same:confirm_password',
             'confirm_password' => 'required'
         ]);
 
         $currentPasswordStatus = Hash::check($request->password, Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->password);
         if($currentPasswordStatus){
 
-            Admin::findOrFail(Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->id)->update([
-                'password' => Hash::make($request->new_password),
-
-            ]);
+            $admin = Admin::findOrFail(Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->id);
+            $admin->password = Hash::make($request->new_password);
+            $admin->save();
 
             return redirect()->back()->with('success','Password Updated Successfully');
 
@@ -96,82 +92,6 @@ class AdminProfileSettings extends Controller
             return redirect()->back()->with('error','Current Password does not match with Old Password');
         }
 
-
-
-
-
-
     }
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-//     public function showLoginForm()
-//     {
-// //        session()->put('previousUrl', url()->previous());
-
-//         return view('river::admin.auth.login');
-//     }
-
-    // public function login(Request $request)
-    // {
-    //     $this->validateLogin($request);
-    //     $credentials = $request->only('email', 'password');
-
-    //     if ($this->guard()->attempt($credentials)) {
-    //         // Authentication passed...
-    //         return redirect()->to(route('river.admin.dashboard'));
-    //     }else{
-    //         return redirect()->back()->with('error','Credentials does not match!');
-    //     }
-
-    // }
-
-    /**
-     * Validate the user login request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return void
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    // protected function validateLogin(Request $request)
-    // {
-    //     $request->validate([
-    //         $this->username() => 'required|string',
-    //         'password' => 'required|string',
-    //     ]);
-    // }
-
-    // override logout so cart contents remain:
-    // https://github.com/Crinsane/LaravelShoppingcart/issues/253
-    // public function logout(Request $request)
-    // {
-
-    //     $this->guard()->logout();
-
-    //     $request->session()->invalidate();
-
-    //     $request->session()->regenerateToken();
-
-    //     if ($response = $this->loggedOut($request)) {
-    //         return $response;
-    //     }
-
-    //     return $request->wantsJson()
-    //         ? new Response('', 204)
-    //         : redirect(route('river.admin.login'));
-
-    // }
-
-    // public function redirectTo()
-    // {
-    //     return str_replace(url('/'), '', session()->get('previousUrl', '/'));
-    // }
-
-    // protected function guard()
-    // {
-    //     return Auth::guard(Constants::AUTH_GUARD_ADMINS);
-    // }
+   
 }
