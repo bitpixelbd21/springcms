@@ -125,7 +125,7 @@ class TemplateAssetsController extends Controller
         }
 
         //reset cache
-        Artisan::call('river:cache-views');
+        Artisan::call('springcms:cache-views');
         return redirect(route('river.template-assets.index'))
             ->with('success', 'Deleted!');
     }
