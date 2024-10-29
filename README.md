@@ -62,7 +62,7 @@ Base table or view already exists: 105 ==> run `php artisan migrate:fresh`
 
 ### Development
 
-1. Add the following param in root composer.json after "require" param
+1. Add the following param in root composer.json after "require" param, then run `composer require bitpixel21/springcms`
 ```js
 "repositories": [
     {
