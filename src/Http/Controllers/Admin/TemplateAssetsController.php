@@ -30,34 +30,32 @@ class TemplateAssetsController extends Controller
         $css_file_name = [];
         $image_file_name = [];
 
-        $publicPath = public_path();
-        $directory = 'river/assets';
-        $targetDirectory = $publicPath . '/' . $directory;
+        $targetDirectory = public_path('uploads/assets');
 
-    if(File::isDirectory($targetDirectory)) {
-        $files = File::files($targetDirectory);
+        if(File::isDirectory($targetDirectory)) {
+            $files = File::files($targetDirectory);
 
-        foreach ($files as $file) {
+            foreach ($files as $file) {
 
-            $filename=  $file->getFilename();
-            $ex_name = pathinfo($filename, PATHINFO_EXTENSION);
+                $filename=  $file->getFilename();
+                $ex_name = pathinfo($filename, PATHINFO_EXTENSION);
 
-            if($ex_name=='js'){
-                $js_file_name[] = $filename ;
-            } else if($ex_name=='css'){
-                $css_file_name[] = $filename;
-            } else if ($ex_name=='jpg'|| $ex_name=='png' || $ex_name=='jpeg'|| $ex_name=='webp'|| $ex_name=='svg' ){
-                $image_file_name[] = $filename;
+                if($ex_name=='js'){
+                    $js_file_name[] = $filename ;
+                } else if($ex_name=='css'){
+                    $css_file_name[] = $filename;
+                } else if ($ex_name=='jpg'|| $ex_name=='png' || $ex_name=='jpeg'|| $ex_name=='webp'|| $ex_name=='svg' ){
+                    $image_file_name[] = $filename;
+                }
             }
-        }
 
-    }
+        }
 
         $buttons = [
             ['Add files', route('river.template-assets.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/]
         ];
         $data = [
-            'title' => 'Template Assets pages (location: public/river/assets)',
+            'title' => 'Template Assets pages (location: public/uploads/assets)',
             'js_file_name' => $js_file_name,
             'css_file_name' => $css_file_name,
             'image_file_name' => $image_file_name,

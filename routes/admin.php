@@ -35,7 +35,7 @@ Route::group([
 });
 
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'river.auth:admins', 'river.checkrole']], function () {
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'river.auth:admins']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
@@ -80,6 +80,7 @@ Route::group([
 
     Route::get('site-backup', 'Admin\Settings\SiteBackupController@index')->name('site-backup');
     Route::get('site-backup-store', 'Admin\Settings\SiteBackupController@backup_store')->name('site-backup-store');
+    Route::post('site-backup/restore', 'Admin\Settings\SiteBackupController@restore')->name('backup.restore');
     Route::get('code-snippets', 'Admin\Settings\CodeSnippetsController@index')->name('code-snippets');
 
 
