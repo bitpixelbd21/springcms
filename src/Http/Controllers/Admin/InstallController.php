@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use BitPixel\SpringCms\Constants;
+use Illuminate\Support\Facades\Config;
 
 class InstallController
 {
@@ -35,6 +38,12 @@ class InstallController
 
     public function database()
     {
+        //set default DB params
+        session([
+            'db_host' => '127.0.0.1',
+            'db_port' => '3306',
+            'db_username' => 'root'
+        ]);
         return view('river::admin.install.database');
     }
 
@@ -57,29 +66,56 @@ class InstallController
             'DB_PASSWORD' => $request->db_password,
         ]);
 
-        Artisan::call('key:generate');
-
-        // If create_database is checked
-        if ($request->create_database) {
-            $this->createDatabase($request->db_database);
+        try {
+            Artisan::call('migrate:fresh', ['--force' => true]);
+        } catch(\Exception $e) {
+            dd($e);
         }
+        // If create_database is checked
+        // if ($request->create_database) {
+        //     $this->createDatabase($request->db_database);
+        // }
 
-        session([
-            'db_host' => $request->db_host,
-            'db_port' => $request->db_port,
-            'db_database' => $request->db_database,
-            'db_username' => $request->db_username,
-            'db_password' => $request->db_password,
-            'create_database' => $request->create_database,
-        ]);
+        // session([
+        //     'db_host' => $request->db_host,
+        //     'db_port' => $request->db_port,
+        //     'db_database' => $request->db_database,
+        //     'db_username' => $request->db_username,
+        //     'db_password' => $request->db_password
+        // ]);
 
         return redirect()->route('install.createAdmin');
     }
 
     public function testDatabaseConnection(Request $request)
     {
+        // Get database parameters from the request
+        $host = $request->input('db_host');
+        $port = $request->input('db_port');
+        $database = $request->input('db_database');
+        $username = $request->input('db_username');
+        $password = $request->input('db_password');
+        // $create_database = $request->input('create_database');
+
+        // if ($create_database) {
+        //     $this->createDatabase($database);
+        // }
+        // Set a custom database connection configuration
+        Config::set('database.connections.custom_test', [
+            'driver' => 'mysql',
+            'host' => $host,
+            'port' => $port,
+            'database' => $database,
+            'username' => $username,
+            'password' => $password,
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+        ]);
+
         try {
-            $connection = DB::connection()->getPdo();
+            // Attempt to connect using the custom configuration
+            DB::connection('custom_test')->getPdo();
             return response()->json(['success' => true, 'message' => 'Database connection successful']);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
@@ -93,10 +129,11 @@ class InstallController
 
     public function storeAdmin(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:6|confirmed',
         ]);
 
         session([
@@ -104,18 +141,24 @@ class InstallController
             'admin_email' => $request->email,
         ]);
 
-        User::create([
+        $t = DB::table('river_admins')->insert([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'is_admin' => true,
+            'is_developer' => 1
         ]);
 
-        // Run migrations and seeders
-        Artisan::call('migrate', ['--force' => true]);
-        // Mark the application as installed
-        $this->markAsInstalled();
-        return redirect()->route('home');
+        // dd($t);
+
+        $logged = Auth::guard(Constants::AUTH_GUARD_ADMINS)->attempt([ 'email' => $request->email, 'password' => $request->password ]);
+        if($logged) {
+            // Mark the application as installed
+            $this->markAsInstalled();
+            return redirect()->route('river.admin.dashboard');
+        }
+
+        return back()->withErrors(['Failed to install'])->withInput();
+
     }
 
     private function updateEnv($data = [])
@@ -124,9 +167,18 @@ class InstallController
         $envContent = File::get($envPath);
 
         foreach ($data as $key => $value) {
-            $pattern = "/^{$key}=.*$/m";
-            $replacement = "{$key}={$value}";
-            $envContent = preg_replace($pattern, $replacement, $envContent);
+
+            // Check if the key already exists
+            if (preg_match('/^' . preg_quote($key, '/') . '=/m', $envContent)) {
+                // If it exists, update the value
+                $envContent = preg_replace('/^' . preg_quote($key, '/') . '=.*/m', $key . '=' . $value, $envContent);
+            } else {
+                // If it doesn't exist, add the key-value pair to the end of the file
+                $envContent .= PHP_EOL . $key . '=' . $value;
+            }
+            // $pattern = "/^{$key}=.*$/m";
+            // $replacement = "{$key}={$value}";
+            // $envContent = preg_replace($pattern, $replacement, $envContent);
         }
 
         File::put($envPath, $envContent);
@@ -138,6 +190,7 @@ class InstallController
             DB::statement("CREATE DATABASE IF NOT EXISTS `$dbName`;");
         } catch (\Exception $e) {
             // Handle error
+            // dd($e);
         }
     }
    

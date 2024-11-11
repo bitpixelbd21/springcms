@@ -10,18 +10,23 @@ use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
 
 use BitPixel\SpringCms\Http\Controllers\Admin\TemplatePageController;
 
-Route::get('install', [InstallController::class, 'index'])->name('install.index');
-Route::get('install/check-requirements', [InstallController::class, 'checkRequirements'])->name('install.checkRequirements');
-Route::get('install/database', [InstallController::class, 'database'])->name('install.database');
-Route::post('install/database', [InstallController::class, 'saveDatabase'])->name('install.saveDatabase');
-Route::post('install/test-db', [InstallController::class, 'testDatabaseConnection'])->name('install.testDatabaseConnection');
-Route::get('install/admin', [InstallController::class, 'createAdmin'])->name('install.createAdmin');
-Route::post('install/admin', [InstallController::class, 'storeAdmin'])->name('install.storeAdmin');
+Route::group([
+    // 'prefix' => 'install',
+    'middleware' => ['web', 'river.redirectIfInstalled'],
+], function () {
+    Route::get('install', [InstallController::class, 'index'])->name('install.index');
+    Route::get('install/check-requirements', [InstallController::class, 'checkRequirements'])->name('install.checkRequirements');
+    Route::get('install/database', [InstallController::class, 'database'])->name('install.database');
+    Route::post('install/database', [InstallController::class, 'saveDatabase'])->name('install.saveDatabase');
+    Route::post('install/test-db', [InstallController::class, 'testDatabaseConnection'])->name('install.testDatabaseConnection');
+    Route::get('install/admin', [InstallController::class, 'createAdmin'])->name('install.createAdmin');
+    Route::post('install/admin', [InstallController::class, 'storeAdmin'])->name('install.storeAdmin');
+});
 
 //auth
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['web', 'river.guest:admins', 'river.checkIfInstalled'],
+    'middleware' => ['web', 'river.checkIfInstalled', 'river.guest:admins'],
     'namespace' => 'BitPixel\SpringCms\Http\Controllers',
     'as' => 'river.'
 ], function () {
@@ -36,7 +41,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'river.
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['web', 'river.auth:admins', /*'river.checkrole'*/],
+    'middleware' => ['web', 'river.checkIfInstalled', 'river.auth:admins' /*'river.checkrole'*/],
     'namespace' => 'BitPixel\SpringCms\Http\Controllers',
     'as' => 'river.'
 ], function () {
