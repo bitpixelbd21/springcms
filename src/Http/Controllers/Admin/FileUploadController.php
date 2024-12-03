@@ -12,7 +12,7 @@ class FileUploadController extends Controller
     public function file_upload(Request $request)
     {
 
-        $path = public_path('river/assets');
+        $path = public_path('uploads/assets');
 
         !file_exists($path) && mkdir($path, 0777, true);
 

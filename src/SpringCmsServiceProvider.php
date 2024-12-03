@@ -13,8 +13,10 @@ use BitPixel\SpringCms\Commands\Generators\MakeModelCommand;
 use BitPixel\SpringCms\Commands\Generators\MakeViewFilesCommand;
 use BitPixel\SpringCms\Commands\Generators\ScaffoldCommand;
 use BitPixel\SpringCms\Http\Middleware\Authenticate;
+use BitPixel\SpringCms\Http\Middleware\CheckIfInstalled;
 use BitPixel\SpringCms\Http\Middleware\CheckRole;
 use BitPixel\SpringCms\Http\Middleware\RedirectIfAuthenticated;
+use BitPixel\SpringCms\Http\Middleware\RedirectIfInstalled;
 use BitPixel\SpringCms\Models\Admin;
 use BitPixel\SpringCms\Models\Customer;
 use BitPixel\SpringCms\ViewComposers\AdminSidebarViewComposer;
@@ -70,6 +72,8 @@ class SpringCmsServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('river.auth', Authenticate::class);
         $this->app['router']->aliasMiddleware('river.guest', RedirectIfAuthenticated::class);
         $this->app['router']->aliasMiddleware('river.checkrole', CheckRole::class);
+        $this->app['router']->aliasMiddleware('river.checkIfInstalled', CheckIfInstalled::class);
+        $this->app['router']->aliasMiddleware('river.redirectIfInstalled', RedirectIfInstalled::class);
     }
 
     private function configureRoutes(): void

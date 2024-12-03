@@ -17,7 +17,7 @@ class DatabaseSeederCommand extends Command
 
     public function handle()
     {
-        $this->createAdminUsers();
+        // $this->createAdminUsers();
 
         $this->seedTemplateFiles();
 

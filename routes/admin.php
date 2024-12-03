@@ -4,15 +4,29 @@ use BitPixel\SpringCms\Http\Controllers\Admin\FileUploadController;
 use BitPixel\SpringCms\Http\Controllers\Admin\MenuController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogController;
 use BitPixel\SpringCms\Http\Controllers\Admin\GitHubController;
+use BitPixel\SpringCms\Http\Controllers\Admin\InstallController;
 use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
 
 
 use BitPixel\SpringCms\Http\Controllers\Admin\TemplatePageController;
 
+Route::group([
+    // 'prefix' => 'install',
+    'middleware' => ['web', 'river.redirectIfInstalled'],
+], function () {
+    Route::get('install', [InstallController::class, 'index'])->name('install.index');
+    Route::get('install/check-requirements', [InstallController::class, 'checkRequirements'])->name('install.checkRequirements');
+    Route::get('install/database', [InstallController::class, 'database'])->name('install.database');
+    Route::post('install/database', [InstallController::class, 'saveDatabase'])->name('install.saveDatabase');
+    Route::post('install/test-db', [InstallController::class, 'testDatabaseConnection'])->name('install.testDatabaseConnection');
+    Route::get('install/admin', [InstallController::class, 'createAdmin'])->name('install.createAdmin');
+    Route::post('install/admin', [InstallController::class, 'storeAdmin'])->name('install.storeAdmin');
+});
+
 //auth
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['web', 'river.guest:admins'],
+    'middleware' => ['web', 'river.checkIfInstalled', 'river.guest:admins'],
     'namespace' => 'BitPixel\SpringCms\Http\Controllers',
     'as' => 'river.'
 ], function () {
@@ -21,13 +35,13 @@ Route::group([
 });
 
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'river.auth:admins', 'river.checkrole']], function () {
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'river.auth:admins']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
 Route::group([
     'prefix' => 'admin',
-    'middleware' => ['web', 'river.auth:admins', /*'river.checkrole'*/],
+    'middleware' => ['web', 'river.checkIfInstalled', 'river.auth:admins' /*'river.checkrole'*/],
     'namespace' => 'BitPixel\SpringCms\Http\Controllers',
     'as' => 'river.'
 ], function () {
@@ -66,6 +80,7 @@ Route::group([
 
     Route::get('site-backup', 'Admin\Settings\SiteBackupController@index')->name('site-backup');
     Route::get('site-backup-store', 'Admin\Settings\SiteBackupController@backup_store')->name('site-backup-store');
+    Route::post('site-backup/restore', 'Admin\Settings\SiteBackupController@restore')->name('backup.restore');
     Route::get('code-snippets', 'Admin\Settings\CodeSnippetsController@index')->name('code-snippets');
 
 

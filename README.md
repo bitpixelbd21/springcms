@@ -27,8 +27,8 @@ Update filesystem config: Open `config/filesystem.php` & change the public disk 
 ```php
 'public' => [
             'driver' => 'local',
-            'root' => public_path('springcms/assets/files'),
-            'url' => '/springcms/assets/files',
+            'root' => public_path('/uploads/files'),
+            'url' => '/uploads/files',
             'visibility' => 'public',
             'throw' => false,
         ],
