@@ -37,7 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('river.guest:'.Constants::AUTH_GUARD_ADMINS)->except('logout');
+        // $this->middleware('river.guest:'.Constants::AUTH_GUARD_ADMINS)->except('logout');
     }
 
     /**

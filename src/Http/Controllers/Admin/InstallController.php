@@ -59,30 +59,12 @@ class InstallController
 
         // Update the .env file
         $this->updateEnv([
-            'DB_HOST' => $request->db_host,
-            'DB_PORT' => $request->db_port,
-            'DB_DATABASE' => $request->db_database,
-            'DB_USERNAME' => $request->db_username,
-            'DB_PASSWORD' => $request->db_password,
+            'DB_HOST' => $request->input('db_host'),
+            'DB_PORT' => $request->input('db_port'),
+            'DB_DATABASE' => $request->input('db_database'),
+            'DB_USERNAME' => $request->input('db_username'),
+            'DB_PASSWORD' => $request->input('db_password'),
         ]);
-
-        try {
-            Artisan::call('migrate:fresh', ['--force' => true]);
-        } catch(\Exception $e) {
-            dd($e);
-        }
-        // If create_database is checked
-        // if ($request->create_database) {
-        //     $this->createDatabase($request->db_database);
-        // }
-
-        // session([
-        //     'db_host' => $request->db_host,
-        //     'db_port' => $request->db_port,
-        //     'db_database' => $request->db_database,
-        //     'db_username' => $request->db_username,
-        //     'db_password' => $request->db_password
-        // ]);
 
         return redirect()->route('install.createAdmin');
     }
@@ -132,7 +114,7 @@ class InstallController
         // dd($request->all());
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
@@ -141,6 +123,13 @@ class InstallController
             'admin_email' => $request->email,
         ]);
 
+        ini_set('max_execution_time', 300);  // 5 minutes
+        ini_set('memory_limit', '512M');
+
+        // dd('ss');
+        Artisan::call('migrate:fresh', ["--force" => true]);
+        Artisan::call('db:seed');
+
         $t = DB::table('river_admins')->insert([
             'name' => $request->name,
             'email' => $request->email,
@@ -148,11 +137,12 @@ class InstallController
             'is_developer' => 1
         ]);
 
-        // dd($t);
-
         $logged = Auth::guard(Constants::AUTH_GUARD_ADMINS)->attempt([ 'email' => $request->email, 'password' => $request->password ]);
         if($logged) {
             // Mark the application as installed
+            Artisan::call('vendor:publish', ["--force" => true, '--tag' => 'springcms-assets']);
+            Artisan::call('springcms:install');
+            Artisan::call('springcms:cache-views');
             $this->markAsInstalled();
             return redirect()->route('river.admin.dashboard');
         }
