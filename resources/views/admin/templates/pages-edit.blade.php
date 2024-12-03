@@ -25,9 +25,9 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/river/admin/codemirror-5.65.2/lib/codemirror.css" />
-    <link rel="stylesheet" href="/river/admin/codemirror-5.65.2/addon/scroll/simplescrollbars.css" />
-    <link rel="stylesheet" href="/river/admin/codemirror-5.65.2/addon/fold/foldgutter.css" />
+    <link rel="stylesheet" href="/springcms/admin/codemirror-5.65.2/lib/codemirror.css" />
+    <link rel="stylesheet" href="/springcms/admin/codemirror-5.65.2/addon/scroll/simplescrollbars.css" />
+    <link rel="stylesheet" href="/springcms/admin/codemirror-5.65.2/addon/fold/foldgutter.css" />
 
     <style>
         .CodeMirror {
@@ -200,21 +200,21 @@
 
 @push('scripts')
 
-    <script src="/river/admin/codemirror-5.65.2/lib/codemirror.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/htmlmixed/htmlmixed.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/xml/xml.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/javascript/javascript.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/css/css.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/clike/clike.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/php/php.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/mode/php/php.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/addon/fold/foldcode.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/addon/fold/xml-fold.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/addon/fold/foldgutter.js"></script>
-{{--    <script src="/river/admin/codemirror-5.65.2/addon/fold/brace-fold.js"></script>--}}
-    <script src="/river/admin/codemirror-5.65.2/addon/edit/matchbrackets.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/addon/edit/matchtags.js"></script>
-    <script src="/river/admin/codemirror-5.65.2/addon/scroll/simplescrollbars.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/lib/codemirror.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/xml/xml.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/javascript/javascript.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/css/css.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/clike/clike.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/php/php.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/mode/php/php.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/addon/fold/foldcode.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/addon/fold/xml-fold.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/addon/fold/foldgutter.js"></script>
+{{--    <script src="/springcms/admin/codemirror-5.65.2/addon/fold/brace-fold.js"></script>--}}
+    <script src="/springcms/admin/codemirror-5.65.2/addon/edit/matchbrackets.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/addon/edit/matchtags.js"></script>
+    <script src="/springcms/admin/codemirror-5.65.2/addon/scroll/simplescrollbars.js"></script>
     <script>
         var codeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
             lineNumbers: true,
