@@ -7,11 +7,7 @@
     <link rel="icon" type="image/png" href="{{river_settings('favicon')}}" />
     <title>Admin Login</title>
     <!-- CSS files -->
-    <link href="/river/admin/assets/css/tabler.min.css" rel="stylesheet"/>
-    <link href="/river/admin/assets/css/tabler-flags.min.css" rel="stylesheet"/>
-    <link href="/river/admin/assets/css/tabler-payments.min.css" rel="stylesheet"/>
-    <link href="/river/admin/assets/css/tabler-vendors.min.css" rel="stylesheet"/>
-    <link href="/river/admin/assets/css/demo.min.css" rel="stylesheet"/>
+    <link href="/springcms/admin/assets/css/tabler.min.css" rel="stylesheet"/>
 </head>
 <body  class=" border-top-wide border-primary d-flex flex-column">
 <div class="page page-center">
@@ -59,9 +55,6 @@
         </form>
     </div>
 </div>
-<!-- Libs JS -->
-<!-- Tabler Core -->
-<script src="/river/admin/assets/js/tabler.min.js" defer></script>
-<script src="/river/admin/assets/js/demo.min.js" defer></script>
+
 </body>
 </html>
