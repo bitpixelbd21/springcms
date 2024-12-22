@@ -1,6 +1,6 @@
 # SpringCMS - A Laravel based CMS
 
-## Install;
+## Install
 
 1. Install the package: `composer require bitpixel/springcms:dev-master`
 
@@ -25,7 +25,7 @@ Update filesystem config: Open `config/filesystem.php` & change the public disk 
             'throw' => false,
         ],
 ```
-1. Run the project using `php artisan serve` && open the project in your browser. It should redirect to the `/install` route. Complete the installation process by following the steps.
+4. Run the project using `php artisan serve` && open the project in your browser. It should redirect to the `/install` route. Complete the installation process by following the steps.
 
 
 ### Package update route
