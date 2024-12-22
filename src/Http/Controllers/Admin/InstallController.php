@@ -64,6 +64,7 @@ class InstallController
             'DB_DATABASE' => $request->input('db_database'),
             'DB_USERNAME' => $request->input('db_username'),
             'DB_PASSWORD' => $request->input('db_password'),
+            'DB_CONNECTION' => 'mysql'
         ]);
 
         return redirect()->route('install.createAdmin');
