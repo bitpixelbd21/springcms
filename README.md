@@ -27,45 +27,6 @@ Update filesystem config: Open `config/filesystem.php` & change the public disk 
 ```
 4. Run the project using `php artisan serve` && open the project in your browser. It should redirect to the `/install` route. Complete the installation process by following the steps.
 
+## Publish docs
 
-### Package update route
-
-Add the following route to the root project's `web.php` route file. This is used for during development to pull latest
-code inside a shared hosting env.
-
-```php
-Route::get('/upd', function () {
-    $git = new CzProject\GitPhp\Git;
-    \File::deleteDirectory(base_path('vendor/bitpixel/springcms'));
-    $repo = $git->cloneRepository('https://github.com/bitpixelbd21/springcms.git', base_path('vendor/bitpixel/springcms'));
-    die('Done!');
-});
-```
-
-### Errors
-
-Syntax error or access violation: 1071 Specified key was too long; max key length is 1000 bytes ==> Fix: https://stackoverflow.com/a/42245921
-
-Base table or view already exists: 105 ==> run `php artisan migrate:fresh`
-
-
-
-### Development
-
-1. Add the following param in root composer.json after "require" param, then run `composer require bitpixel/springcms:dev-master`
-```js
-"repositories": [
-    {
-    "type": "path",
-    "url": "./package/river",
-    "options": {
-        "symlink": true
-    }
-    }
-], 
-
-```
-
-Error: ` curl error 60 while downloading https://repo.packagist.org/p2/bitpixel/springcms.json: SSL certificate problem: unable to get local issuer certificate`
-
-to fix this run: `composer config -g -- disable-tls false`
+Go inside `/docs` folder then run `npm run build && npm run deploy`
