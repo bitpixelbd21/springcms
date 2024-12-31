@@ -18,7 +18,7 @@ class RedirectIfInstalled
     {
         // If already installed, redirect to admin login page
         if (env('APP_INSTALLED') === true || env('APP_INSTALLED') === 'true') {
-            return redirect()->route('homepage');
+            return redirect()->route('riversite.homepage');
         }
 
         return $next($request);
