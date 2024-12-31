@@ -23,6 +23,9 @@ class BlogController extends Controller
     public function single_blog($slug)
     {
         $single_blog = Blog::where('slug', $slug)->first();
+        if($single_blog === null) {
+            abort(404);
+        }
 
         $meta_keywords = $single_blog->meta_keywords;
         $meta_desc = $single_blog->meta_desc;

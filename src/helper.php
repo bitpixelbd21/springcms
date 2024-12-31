@@ -48,8 +48,10 @@ if (! function_exists('river_slider')) {
                 ->orderBy('orders', 'ASC')->get();
         });
 
-        $sliders = $all->where('group', $group);
-        return $sliders;
+        if($group) {
+            return $all->where('group', $group);
+        }
+        return $all;
 
         // try {
         //     return Slider::where('status', 1)

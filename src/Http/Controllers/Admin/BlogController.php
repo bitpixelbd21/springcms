@@ -78,8 +78,10 @@ class BlogController
 
         ]);
 
+        $published_at = null;
         if ($request->has('is_published')) {
             $is_published = 1;
+            $published_at = date('Y-m-d');
         } else {
             $is_published = 0;
         }
@@ -91,7 +93,7 @@ class BlogController
             'title' => $names,
             'content' => $request->content,
             'slug' => $request->slug,
-            'short_desc' => $request->short_desc,
+            'excerpt' => $request->excerpt,
             'image' => $request->image,
             'category_id' => $request->category_id,
             'author_id' => Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->id,
@@ -99,7 +101,8 @@ class BlogController
             'meta_keywords' => $request->meta_keywords,
             'meta_description' => $request->meta_description,
             'meta_image' => $request->meta_image,
-            'is_published' => $is_published
+            'is_published' => $is_published,
+            'published_at' => $published_at
         ]);
         Cache::forget(Constants::CACHE_KEY_BLOG);
         $blog->tag()->sync($request->tags);
@@ -147,7 +150,7 @@ class BlogController
         $file = Blog::find($id);
         $file->title = $request->get('title');
         $file->content = $request->get('content');
-        $file->short_desc = $request->get('short_desc');
+        $file->excerpt = $request->get('excerpt');
         $file->slug = $request->slug;
         $file->image = $request->image;
         $file->category_id = $request->get('category_id');
@@ -157,6 +160,7 @@ class BlogController
         $file->meta_image = $request->get('meta_image');
         $file->author_id = Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->id;
         $file->is_published = $request->get('is_published');
+        $file->published_at = $request->filled('is_published') ? date('Y-m-d') : null;
         $file->save();
 
         Cache::forget(Constants::CACHE_KEY_BLOG);

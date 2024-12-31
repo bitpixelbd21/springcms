@@ -72,10 +72,10 @@
                                     </div>
 
                                     <div class="form-group mb-3 ">
-                                        <label class="form-label "> Sort Description</label>
+                                        <label class="form-label ">Excerpt</label>
 
                                         <div>
-                                            <input type="text" class="form-control"  name="short_desc" value="{{ old('short_desc') }}">
+                                            <input type="text" class="form-control"  name="excerpt" value="{{ old('excerpt') }}">
                                         </div>
                                     </div>
 
