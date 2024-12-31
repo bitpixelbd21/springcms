@@ -16,10 +16,9 @@ class RedirectIfInstalled
      */
     public function handle(Request $request, Closure $next)
     {
-        // dd(env('APP_INSTALLED'));
         // If already installed, redirect to admin login page
         if (env('APP_INSTALLED') === true || env('APP_INSTALLED') === 'true') {
-            return redirect()->route('river.admin.login');
+            return redirect()->route('homepage');
         }
 
         return $next($request);

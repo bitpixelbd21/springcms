@@ -43,7 +43,7 @@ Route::group([
     Route::get('/', 'Site\HomeController@index')->name('homepage');
     Route::get('/page/{slug}', 'Site\PageController@pageShow')->name('page.show');
     Route::get('/blogs', 'Site\BlogController@index')->name('all-blogs');
-    Route::get('/single-blog/{slug}', 'Site\BlogController@single_blog')->name('single-blog');
+    Route::get('/blog/{slug}', 'Site\BlogController@single_blog')->name('single-blog');
 
     Route::get('/blogs/category/{slug}', 'Site\BlogController@category_blog')->name('category-blog');
     Route::get('/blogs/tag/{slug}', 'Site\BlogController@tags_blog')->name('tags-blog');
