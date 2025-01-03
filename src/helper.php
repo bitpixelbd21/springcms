@@ -63,35 +63,33 @@ if (! function_exists('river_slider')) {
     }
 }
 
-if (! function_exists('river_service')) {
-    function river_service($slug)
+if (!function_exists('river_service')) {
+    function river_service($count = 4, $filter = [])
     {
-        $all = Cache::rememberForever(Constants::CACHE_KEY_SERVICE, function () {
+        $collection = Cache::rememberForever(Constants::CACHE_KEY_SERVICE, function () {
             return Service::with('servicecategory')->where('is_published', 1)
                 ->orderBy('sort_order', 'ASC')->get();
         });
 
-
-        foreach($all as $a){
-
-            if($slug == $a->servicecategory->name ){
-                $services = $all->where('category_id', $a->servicecategory->id);
-                 return $services;
+        // If the filter is not empty, apply the filters
+        if (!empty($filter)) {
+            foreach ($filter as $condition) {
+                if (count($condition) === 2) {
+                    // 2 elements: ['key', 'value']
+                    $collection = $collection->where($condition[0], $condition[1]);
+                } elseif (count($condition) === 3) {
+                    // 3 elements: ['key', 'operator', 'value']
+                    $collection = $collection->where($condition[0], $condition[1], $condition[2]);
+                }
             }
-
         }
 
+        // Apply the limit if needed
+        if ($count > 0) {
+            $collection = $collection->take($count);
+        }
 
-
-        // $services = $all->where('category_id', $slug);
-        // return $services;
-        // try {
-        //     return Service::where('is_published', 1)
-        //         ->where('slug', $slug)->orderBy('sort_order', 'ASC')->get();
-        // } catch (Exception $e) {
-
-        //     return [];
-        // }
+        return $collection;
     }
 }
 
