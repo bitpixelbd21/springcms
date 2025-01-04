@@ -45,6 +45,41 @@ class SiteBackupController extends Controller
         $zipArchive->close();
 
         // Import the SQL file
+
+        //first empty few tables to avoid duplicate entries
+        DB::unprepared("
+        SET FOREIGN_KEY_CHECKS = 0;
+
+        TRUNCATE TABLE `river_banners`;
+        TRUNCATE TABLE `river_blog`;
+        TRUNCATE TABLE `river_blog_category`;
+        TRUNCATE TABLE `river_blog_tag`;
+        TRUNCATE TABLE `river_contactform_submissions`;
+        TRUNCATE TABLE `river_customers`;
+        TRUNCATE TABLE `river_data_entries`;`
+        TRUNCATE TABLE `river_data_fields`;
+        TRUNCATE TABLE `river_faq`;
+        TRUNCATE TABLE `river_field_values`;
+        TRUNCATE TABLE `river_newsletter_submissions`;
+        TRUNCATE TABLE `river_pages`;
+        TRUNCATE TABLE `river_roles`;
+        TRUNCATE TABLE `river_role_permission`;
+        TRUNCATE TABLE `river_service`;
+        TRUNCATE TABLE `river_service_category`;
+        TRUNCATE TABLE `river_settings`;
+        TRUNCATE TABLE `river_sliders`;
+        TRUNCATE TABLE `river_tag`;
+        TRUNCATE TABLE `river_menu_item`;
+        TRUNCATE TABLE `river_menu`;
+        TRUNCATE TABLE `river_template_assets`;
+        TRUNCATE TABLE `river_template_pages`;
+        TRUNCATE TABLE `river_template_pages_versions`;
+        TRUNCATE TABLE `river_testimonial`;
+
+        SET FOREIGN_KEY_CHECKS = 1;
+        ");
+
+
         DB::unprepared(file_get_contents(storage_path('app/public/' . $sqlFilePath)));
 
         // Extract the folder
@@ -75,7 +110,9 @@ class SiteBackupController extends Controller
         // Dump the database to an SQL file using mysqldump-php
         $sqlFilePath = $tempDir . '/database2.sql';
         $dump = new Mysqldump("mysql:host={$dbHost};dbname={$dbName}", $dbUser, $dbPass, [
-            'if-not-exists' => true
+            'if-not-exists' => true,
+            'exclude-tables' => ['migrations', 'cache', 'cache_locks', 'failed_jobs', 'password_reset_tokens', 
+            'sessions', 'jobs', 'job_batches', 'users', 'river_admins'], //excluding river admins table since it may conflict with the existing admin table
         ]);
         $dump->start($sqlFilePath);
 
