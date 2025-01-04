@@ -56,7 +56,7 @@ class SiteBackupController extends Controller
         TRUNCATE TABLE `river_blog_tag`;
         TRUNCATE TABLE `river_contactform_submissions`;
         TRUNCATE TABLE `river_customers`;
-        TRUNCATE TABLE `river_data_entries`;`
+        TRUNCATE TABLE `river_data_entries`;
         TRUNCATE TABLE `river_data_fields`;
         TRUNCATE TABLE `river_faq`;
         TRUNCATE TABLE `river_field_values`;
@@ -82,16 +82,99 @@ class SiteBackupController extends Controller
 
         DB::unprepared(file_get_contents(storage_path('app/public/' . $sqlFilePath)));
 
-        // Extract the folder
-        $zipArchive->open($file->getPathname());
-        $zipArchive->extractTo(public_path(), '/');
-        $zipArchive->close();
+        // Extract the uploads folder
+        try {
+            $zipFile = $file;
+            $zipPath = $zipFile->path();
+            
+            // Create a ZipArchive instance
+            $zip = new ZipArchive;
+            
+            if ($zip->open($zipPath) === TRUE) {
+                // Create a temporary directory to extract files
+                $tempPath = storage_path('app/temp_' . time());
+                mkdir($tempPath);
+                
+                // Extract to temporary directory
+                $zip->extractTo($tempPath);
+                $zip->close();
+                
+                // Check if uploads folder exists in the extracted files
+                $uploadsPath = $tempPath . '/uploads';
+                if (!File::exists($uploadsPath)) {
+                    File::deleteDirectory($tempPath);
+                    return response()->json([
+                        'error' => 'No uploads folder found in the zip file'
+                    ], 400);
+                }
+                
+                // Move contents of uploads folder to public directory
+                $publicPath = public_path('uploads');
+                
+                // Create public/uploads directory if it doesn't exist
+                if (!File::exists($publicPath)) {
+                    File::makeDirectory($publicPath, 0755, true);
+                }
+                
+                // Move all files from temp uploads to public uploads
+                File::copyDirectory($uploadsPath, $publicPath);
+                
+                // Clean up temporary directory
+                File::deleteDirectory($tempPath);
+            } else {
+                return response()->json([
+                    'error' => 'Could not open the zip file'
+                ], 400);
+            }
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred: ' . $e->getMessage()
+            ], 500);
+        }
 
         // Delete the SQL and zip files
         File::delete(storage_path('app/public/' . $sqlFilePath));
         File::delete(storage_path('app/public/' . basename($file->getPathname())));
 
-        return response()->json(['message' => 'Backup restored successfully']);
+        return redirect()->back()->with('success', 'Backup restored successfully');
+    }
+
+
+    private function extractZip($zipPath)
+    {
+        $publicPath = public_path('uploads'); // Destination folder
+
+        // Open the zip file
+        $zip = new ZipArchive;
+        if ($zip->open(storage_path('app/' . $zipPath)) === true) {
+
+            // Check if there's an "uploads" folder in the zip
+            $uploadsFolder = null;
+            for ($i = 0; $i < $zip->numFiles; $i++) {
+                $fileName = $zip->getNameIndex($i);
+
+                // If the file is inside the "uploads" folder, we’ll extract it
+                if (strpos($fileName, 'uploads/') === 0) {
+                    if (!$uploadsFolder) {
+                        $uploadsFolder = true;
+                    }
+                    // Extract the file
+                    $zip->extractTo($publicPath, $fileName);
+                }
+            }
+
+            if (!$uploadsFolder) {
+                throw new \Exception('No "uploads" folder found in the zip file.');
+            }
+
+            $zip->close();
+
+            // Optionally, delete the temporary zip file after extraction
+            Storage::delete('temp/uploaded.zip');
+        } else {
+            throw new \Exception('Failed to open the zip file.');
+        }
     }
 
     public function backup_store(){
