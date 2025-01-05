@@ -1,6 +1,13 @@
 <?php
 
+
+use Illuminate\Support\Facades\Route;
+use BitPixel\SpringCms\Http\Controllers\Site\HomeController;
+use BitPixel\SpringCms\Http\Controllers\Site\PageController;
+use BitPixel\SpringCms\Http\Controllers\Site\BlogController;
+use BitPixel\SpringCms\Http\Controllers\Site\ServiceController;
 use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
+
 
 
 //auth
@@ -40,36 +47,21 @@ Route::group([
     'namespace' => 'BitPixel\SpringCms\Http\Controllers',
     'as' => 'riversite.'
 ], function () {
-    Route::get('/', 'Site\HomeController@index')->name('homepage');
-    Route::get('/page/{slug}', 'Site\PageController@pageShow')->name('page.show');
-    Route::get('/blogs', 'Site\BlogController@index')->name('all-blogs');
-    Route::get('/blog/{slug}', 'Site\BlogController@single_blog')->name('single-blog');
+    Route::get('/', [HomeController::class, 'index'])->name('homepage');
+    Route::get('/page/{slug}', [PageController::class, 'pageShow'])->name('page.show');
+    Route::get('/blogs', [BlogController::class, 'index'])->name('all-blogs');
+    Route::get('/blog/{slug}', [BlogController::class, 'single_blog'])->name('single-blog');
 
-    Route::get('/blogs/category/{slug}', 'Site\BlogController@category_blog')->name('category-blog');
-    Route::get('/blogs/tag/{slug}', 'Site\BlogController@tags_blog')->name('tags-blog');
+    Route::get('/blogs/category/{slug}', [BlogController::class, 'category_blog'])->name('category-blog');
+    Route::get('/blogs/tag/{slug}', [BlogController::class, 'tags_blog'])->name('tags-blog');
 
-    Route::get('/blog-search', 'Site\BlogController@blog_search')->name('blog-search');
+    Route::get('/blog-search', [BlogController::class, 'blog_search'])->name('blog-search');
 
-    Route::get('/services/{slug}', 'Site\ServiceController@service')->name('service');
-    Route::get('{any?}', 'Site\PageController@catchAll')->where('any', '^((?!upd|super|install).)*$'); //ignore /upd & /super path
+    Route::get('/services/{slug}', [ServiceController::class, 'service'])->name('service');
+    Route::get('{any?}', [PageController::class, 'catchAll'])->where('any', '^((?!upd|super|install).)*$'); //ignore /upd & /super path
 
     Route::post('/contact-form-submission/{slug}', [ContactFormSubmissionController::class , 'store'])->name('contact-form-submission');
     Route::post('/contact-form-store', [ContactFormSubmissionController::class, 'store_data' ])->name('contact-form.store');
 
-    Route::get('single-data-entries/show/{slug}', 'Site\HomeController@single_entries_show')->name('data-entries-show');
+    Route::get('single-data-entries/show/{slug}', [HomeController::class, 'single_entries_show'])->name('data-entries-show');
 });
-
-
-//dd(config('river.enable_ecommerce')p);
-// E-commerce related routes
-// if (config('river.enable_ecommerce')) {
-//     Route::group([
-//         'prefix' => '',
-//         /*'middleware' => ['web', 'river.auth:admins'],*/
-//         'namespace' => 'BitPixel\SpringCms\Http\Controllers',
-//         'as' => 'river.site.'
-//     ], function () {
-//         Route::get('shop', 'Admin\DataEntryController@index')->name('shop');
-//         Route::get('checkout', 'Admin\DataEntryController@index')->name('checkout');
-//     });
-// }
