@@ -37,6 +37,10 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+
+                        @if($all->count() == 0)
+                            @include('river::admin.partials.nodata', ['link' => route('river.faq.create')])
+                        @else
                         <table class="table">
                             <thead>
                                 <tr>
@@ -78,6 +82,7 @@
                             @endforeach
                             </tbody>
                         </table>
+                        @endif
                     </div>
                 </div>
             </div>

@@ -25,6 +25,7 @@ use BitPixel\SpringCms\Http\Controllers\Admin\MenuController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogCategoryController;
 use BitPixel\SpringCms\Http\Controllers\Admin\CodeGeneratorController;
+use BitPixel\SpringCms\Http\Controllers\Admin\FaqController;
 use BitPixel\SpringCms\Http\Controllers\Admin\TagController;
 use BitPixel\SpringCms\Http\Controllers\Admin\TestimonialController;
 use BitPixel\SpringCms\Http\Controllers\Admin\ServiceController;
