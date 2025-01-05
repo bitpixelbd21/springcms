@@ -3,9 +3,9 @@
 @section('website_setup') active pcoded-trigger @stop
 
 @section('page-header')
-    <x:river::header>
-        <x-slot:title>
-            Pages
+<x:river::header>
+    <x-slot:title>
+        Pages
         </x-slot>
 
         <x-slot:breads>
@@ -24,7 +24,7 @@
             </a>
         </x-slot:buttons>
 
-    </x:river::header>
+</x:river::header>
 @stop
 
 @section('css')
@@ -32,18 +32,21 @@
 @endsection
 
 @section('content')
-    <div class="container-xl">
-        <div class="row row-cards">
-            @if(session()->has('message'))
-                <div class="alert alert-success">
-                    {{ session()->get('message') }}
-                </div>
-            @endif
-            <div class="col-12">
-                <div class="card">
-                    <div class="table-responsive">
-                        <table class="table table-vcenter table-mobile-md card-table">
-                            <thead>
+<div class="container-xl">
+    @if($riverPages->count() == 0)
+    @include('river::admin.partials.nodata', ['link' => route('river.pages.create')])
+    @else
+    <div class="row row-cards">
+        @if(session()->has('message'))
+        <div class="alert alert-success">
+            {{ session()->get('message') }}
+        </div>
+        @endif
+        <div class="col-12">
+            <div class="card">
+                <div class="table-responsive">
+                    <table class="table table-vcenter table-mobile-md card-table">
+                        <thead>
                             <tr>
                                 <th>Title</th>
                                 <th>Menu Title</th>
@@ -53,10 +56,10 @@
                                 <th>Published</th>
                                 <th class="w-1"></th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             @foreach($riverPages as $item)
-                                <tr>
+                            <tr>
                                 <td data-label="Name">
                                     <div class="d-flex py-1 align-items-center">
                                         <div class="flex-fill">
@@ -78,9 +81,9 @@
                                 </td>
                                 <td class="text-muted" data-label="Role">
                                     @if($item->is_published == 1)
-                                        <span class="text-success">Yes</span>
+                                    <span class="text-success">Yes</span>
                                     @else
-                                        <span class="text-danger">No</span>
+                                    <span class="text-danger">No</span>
                                     @endif
                                 </td>
                                 <td>
@@ -92,8 +95,8 @@
                                         <a class="btn btn-sm btn-danger confirm-delete" href="javascript:void(0);" onclick="deleteTable({{$item->id}})">
                                             Delete
                                         </a>
-                                            <form id="delete-form-{{$item->id}}"
-                                                action="{{ route('river.pages.destroy', $item->id) }}" method="POST">
+                                        <form id="delete-form-{{$item->id}}"
+                                            action="{{ route('river.pages.destroy', $item->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -101,22 +104,23 @@
                                 </td>
                             </tr>
                             @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+    @endif
+</div>
 @stop
 
 @push('scripts')
-    <script>
-        function deleteTable(id) {
-            if(confirm("Do you want to delete this item?")) {
-                document.getElementById('delete-form-'+id).submit();
-                toastr.success('Deleted!', "")
-            }
+<script>
+    function deleteTable(id) {
+        if (confirm("Do you want to delete this item?")) {
+            document.getElementById('delete-form-' + id).submit();
+            toastr.success('Deleted!', "")
         }
-    </script>
+    }
+</script>
 @endpush

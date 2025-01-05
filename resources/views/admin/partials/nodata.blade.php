@@ -137,7 +137,7 @@
         </svg></div>
     <p class="empty-title">No data found</p>
     <div class="empty-action">
-        <a href="{{ $link }}" class="btn btn-primary">
+        <a @if($link) href="{{ $link }}" @endif id="btn-add-new" class="btn btn-primary">
             <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
