@@ -102,11 +102,7 @@
 
     // select2
     $(document).ready(function() {
-            $('.select2').select2();
-    });
-
-    $(document).ready(function() {
-            $('.js-example-basic-multiple').select2();
+        $('.select2').select2();
     });
 
 </script>
@@ -196,7 +192,9 @@
                .replace(/-+/g, '-'); // remove consecutive hyphens
            var name_slug = $this.data('slug-field');
            $('input[name="'+name_slug+'"]').val(slug)
-       })
+       });
+       
+       $('.lfm-picker').filemanager('image', {prefix: window.hp_route_prefix});
     });
 </script>
 

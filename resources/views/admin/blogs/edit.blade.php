@@ -1,8 +1,5 @@
 @extends('river::admin.layouts.master')
 
-@section('website_setup') active pcoded-trigger @stop
-
-
 @section('page-header')
     <x:river::header>
             <x-slot:title>
@@ -24,22 +21,6 @@
 
     </x:river::header>
 @stop
-
-@section('css')
-<link rel="stylesheet" href="/river/admin/codemirror-5.65.2/lib/codemirror.css" />
-<link rel="stylesheet" href="/river/admin/codemirror-5.65.2/theme/monokai.css" />
-<style>
-    .CodeMirror {
-        height: 400px;
-    }
-
-    .content {
-        display: block;
-    }
-</style>
-@endsection
-
-
 
 @section('content')
 {{-- <div class="container-xl">
@@ -203,39 +184,24 @@
 
 
 @push('scripts')
-<script src="/river/admin/codemirror-5.65.2/lib/codemirror.js"></script>
-<script src="/river/admin/codemirror-5.65.2/mode/htmlmixed/htmlmixed.js"></script>
-<script src="/river/admin/codemirror-5.65.2/mode/xml/xml.js"></script>
-<script src="/river/admin/codemirror-5.65.2/mode/javascript/javascript.js"></script>
-<script src="/river/admin/codemirror-5.65.2/mode/css/css.js"></script>
-<script src="/river/admin/codemirror-5.65.2/mode/clike/clike.js"></script>
-<script src="/river/admin/codemirror-5.65.2/mode/php/php.js"></script>
 <script>
-
-    // select2
-            $(document).ready(function() {
-                $('.js-example-basic-single').select2();
-            });
-
-            $(document).ready(function() {
-                $('.js-example-basic-multiple').select2();
-                $('.article-editor').ckeditor({
-                    height: 400,
-                    filebrowserImageBrowseUrl: window.hp_route_prefix + '?type=Images',
-                    filebrowserImageUploadUrl: window.hp_route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
-                    filebrowserBrowseUrl: window.hp_route_prefix + '?type=Files',
-                    filebrowserUploadUrl: window.hp_route_prefix + '/upload?type=Files&_token={{csrf_token()}}',
-                });
-            });
-
-
-        $(function() {
-            $('#contentType').change(function(){
-                $('.content').hide();
-                $('#' + $(this).val()).show();
-            });
+    $(document).ready(function() {
+        $('.article-editor').ckeditor({
+            height: 400,
+            filebrowserImageBrowseUrl: window.hp_route_prefix + '?type=Images',
+            filebrowserImageUploadUrl: window.hp_route_prefix + '/upload?type=Images&_token={{csrf_token()}}',
+            filebrowserBrowseUrl: window.hp_route_prefix + '?type=Files',
+            filebrowserUploadUrl: window.hp_route_prefix + '/upload?type=Files&_token={{csrf_token()}}',
+            extraAllowedContent: 'code(*)'
         });
+    });
 
-        $('.lfm-picker').filemanager('image', {prefix: window.hp_route_prefix});
+    $(function() {
+        $('#contentType').change(function(){
+            $('.content').hide();
+            $('#' + $(this).val()).show();
+        });
+    });
+
 </script>
 @endpush
