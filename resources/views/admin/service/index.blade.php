@@ -4,9 +4,9 @@
 
 
 @section('page-header')
-    <x:river::header>
-        <x-slot:title>
-            Services
+<x:river::header>
+    <x-slot:title>
+        Services
         </x-slot>
 
         <x-slot:breads>
@@ -25,7 +25,7 @@
             </a>
         </x-slot:buttons>
 
-    </x:river::header>
+</x:river::header>
 @stop
 
 @section('css')
@@ -37,6 +37,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    @if($all->count() == 0)
+                    @include('river::admin.partials.nodata', ['link' => route('river.service.create') ])
+                    @else
                     <table class="table">
                         <thead>
                             <tr>
@@ -65,7 +68,7 @@
                                     @else
                                     <button class="btn btn-danger"> No</button>
                                     @endif
-                                 </td>
+                                </td>
 
                                 <td>
                                     <div class="d-flex justify-content-end">
@@ -88,6 +91,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @endif
                 </div>
             </div>
         </div>
@@ -98,25 +102,25 @@
 @push('scripts')
 <script>
     // $('#btn-add-new').click(function (e) {
-        //     e.preventDefault();
-        //     var filename = window.prompt('Enter name');
+    //     e.preventDefault();
+    //     var filename = window.prompt('Enter name');
 
-        //     if (filename) {
-        //         DynamicForm.create(route('river.contact-form.store'), "POST")
-        //             .addField("name", filename)
-        //             .addCsrf()
-        //             .submit();
-        //     }
-        // });
+    //     if (filename) {
+    //         DynamicForm.create(route('river.contact-form.store'), "POST")
+    //             .addField("name", filename)
+    //             .addCsrf()
+    //             .submit();
+    //     }
+    // });
 
-        $('.confirm-delete').click(function (e) {
-            var $this = $(this);
-            e.preventDefault();
-            if (confirm('Are you sure you want to delete this item?')) {
-                DynamicForm.create($this.attr('href'), "DELETE")
-                    .addCsrf()
-                    .submit();
-            }
-        });
+    $('.confirm-delete').click(function(e) {
+        var $this = $(this);
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete this item?')) {
+            DynamicForm.create($this.attr('href'), "DELETE")
+                .addCsrf()
+                .submit();
+        }
+    });
 </script>
 @endpush

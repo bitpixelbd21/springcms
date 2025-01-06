@@ -20,7 +20,7 @@ use BitPixel\SpringCms\Http\Controllers\Admin\DataTypeController;
 use BitPixel\SpringCms\Http\Controllers\Admin\DataEntryController;
 use BitPixel\SpringCms\Http\Controllers\Admin\ContactFormController;
 use BitPixel\SpringCms\Http\Controllers\Admin\ContactFormFieldController;
-use BitPixel\SpringCms\Http\Controllers\Admin\ContactFormSubmissionController;
+use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
 use BitPixel\SpringCms\Http\Controllers\Admin\MenuController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogCategoryController;
