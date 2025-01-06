@@ -2,8 +2,8 @@
 
 @section('content')
 <form method="POST" action="{{ route('install.storeAdmin') }}">
-    <div class="container container-tight py-4" style="max-width: 30rem;">
-        {{-- <div class="text-center mb-4">
+  <div class="container container-tight py-4" style="max-width: 30rem;">
+    {{-- <div class="text-center mb-4">
           <a href="." class="navbar-brand navbar-brand-autodark">
             <svg xmlns="http://www.w3.org/2000/svg" width="110" height="32" viewBox="0 0 232 68" class="navbar-brand-image">
               <path d="M64.6 16.2C63 9.9 58.1 5 51.8 3.4 40 1.5 28 1.5 16.2 3.4 9.9 5 5 9.9 3.4 16.2 1.5 28 1.5 40 3.4 51.8 5 58.1 9.9 63 16.2 64.6c11.8 1.9 23.8 1.9 35.6 0C58.1 63 63 58.1 64.6 51.8c1.9-11.8 1.9-23.8 0-35.6zM33.3 36.3c-2.8 4.4-6.6 8.2-11.1 11-1.5.9-3.3.9-4.8.1s-2.4-2.3-2.5-4c0-1.7.9-3.3 2.4-4.1 2.3-1.4 4.4-3.2 6.1-5.3-1.8-2.1-3.8-3.8-6.1-5.3-2.3-1.3-3-4.2-1.7-6.4s4.3-2.9 6.5-1.6c4.5 2.8 8.2 6.5 11.1 10.9 1 1.4 1 3.3.1 4.7zM49.2 46H37.8c-2.1 0-3.8-1-3.8-3s1.7-3 3.8-3h11.4c2.1 0 3.8 1 3.8 3s-1.7 3-3.8 3z" fill="#066fd1" style="fill: var(--tblr-primary, #066fd1)"></path>
@@ -11,101 +11,112 @@
             </svg>
           </a>
         </div> --}}
-        <div class="card card-md">
-          <div class="card-body text-center py-4 p-sm-5">
-            
-            <h1 class="mt-5">SpringCMS Installer</h1>
-            <p class="text-secondary"></p>
-          </div>
-          <div class="card-body">
-          <div class="container">
-        <h1>Create Admin User</h1>
-        
+    <div class="card card-md">
+      <div class="card-body text-center py-4 p-sm-5">
+
+        <h1 class="mt-5">SpringCMS Installer</h1>
+        <p class="text-secondary"></p>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <h1>Create Admin User</h1>
+
           @if ($errors->any())
-            @foreach ($errors->all() as $err)
-              <div class="alert alert-danger" role="alert">
-                  {{ $err }}
-                </div>
-            @endforeach
+          @foreach ($errors->all() as $err)
+          <div class="alert alert-danger" role="alert">
+            {{ $err }}
+          </div>
+          @endforeach
           @endif
-            @csrf
-            <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              id="name" 
-              name="name" 
-              value="{{ old('name', session('admin_name')) }}" 
-              required 
-              placeholder="Enter your name"
-            >
+          @csrf
+
+          <div class="mb-3 row">
+            <label for="name" class="col-5 col-form-label required">Name</label>
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                value="{{ old('name', session('admin_name')) }}"
+                required
+                placeholder="Enter your name" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input 
-              type="email" 
-              class="form-control" 
-              id="email" 
-              name="email" 
-              value="{{ old('email', session('admin_email')) }}" 
-              required 
-              placeholder="Enter your email"
-            >
+
+
+          <div class="mb-3 row">
+            <label for="email" class="col-5 col-form-label required">Email</label>
+            <div class="col">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                value="{{ old('email', session('admin_email')) }}"
+                required
+                placeholder="Enter your email" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input 
-              type="password" 
-              class="form-control" 
-              id="password" 
-              name="password" 
-              required 
-              placeholder="Enter your password"
-            >
+
+
+          <div class="mb-3 row">
+            <label for="password" class="col-5 col-form-label required">Password</label>
+            <div class="col">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                required
+                placeholder="Enter your password" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="password_confirmation" class="form-label">Confirm Password</label>
-            <input 
-              type="password" 
-              class="form-control" 
-              id="password_confirmation" 
-              name="password_confirmation" 
-              required 
-              placeholder="Confirm your password"
-            >
+         
+
+          <div class="mb-3 row">
+            <label for="password_confirmation" class="col-5 col-form-label required">Confirm Password</label>
+            <div class="col">
+              <input
+                type="password"
+                class="form-control"
+                id="password_confirmation"
+                name="password_confirmation"
+                required
+                placeholder="Confirm your password" />
+            </div>
           </div>
 
-        
-    </div>
 
-    
-          </div>
         </div>
-        <div class="row align-items-center mt-3">
-          <div class="col-4">
-            <div class="progress">
-              <div class="progress-bar" style="width: 100%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% Complete">
-                <span class="visually-hidden">100% Complete</span>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="btn-list justify-content-end">
-              <a href="{{ route('install.database') }}" class="btn btn-link link-secondary">
-                Go back
-              </a>
-              <button type="submit" class="btn btn-primary">
-                Finish installation
-              </a>
-            </div>
+
+
+      </div>
+    </div>
+    <div class="row align-items-center mt-3">
+      <div class="col-4">
+        <div class="progress">
+          <div class="progress-bar" style="width: 100%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% Complete">
+            <span class="visually-hidden">100% Complete</span>
           </div>
         </div>
       </div>
-        </form>
+      <div class="col">
+        <div class="btn-list justify-content-end">
+          <a href="{{ route('install.database') }}" class="btn btn-link link-secondary">
+            Go back
+          </a>
+          <button type="submit" class="btn btn-primary">
+            Finish installation
+            </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 @endsection
 

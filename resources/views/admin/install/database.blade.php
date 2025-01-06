@@ -2,8 +2,8 @@
 
 @section('content')
 <form method="POST" action="{{ route('install.saveDatabase') }}">
-    <div class="container container-tight py-4" style="max-width: 30rem;">
-        {{-- <div class="text-center mb-4">
+  <div class="container container-tight py-4" style="max-width: 30rem;">
+    {{-- <div class="text-center mb-4">
           <a href="." class="navbar-brand navbar-brand-autodark">
             <svg xmlns="http://www.w3.org/2000/svg" width="110" height="32" viewBox="0 0 232 68" class="navbar-brand-image">
               <path d="M64.6 16.2C63 9.9 58.1 5 51.8 3.4 40 1.5 28 1.5 16.2 3.4 9.9 5 5 9.9 3.4 16.2 1.5 28 1.5 40 3.4 51.8 5 58.1 9.9 63 16.2 64.6c11.8 1.9 23.8 1.9 35.6 0C58.1 63 63 58.1 64.6 51.8c1.9-11.8 1.9-23.8 0-35.6zM33.3 36.3c-2.8 4.4-6.6 8.2-11.1 11-1.5.9-3.3.9-4.8.1s-2.4-2.3-2.5-4c0-1.7.9-3.3 2.4-4.1 2.3-1.4 4.4-3.2 6.1-5.3-1.8-2.1-3.8-3.8-6.1-5.3-2.3-1.3-3-4.2-1.7-6.4s4.3-2.9 6.5-1.6c4.5 2.8 8.2 6.5 11.1 10.9 1 1.4 1 3.3.1 4.7zM49.2 46H37.8c-2.1 0-3.8-1-3.8-3s1.7-3 3.8-3h11.4c2.1 0 3.8 1 3.8 3s-1.7 3-3.8 3z" fill="#066fd1" style="fill: var(--tblr-primary, #066fd1)"></path>
@@ -11,162 +11,168 @@
             </svg>
           </a>
         </div> --}}
-        <div class="card card-md">
-          <div class="card-body text-center py-4 p-sm-5">
-            
-            <h1 class="mt-5">SpringCMS Installer</h1>
-            <p class="text-secondary"></p>
-          </div>
-          <div class="card-body">
-          <div class="container">
-        <h1>Database Configuration</h1>
-        
-            @csrf
-            <div class="mb-3">
-            <label for="db_host" class="form-label">DB Host</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              id="db_host" 
-              name="db_host" 
-              value="{{ old('db_host', session('db_host', '127.0.0.1')) }}" 
-              required 
-              placeholder="127.0.0.1"
-            >
+    <div class="card card-md">
+      <div class="card-body text-center py-4 p-sm-5">
+
+        <h1 class="mt-5">SpringCMS Installer</h1>
+        <p class="text-secondary"></p>
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <h1>Database Configuration</h1>
+
+          @csrf
+    
+
+          <div class="mb-3 row">
+            <label for="db_host" class="col-4 col-form-label required">DB Host</label>
+            <div class="col">
+              <input type="text"
+                id="db_host"
+                name="db_host"
+                value="{{ old('db_host', session('db_host', '127.0.0.1')) }}"
+                required
+                placeholder="127.0.0.1" class="form-control" aria-describedby="emailHelp" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="db_port" class="form-label">DB Port</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              id="db_port" 
-              name="db_port" 
-              value="{{ old('db_port', session('db_port', '3306')) }}" 
-              required 
-              placeholder="3306"
-            >
+
+          <div class="mb-3 row">
+            <label for="db_port" class="col-4 col-form-label required">DB Port</label>
+            <div class="col">
+              <input type="text"
+                id="db_port"
+                name="db_port"
+                value="{{ old('db_port', session('db_port', '3306')) }}"
+                required
+                placeholder="3306" class="form-control" aria-describedby="emailHelp" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="db_database" class="form-label">DB Name</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              id="db_database" 
-              name="db_database" 
-              value="{{ old('db_database', session('db_database')) }}" 
-              required 
-              placeholder="Database Name"
-            >
+
+          <div class="mb-3 row">
+            <label for="db_database" class="col-4 col-form-label required">DB Name</label>
+            <div class="col">
+              <input type="text"
+                class="form-control"
+                id="db_database"
+                name="db_database"
+                value="{{ old('db_database', session('db_database')) }}"
+                required
+                placeholder="Database Name" class="form-control" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="db_username" class="form-label">DB Username</label>
-            <input 
-              type="text" 
-              class="form-control" 
-              id="db_username" 
-              name="db_username" 
-              value="{{ old('db_username', session('db_username')) }}" 
-              required 
-              placeholder="Username"
-            >
+
+
+          <div class="mb-3 row">
+            <label for="db_username" class="col-4 col-form-label required">DB Username</label>
+            <div class="col">
+              <input type="text"
+                id="db_username"
+                name="db_username"
+                value="{{ old('db_username', session('db_username')) }}"
+                required
+                placeholder="Username" class="form-control" />
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="db_password" class="form-label">DB Password</label>
-            <input 
-              type="password" 
-              class="form-control" 
-              id="db_password" 
-              name="db_password" 
-              value="{{ old('db_password', session('db_password')) }}" 
-              placeholder="Password"
-            >
+
+          <div class="mb-3 row">
+            <label for="db_password" class="col-4 col-form-label required">DB Password</label>
+            <div class="col">
+              <input type="password"
+                class="form-control"
+                id="db_password"
+                name="db_password"
+                value="{{ old('db_password', session('db_password')) }}"
+                placeholder="Password" />
+            </div>
           </div>
+
+
 
           {{-- <div class="form-check mb-3">
-            <input 
-              class="form-check-input" 
-              type="checkbox" 
-              id="create_database" 
-              name="create_database" 
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="create_database"
+              name="create_database"
               {{ session('create_database') ? 'checked' : '' }}
-            >
-            <label class="form-check-label" for="create_database">
-              Create Database if not exists
-            </label>
-          </div> --}}
+          >
+          <label class="form-check-label" for="create_database">
+            Create Database if not exists
+          </label>
+        </div> --}}
 
 
-            {{-- <button type="submit">Save</button> --}}
+        {{-- <button type="submit">Save</button> --}}
         <button id="test-connection" class="btn btn-primary" type="button">Test Connection</button>
         <div id="connection-status"></div>
-    </div>
+      </div>
 
-    
-          </div>
-        </div>
-        <div class="row align-items-center mt-3">
-          <div class="col-4">
-            <div class="progress">
-              <div class="progress-bar" style="width: 50%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% Complete">
-                <span class="visually-hidden">50% Complete</span>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="btn-list justify-content-end">
-              <a href="{{ route('install.index') }}" class="btn btn-link link-secondary">
-                Go back
-              </a>
-              <button type="submit" class="btn btn-primary">
-                Next
-              </a>
-            </div>
-          </div>
+
+    </div>
+  </div>
+  <div class="row align-items-center mt-3">
+    <div class="col-4">
+      <div class="progress">
+        <div class="progress-bar" style="width: 50%" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" aria-label="25% Complete">
+          <span class="visually-hidden">50% Complete</span>
         </div>
       </div>
-        </form>
+    </div>
+    <div class="col">
+      <div class="btn-list justify-content-end">
+        <a href="{{ route('install.index') }}" class="btn btn-link link-secondary">
+          Go back
+        </a>
+        <button type="submit" class="btn btn-primary">
+          Next
+          </a>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
 
 @endsection
 
 @push('scripts')
 <script>
-        document.getElementById('test-connection').addEventListener('click', function () {
-            event.preventDefault();
+  document.getElementById('test-connection').addEventListener('click', function() {
+    event.preventDefault();
 
-            // Get form data
-            const dbHost = document.querySelector('#db_host').value;
-            const dbPort = document.querySelector('#db_port').value;
-            const dbDatabase = document.querySelector('#db_database').value;
-            const dbUsername = document.querySelector('#db_username').value;
-            const dbPassword = document.querySelector('#db_password').value;
-            //const createDatabase = document.querySelector('#create_database').checked;
+    // Get form data
+    const dbHost = document.querySelector('#db_host').value;
+    const dbPort = document.querySelector('#db_port').value;
+    const dbDatabase = document.querySelector('#db_database').value;
+    const dbUsername = document.querySelector('#db_username').value;
+    const dbPassword = document.querySelector('#db_password').value;
+    //const createDatabase = document.querySelector('#create_database').checked;
 
-            // Prepare data object
-            const data = {
-              db_host: dbHost,
-              db_port: dbPort,
-              db_database: dbDatabase,
-              db_username: dbUsername,
-              db_password: dbPassword,
-              //create_database: createDatabase,
-            };
-            fetch("{{ route('install.testDatabaseConnection') }}", {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            .then(response => response.json())
-            .then(data => {
-                let html = '';
-                if(data.success) {
-                html = `<div class="alert alert-success alert-dismissible" role="alert">
+    // Prepare data object
+    const data = {
+      db_host: dbHost,
+      db_port: dbPort,
+      db_database: dbDatabase,
+      db_username: dbUsername,
+      db_password: dbPassword,
+      //create_database: createDatabase,
+    };
+    fetch("{{ route('install.testDatabaseConnection') }}", {
+        method: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': "{{ csrf_token() }}",
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+        let html = '';
+        if (data.success) {
+          html = `<div class="alert alert-success alert-dismissible" role="alert">
                       <div class="d-flex">
                         <div>
                           <!-- Download SVG icon from http://tabler-icons.io/i/check -->
@@ -178,8 +184,8 @@
                       </div>
                       <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                     </div>`;
-                } else {
-                  html = `<div class="alert alert-danger alert-dismissible" role="alert">
+        } else {
+          html = `<div class="alert alert-danger alert-dismissible" role="alert">
                       <div class="d-flex">
                         <div>
                           <!-- Download SVG icon from http://tabler-icons.io/i/alert-circle -->
@@ -191,9 +197,9 @@
                       </div>
                       <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                     </div>`
-                } 
-                document.getElementById('connection-status').innerHTML = html;
-            });
-        });
-    </script>
+        }
+        document.getElementById('connection-status').innerHTML = html;
+      });
+  });
+</script>
 @endpush
