@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use BitPixel\SpringCms\Constants;
 use BitPixel\SpringCms\Models\Admin;
 use BitPixel\SpringCms\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -62,7 +63,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        //dd($request->all());
+        $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
