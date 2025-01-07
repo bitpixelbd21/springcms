@@ -56,7 +56,7 @@ class RiverPagesController extends Controller
     {
 
 
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
             'slug'  => 'required'
         ]);
@@ -118,7 +118,7 @@ class RiverPagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate( [
             'title' => 'required',
             'slug'  => 'required'
         ]);
