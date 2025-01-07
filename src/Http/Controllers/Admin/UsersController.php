@@ -111,10 +111,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required|string|max:100',
             'email'  =>  'required|email|max:255||unique:users,id,'.$id,
         ]);
+    
 
         $user = Admin::FindOrFail($id);
         $user->name = $request->name;
