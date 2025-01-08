@@ -18,18 +18,10 @@ class BlogCategoryController
     public function index()
     {
 
-        $all = BlogCategory::all();
-
-        $buttons = [
-            ['Add', route('river.blog-category.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],
-            // ['Export', route('river.datatypes.export'), 'btn btn-primary', '' /*label,link,class,id*/],
-            // ['Import', route('river.datatypes.import'), 'btn btn-primary', '' /*label,link,class,id*/],
-            // ['Download File', route('river.download.page'), 'btn btn-warning', '' /*label,link,class,id*/],
-        ];
+        $all = BlogCategory::paginate(20);
         $data = [
             'title' => 'Blog Category',
-            'all' => $all,
-            '_top_buttons' => $buttons
+            'all' => $all
         ];
 
         return view('river::admin.blog_category.index', $data);
