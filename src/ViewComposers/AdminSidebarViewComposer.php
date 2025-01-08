@@ -222,7 +222,14 @@ class AdminSidebarViewComposer
                         'label' => 'Tag',
                         'route' => 'river.tag.index',
                         'is_active' => request()->routeIs('river.tag.*'),
-                    ]
+                    ],
+                    [
+                        'label' => 'Comments',
+                        'route' => 'river.comments.index',
+                        'is_active' => request()->routeIs('river.comments.*'),
+                    ],
+
+
                 ]
             ],
             [

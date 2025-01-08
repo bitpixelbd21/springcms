@@ -24,6 +24,7 @@ use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
 use BitPixel\SpringCms\Http\Controllers\Admin\MenuController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogController;
 use BitPixel\SpringCms\Http\Controllers\Admin\BlogCategoryController;
+use BitPixel\SpringCms\Http\Controllers\Admin\CommentController;
 use BitPixel\SpringCms\Http\Controllers\Admin\CodeGeneratorController;
 use BitPixel\SpringCms\Http\Controllers\Admin\FaqController;
 use BitPixel\SpringCms\Http\Controllers\Admin\TagController;
@@ -210,6 +211,11 @@ Route::group([
     Route::resource('blog', BlogController::class);
     //BlogCategory
     Route::resource('blog-category', BlogCategoryController::class);
+    //BlogComments
+    Route::resource('comments', CommentController::class);
+    // Route::get('/comments/{id}/edit', [CommentController::class, 'edit'])->name('edit-comment');
+
+
     Route::resource('tag', TagController::class);
 
     Route::resource('testimonial', TestimonialController::class);
