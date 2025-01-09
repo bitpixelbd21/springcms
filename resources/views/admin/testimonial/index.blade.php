@@ -35,55 +35,56 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>SL. </td>
-                                <td> Name</td>
-                                <td> Image</td>
-                                <td> Designation</td>
-                                <td> message</td>
-                                <td> sort_order</td>
-                                <td> is Active</td>
-                                <td> Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $key=>$a)
-                            <tr>
-                                <td>{{ ++$key }} </td>
-                                <td>{{ $a->name }} </td>
-                                <td>
-                                    <img src="{{$a->image}}" style="width: 150px" />
-                                </td>
-                                <td> {{$a->designation }}</td>
-                                <td> {{$a->message }}</td>
-                                <td> {{$a->sort_order }}</td>
-                                <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <div>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
-                                        </div>
-                                        <div class="mx-1">
-                                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.testimonial.destroy',$a->id) }}"
-                                                data-href="{{ route('river.testimonial.destroy',$a->id) }}">
-                                                Delete
-                                            </a>
-                                        </div>
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL. </th>
+                            <th> Name</th>
+                            <th> Image</th>
+                            <th> Designation</th>
+                            <th> message</th>
+                            <th> sort_order</th>
+                            <th> is Active</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
+                        <tr>
+                            <td>{{ ++$key }} </td>
+                            <td>{{ $a->name }} </td>
+                            <td>
+                                <img src="{{$a->image}}" style="width: 150px" />
+                            </td>
+                            <td> {{$a->designation }}</td>
+                            <td> {{$a->message }}</td>
+                            <td> {{$a->sort_order }}</td>
+                            <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
                                     </div>
+                                    <div class="mx-1">
+                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.testimonial.destroy',$a->id) }}"
+                                            data-href="{{ route('river.testimonial.destroy',$a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+
                 </div>
             </div>
         </div>

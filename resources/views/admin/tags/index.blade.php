@@ -35,47 +35,48 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => route('river.tag.create') ])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>SL. </td>
-                                <td> Name</td>
-                                <td> Slug</td>
-                                <td> Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $key=>$a)
-                            <tr>
-                                <td>{{ ++$key }} </td>
-                                <td>{{ $a->name }} </td>
-                                <td>{{ $a->slug }} </td>
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.tag.create') ])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL. </th>
+                            <th> Name</th>
+                            <th> Slug</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
+                        <tr>
+                            <td>{{ ++$key }} </td>
+                            <td>{{ $a->name }} </td>
+                            <td>{{ $a->slug }} </td>
 
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <div>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('river.tag.edit',$a->id) }}"> Edit</a>
-                                        </div>
-                                        <div class="mx-1">
-
-                                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.tag.destroy',$a->id) }}"
-                                                data-href="{{ route('river.tag.destroy',$a->id) }}">
-                                                Delete
-                                            </a>
-                                        </div>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.tag.edit',$a->id) }}"> Edit</a>
                                     </div>
+                                    <div class="mx-1">
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.tag.destroy',$a->id) }}"
+                                            data-href="{{ route('river.tag.destroy',$a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+
                 </div>
             </div>
         </div>

@@ -36,62 +36,63 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => route('river.service.create') ])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td> Title</td>
-                                <td> slug </td>
-                                <td> Service Category</td>
-                                <td> Sort Order</td>
-                                <td> Is Published</td>
-                                <td> Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $key=>$a)
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.service.create') ])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> Title</th>
+                            <th> slug </th>
+                            <th> Service Category</th>
+                            <th> Sort Order</th>
+                            <th> Is Published</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
 
-                            <tr>
-                                <td>{{ $a->title }} </td>
-                                <td> {{ $a->slug }} </td>
+                        <tr>
+                            <td>{{ $a->title }} </td>
+                            <td> {{ $a->slug }} </td>
 
-                                <td> {{ $a->servicecategory ? $a->servicecategory->name : '' }}</td>
+                            <td> {{ $a->servicecategory ? $a->servicecategory->name : '' }}</td>
 
-                                <td> {{ $a->sort_order}} </td>
+                            <td> {{ $a->sort_order}} </td>
 
-                                <td>
-                                    @if($a->is_published==1)
-                                    <button class="btn btn-primary"> Yes</button>
-                                    @else
-                                    <button class="btn btn-danger"> No</button>
-                                    @endif
-                                </td>
+                            <td>
+                                @if($a->is_published==1)
+                                <button class="btn btn-primary"> Yes</button>
+                                @else
+                                <button class="btn btn-danger"> No</button>
+                                @endif
+                            </td>
 
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <div>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('river.service.edit',$a->id) }}"> Edit</a>
-                                        </div>
-                                        <div class="mx-1">
-
-                                            <a class="btn btn-sm btn-danger confirm-delete"
-                                                href="{{ route('river.service.destroy',$a->id) }}"
-                                                data-href="{{ route('river.service.destroy',$a->id) }}">
-                                                Delete
-                                            </a>
-                                        </div>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.service.edit',$a->id) }}"> Edit</a>
                                     </div>
+                                    <div class="mx-1">
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                                        <a class="btn btn-sm btn-danger confirm-delete"
+                                            href="{{ route('river.service.destroy',$a->id) }}"
+                                            data-href="{{ route('river.service.destroy',$a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+
                 </div>
             </div>
         </div>

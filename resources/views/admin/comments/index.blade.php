@@ -26,146 +26,106 @@
 @stop
 
 @section('content')
-<div class="col-12">
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title"></h3>
-        </div>
-        <div class="card-body border-bottom py-3">
-            <div class="d-flex">
-                <div class="text-secondary">
-                    Show
-                    <div class="mx-2 d-inline-block">
-                        <input type="text" class="form-control form-control-sm" value="8" size="3" aria-label="Invoices count" />
-                    </div>
-                    entries
-                </div>
-                <div class="ms-auto text-secondary">
-                    Search:
-                    <div class="ms-2 d-inline-block">
-                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table card-table table-vcenter text-nowrap datatable">
-                <thead>
-                    <tr>
-                        <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices" /></th>
-                        <th class="w-1">
-                            No.
-                            <!-- Download SVG icon from http://tabler.io/icons/icon/chevron-up -->
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-sm icon-thick">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                <path d="M6 15l6 -6l6 6"></path>
-                            </svg>
-                        </th>
-                        <th>Image</th>
-                        <th>User Name</th>
-                        <th>E-mail</th>
-                        <th>Status</th>
-                        <th>Comment</th>
-                        <th>Published</th>
-                        <th>In Response To</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($comments as $key=>$comment)
-                    <tr>
-                        <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" /></td>
-                        <td><span class="text-secondary">{{ ++$key }}</span></td>
-                        <td>
-                            <span class="avatar avatar-s"
-                                style="background-image: url({{ $comment->river_customers->image ?? 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg' }});
+<div class="container-xl">  
+    <div class="row row-cards">
+        <div class="col-md-12">
+            <div class="card">
+                @if($comments->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.comments.create') ])
+                @else
+                <div class="table-responsive">
+                    <table class="table card-table table-vcenter text-nowrap datatable">
+                        <thead>
+                            <tr>
+                                <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices" /></th>
+                                <th class="w-1">
+                                    No.
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="icon icon-sm icon-thick">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M6 15l6 -6l6 6"></path>
+                                    </svg>
+                                </th>
+                                <th>Image</th>
+                                <th>User Name</th>
+                                <th>E-mail</th>
+                                <th>Status</th>
+                                <th>Comment</th>
+                                <th>Published</th>
+                                <th>In Response To</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($comments as $key=>$comment)
+                            <tr>
+                                <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" /></td>
+                                <td><span class="text-secondary">{{ ++$key }}</span></td>
+                                <td>
+                                    <span class="avatar avatar-s"
+                                        style="background-image: url({{ $comment->river_customers->image ?? 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg' }});
                                 height:40px;
                                 width:40px;">
-                            </span>
+                                    </span>
 
-                        </td>
-                        <td><a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->river_customers->name ?? 'N/A' }}</a></td>
-                        <td>
-                            <a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->river_customers->email ?? 'N/A' }}</a>
-                        </td>
-                        <td>
-                            @if($comment->is_active == 1)
-                            <span class="badge bg-success me-1"></span> Approved
-                            @else
-                            <span class="badge bg-warning me-1"></span> Pending
-                            @endif
-                        </td>
-                        <td><span href="invoice.html" class="text-reset" tabindex="-1">{{ Str::limit($comment->content, 30)}}</span></td>
-                        @php
-                        $dateformat = $comment->created_at ? $comment->created_at->format('jS F Y') : '';
-                        @endphp
-                        <td>
-                            {{ $dateformat  }}
-                        </td>
-                        <td>
-                            <h4>Blog Name</h4>
-                            <a class="text-decoration-none badge bg-secondary px-2 py-2 me-1">View Blog</a>
-                        </td>
-                        <td class="">
-                            <button id="approveButton"
-                                class="text-decoration-none badge bg-success px-2 py-2 me-1"
-                                data-id="{{ $comment->id }}">Approve
-                            </button>
-                            <a href="{{ route('river.comments.edit', $comment->id) }}" class="text-decoration-none badge bg-secondary px-2 py-2 me-1">Edit</a>
-                            <a class="text-decoration-none badge bg-gray px-2 py-2 me-1">Replay</a>
-                            <a class="text-decoration-none badge bg-warning px-2 py-2 me-1">Spam</a>
-                            <!-- <a class="text-decoration-none badge bg-danger px-2 py-2 me-1">Trash</a> -->
-                            <form class="d-inline" action="{{ route('river.comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="badge bg-danger px-2 py-2 me-1">Trash</button>
-                            </form>
+                                </td>
+                                <td><a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->river_customers->name ?? 'N/A' }}</a></td>
+                                <td>
+                                    <a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->river_customers->email ?? 'N/A' }}</a>
+                                </td>
+                                <td>
+                                    @if($comment->is_active == 1)
+                                    <span class="badge bg-success me-1"></span> Approved
+                                    @else
+                                    <span class="badge bg-warning me-1"></span> Pending
+                                    @endif
+                                </td>
+                                <td><span href="invoice.html" class="text-reset" tabindex="-1">{{ Str::limit($comment->content, 30)}}</span></td>
+                                @php
+                                $dateformat = $comment->created_at ? $comment->created_at->format('jS F Y') : '';
+                                @endphp
+                                <td>
+                                    {{ $dateformat  }}
+                                </td>
+                                <td>
+                                    <h4>Blog Name</h4>
+                                    <a class="text-decoration-none badge bg-secondary px-2 py-2 me-1">View Blog</a>
+                                </td>
+                                <td class="">
+                                    <button id="approveButton"
+                                        class="text-decoration-none badge bg-success px-2 py-2 me-1"
+                                        data-id="{{ $comment->id }}">Approve
+                                    </button>
+                                    <a href="{{ route('river.comments.edit', $comment->id) }}" class="text-decoration-none badge bg-secondary px-2 py-2 me-1">Edit</a>
+                                    <a class="text-decoration-none badge bg-gray px-2 py-2 me-1">Replay</a>
+                                    <a class="text-decoration-none badge bg-warning px-2 py-2 me-1">Spam</a>
+                                    <!-- <a class="text-decoration-none badge bg-danger px-2 py-2 me-1">Trash</a> -->
+                                    <form class="d-inline" action="{{ route('river.comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="badge bg-danger px-2 py-2 me-1">Trash</button>
+                                    </form>
 
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="card-footer d-flex align-items-center">
-            <p class="m-0 text-secondary">Showing <span>1</span> to <span>8</span> of <span>16</span> entries</p>
-            <ul class="pagination m-0 ms-auto">
-                <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                        <!-- Download SVG icon from http://tabler.io/icons/icon/chevron-left -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M15 6l-6 6l6 6"></path>
-                        </svg>
-                        prev
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        next
-                        <!-- Download SVG icon from http://tabler.io/icons/icon/chevron-right -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M9 6l6 6l-6 6"></path>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
+                <div class="card-body">
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
