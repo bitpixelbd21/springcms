@@ -11,11 +11,15 @@ class CreateCommentsTable extends Migration
 
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->onDelete('cascade');
-            $table->text('content');
+            $table->string('name', 50)->nullable();
+            $table->string('email')->nullable();
+            $table->text('content')->nullable();
+            // $table->foreignId('customer_id')->onDelete('cascade');
+            $table->integer('blog_id')->onDelete('cascade')->nullable();
+            $table->enum('status', ['pending', 'approve', 'trashed'])->default('pending');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            $table->tinyInteger('is_active')->default(0);  // Default to 0 or 1, instead of 'pending'
+           // Default to 0 or 1, instead of 'pending'
         });
 
     }

@@ -213,7 +213,9 @@ Route::group([
     Route::resource('blog-category', BlogCategoryController::class);
     //BlogComments
     Route::resource('comments', CommentController::class);
-    // Route::get('/comments/{id}/edit', [CommentController::class, 'edit'])->name('edit-comment');
+    Route::post('comments-approve/approves', [CommentController::class, 'approve'])->name('comments-approve.approves');
+    Route::post('comments-pending/pending', [CommentController::class, 'pending'])->name('comments-pending.pending');
+
 
 
     Route::resource('tag', TagController::class);

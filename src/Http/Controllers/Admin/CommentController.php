@@ -28,8 +28,7 @@ class CommentController
             'comments' => $comments,
         ];
 
-       // dd($data);
-
+    //    dd($data);
 
         return view('river::admin.comments.index', $data);
     }
@@ -40,7 +39,7 @@ class CommentController
     {
 
         // Fetch the comment by ID
-        $comment = Comment::with('river_customers')->find($id);
+        $comment = Comment::find($id);
         $data = [
             'title' => 'Comments',
             'comment' => $comment,
@@ -62,10 +61,9 @@ class CommentController
     {
         $request->validate([
             'content' => 'required|string',
-            'parent_id' => 'nullable|exists:comments,id', // Ensure parent comment exists
         ]);
 
-        $post = Post::findOrFail($postId);
+
 
         $post->comments()->create([
             'user_id' => auth()->id(),
@@ -78,6 +76,7 @@ class CommentController
 
     public function update(Request $request, $id)
     {
+
       //  dd($request->all());
         // Validate the incoming request
         $request->validate([
@@ -110,18 +109,57 @@ class CommentController
 
 
 
-    public function approveComment(Request $request, $id)
+
+
+    /**
+     * Approve a contact form submission.
+     */
+    public function approve(Request $request)
     {
-        $comment = Comment::find($id);
 
-        if ($comment) {
-            $comment->is_active = $request->input('is_active');
-            $comment->save();
+        // Retrieve the payload (status)
+        $status = $request->input('status'); // 'approve'
 
-            return response()->json(['success' => true, 'message' => 'Comment approved successfully!']);
+        // Perform your logic here (e.g., update database, etc.)
+        // Example: Update a contact form's status
+        // Assuming you have a ContactForm model and are passing an ID in the request
+        if ($status === 'approve') {
+            $commentApproveId = $request->input('id'); // ID of the contact form
+            $commentApprove = Comment::find($commentApproveId);
+            if ($commentApprove) {
+                $commentApprove->status = 'approve';
+                $commentApprove->save();
+
+                return redirect()->back()->with('message', 'Contact form approved successfully!');
+            }
         }
 
-        return response()->json(['success' => false, 'message' => 'Comment not found.'], 404);
+        return redirect()->back()->with('error', 'Invalid action or contact form not found.');
+    }
+
+
+
+    public function pending(Request $request)
+    {
+
+        // Retrieve the payload (status)
+        $status = $request->input('status'); // 'approve'
+
+        // Perform your logic here (e.g., update database, etc.)
+        // Example: Update a contact form's status
+        // Assuming you have a ContactForm model and are passing an ID in the request
+        if ($status === 'pending') {
+            $commentPendingId = $request->input('id'); // ID of the contact form
+            $commentPending = Comment::find($commentPendingId);
+            if ($commentPending) {
+                $commentPending->status = 'pending';
+                $commentPending->save();
+
+                return redirect()->back()->with('message', 'Comment Disapproved successfully!');
+            }
+        }
+
+        return redirect()->back()->with('error', 'Invalid action or Comment not found.');
     }
 
 }

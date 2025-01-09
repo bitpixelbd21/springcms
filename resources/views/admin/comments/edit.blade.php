@@ -30,6 +30,7 @@
 @section('content')
 <div class="single-comment">
     <form action="{{ route('river.comments.update', $comment->id) }}" method="POST">
+
         @csrf
         @method('PUT')
         <div class="row row-cards">
@@ -40,22 +41,15 @@
                     </div>
                     <div class="card-body">
                         <div class="mb-3 row">
-                            <label class="col-3 col-form-label required">Author's Image</label>
-                            <div class="col">
-                                <img src="{{ $comment->river_customers->image ?? 'https://templates.joomla-monster.com/joomla30/jm-news-portal/components/com_djclassifieds/assets/images/default_profile.png' }}" style="width: 200px" />
-
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
                             <label class="col-3 col-form-label required">Full Name</label>
                             <div class="col">
-                                <input type="text" name="name" class="form-control" placeholder="Enter name" value="{{ $comment->river_customers->name ?? 'N/A' }}" />
+                                <input type="text" name="name" class="form-control" placeholder="Enter name" value="{{ $comment->name ?? 'N/A' }}" />
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label required">Email address</label>
                             <div class="col">
-                                <input type="email" name="email" class="form-control" value="{{ $comment->river_customers->email ?? 'N/A' }}" placeholder="Enter email" />
+                                <input type="email" name="email" class="form-control" value="{{ $comment->email ?? 'N/A' }}" placeholder="Enter email" />
 
                             </div>
                         </div>
@@ -65,6 +59,15 @@
                                 <textarea class="form-control" name="content" rows="6" placeholder="Content.." style="height: 139px;">
                                 {{ $comment->content ?? 'N/A' }}
                                 </textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-3 col-form-label required">Status</label>
+                            <div class="col">
+                                <!-- <input type="text" name="status" class="form-control" value="{{ $comment->status ?? 'N/A' }}" placeholder="" /> -->
+                                <div class="col-form-label text-uppercase">{{ $comment->status ?? 'N/A' }}</div>
+                                <!-- <img src="{{ $comment->river_customers->image ?? 'https://templates.joomla-monster.com/joomla30/jm-news-portal/components/com_djclassifieds/assets/images/default_profile.png' }}" style="width: 200px" /> -->
+
                             </div>
                         </div>
 
@@ -111,7 +114,7 @@
                                         @endphp
                                         <!-- <span class="display-flex justify-content-center align-item-center">{{ $dateformat }}</span>
                                         <label class=" ">12 jul 2025</label> -->
-                                        <input type="text" name="created_at" class="form-control" value="{{ $dateformat }}"  />
+                                        <input type="text" name="created_at" class="form-control" value="{{ $dateformat }}" />
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +143,7 @@
 
 
 @push('scripts')
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('.article-editor').ckeditor({
             height: 400,
@@ -158,5 +161,5 @@
             $('#' + $(this).val()).show();
         });
     });
-</script>
+</script> -->
 @endpush

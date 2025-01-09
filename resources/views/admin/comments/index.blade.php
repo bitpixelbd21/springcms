@@ -38,28 +38,10 @@
                         <thead>
                             <tr>
                                 <th class="w-1"><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices" /></th>
-                                <th class="w-1">
-                                    No.
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        class="icon icon-sm icon-thick">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M6 15l6 -6l6 6"></path>
-                                    </svg>
-                                </th>
-                                <th>Image</th>
-                                <th>User Name</th>
+                                <th>Name</th>
                                 <th>E-mail</th>
-                                <th>Status</th>
                                 <th>Comment</th>
+                                <th>Status</th>
                                 <th>Published</th>
                                 <th>In Response To</th>
                                 <th>Action</th>
@@ -69,27 +51,21 @@
                             @foreach($comments as $key=>$comment)
                             <tr>
                                 <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" /></td>
-                                <td><span class="text-secondary">{{ ++$key }}</span></td>
+                                <td><a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->name ?? 'N/A' }}</a></td>
                                 <td>
-                                    <span class="avatar avatar-s"
-                                        style="background-image: url({{ $comment->river_customers->image ?? 'https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg' }});
-                                height:40px;
-                                width:40px;">
-                                    </span>
-
-                                </td>
-                                <td><a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->river_customers->name ?? 'N/A' }}</a></td>
-                                <td>
-                                    <a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->river_customers->email ?? 'N/A' }}</a>
-                                </td>
-                                <td>
-                                    @if($comment->is_active == 1)
-                                    <span class="badge bg-success me-1"></span> Approved
-                                    @else
-                                    <span class="badge bg-warning me-1"></span> Pending
-                                    @endif
+                                    <a href="invoice.html" class="text-decoration-none text-reset" tabindex="-1">{{ $comment->email ?? 'N/A' }}</a>
                                 </td>
                                 <td><span href="invoice.html" class="text-reset" tabindex="-1">{{ Str::limit($comment->content, 30)}}</span></td>
+                                <td>
+                                    @if($comment->status == 'approve')
+                                    <span class="badge bg-green text-green-fg px-2 py-2">Approved</span>
+                                    @elseif($comment->status == 'pending')
+                                    <span class="badge bg-blue text-blue-fg px-2 py-2">Pending</span>
+                                    @else
+                                    <span class="badge bg-danger text-danger-fg px-2 py-2">Trashed</span>
+                                    @endif
+
+                                </td>
                                 @php
                                 $dateformat = $comment->created_at ? $comment->created_at->format('jS F Y') : '';
                                 @endphp
@@ -97,18 +73,32 @@
                                     {{ $dateformat  }}
                                 </td>
                                 <td>
-                                    <h4>Blog Name</h4>
-                                    <a class="text-decoration-none badge bg-secondary px-2 py-2 me-1">View Blog</a>
+
+                                    <h4><a href="#" class="text-decoration-none text-black">{{ Str::limit('Blog Name', 30)}}</a></h4>
                                 </td>
                                 <td class="">
-                                    <button id="approveButton"
-                                        class="text-decoration-none badge bg-success px-2 py-2 me-1"
-                                        data-id="{{ $comment->id }}">Approve
-                                    </button>
+                                    @if($comment->status == 'pending')
+                                    <form action="{{ route('river.comments-approve.approves') }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <input type="hidden" name="status" value="approve">
+                                        <input type="hidden" name="id" value="{{ $comment->id }}">
+                                        <button type="submit" class="text-decoration-none badge bg-green text-green-fg px-2 py-2 me-1">
+                                            Approve
+                                        </button>
+                                    </form>
+                                    @else($comment->status == 'approve')
+                                    <form action="{{ route('river.comments-pending.pending') }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <input type="hidden" name="status" value="pending">
+                                        <input type="hidden" name="id" value="{{ $comment->id }}">
+                                        <button type="submit" class="text-decoration-none badge bg-orange text-orange-fg px-2 py-2 me-1">
+                                            Disapprove
+                                        </button>
+                                    </form>
+                                    @endif
+
+
                                     <a href="{{ route('river.comments.edit', $comment->id) }}" class="text-decoration-none badge bg-secondary px-2 py-2 me-1">Edit</a>
-                                    <a class="text-decoration-none badge bg-gray px-2 py-2 me-1">Replay</a>
-                                    <a class="text-decoration-none badge bg-warning px-2 py-2 me-1">Spam</a>
-                                    <!-- <a class="text-decoration-none badge bg-danger px-2 py-2 me-1">Trash</a> -->
                                     <form class="d-inline" action="{{ route('river.comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this comment?');">
                                         @csrf
                                         @method('DELETE')
