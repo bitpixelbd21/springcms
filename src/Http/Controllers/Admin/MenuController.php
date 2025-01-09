@@ -19,7 +19,7 @@ class MenuController
 {
     public function index()
     {
-        $all = Menu::all();
+        $all = Menu::paginate(20);
 
         $buttons = [
             ['Add', route('river.menu.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

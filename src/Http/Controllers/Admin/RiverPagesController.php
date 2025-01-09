@@ -17,7 +17,7 @@ class RiverPagesController extends Controller
      */
     public function index()
     {
-        $riverPages = RiverPage::all();
+        $riverPages = RiverPage::paginate(20);
         $buttons = [
             ['Add New', route('river.pages.create'), 'btn btn-primary', 'btn-add-new'],
         ];

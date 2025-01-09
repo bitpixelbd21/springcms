@@ -20,7 +20,7 @@ class ServiceController
     {
 
         // $all = Service::all();
-        $all = Service::with('servicecategory')->get();
+        $all = Service::with('servicecategory')->paginate(20);
 
         $buttons = [
             ['Add', route('river.service.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

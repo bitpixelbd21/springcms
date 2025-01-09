@@ -42,7 +42,7 @@
                 </table>
                 @endif
                 <div class="card-body">
-
+                    {{ $value->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

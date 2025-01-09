@@ -17,7 +17,7 @@ class FaqController
 {
     public function index()
     {
-        $all = Faq::all();
+        $all = Faq::paginate(20);
 
         $buttons = [
             ['Add New Question', '', 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

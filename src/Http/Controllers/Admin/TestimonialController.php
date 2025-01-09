@@ -17,7 +17,7 @@ class TestimonialController
     public function index()
     {
 
-        $all = Testimonial::all();
+        $all = Testimonial::paginate(20);
 
         $buttons = [
             ['Add Testimonial', route('river.testimonial.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

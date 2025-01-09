@@ -19,7 +19,7 @@ class ServiceCategoryController
     {
 
 
-        $all = ServiceCategory::all();
+        $all = ServiceCategory::paginate(20);
 
         $buttons = [
             ['Add', route('river.service-category.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

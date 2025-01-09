@@ -107,6 +107,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-body">
+                    {{ $riverPages->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
     </div>

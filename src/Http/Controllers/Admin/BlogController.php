@@ -22,7 +22,7 @@ class BlogController
     {
 
 
-        $all = Blog::all();
+        $all = Blog::paginate(20);
 
         $alls = Blog::with('tag')->get();
 

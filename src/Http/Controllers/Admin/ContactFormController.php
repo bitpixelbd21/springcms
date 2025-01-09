@@ -16,7 +16,7 @@ class ContactFormController
 {
     public function index()
     {
-        $all = ContactForm::all();
+        $all = ContactForm::paginate(20);
 
         $buttons = [
             ['Add', '', 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

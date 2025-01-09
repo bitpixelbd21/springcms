@@ -92,7 +92,7 @@
                 </table>
                 @endif
                 <div class="card-body">
-
+                    {{ $all->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

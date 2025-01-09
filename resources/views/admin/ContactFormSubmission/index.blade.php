@@ -53,11 +53,14 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer d-flex align-items-center">
+                <!-- <div class="card-footer d-flex align-items-center">
                     <p class="m-0 text-muted">Showing <span>{{($data->currentpage()-1)*$data->perpage()+1}}</span> to <span>{{$data->currentpage()*$data->perpage()}}</span> of <span>{{$data->total()}}</span> entries</p>
                     {!! $data->links() !!}
-                </div>
+                </div> -->
                 @endif
+                <div class="card-body">
+                    {{ $data->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
     </div>

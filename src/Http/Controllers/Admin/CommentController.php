@@ -21,7 +21,7 @@ class CommentController
 
     public function index()
     {
-        $comments = Comment::with('river_customers')->get();
+        $comments = Comment::with('river_customers')->paginate(20);
 
         $data = [
             'title' => 'Comments',

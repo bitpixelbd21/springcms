@@ -14,7 +14,7 @@ class DataTypeController
 {
     public function index()
     {
-        $all = DataType::all();
+        $all = DataType::paginate(20);
         $buttons = [
             ['Add', '', 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],
             ['Export', route('river.datatypes.export'), 'btn btn-primary', '' /*label,link,class,id*/],

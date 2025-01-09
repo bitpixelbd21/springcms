@@ -26,7 +26,7 @@
 @stop
 
 @section('content')
-<div class="container-xl">  
+<div class="container-xl">
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
@@ -123,7 +123,7 @@
                 </div>
                 @endif
                 <div class="card-body">
-
+                    {{ $comments->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

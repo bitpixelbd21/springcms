@@ -107,6 +107,9 @@
                         </table>
                     @endif
                 </div>
+                <div class="card-body">
+                    {{ $users->links('pagination::bootstrap-5') }}
+                </div>
             </div>
         </div>
     </div>

@@ -21,7 +21,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = Admin::where('id' ,'!=',Auth::guard(Constants::AUTH_GUARD_ADMINS)->id())->get();
+        $users = Admin::where('id' ,'!=',Auth::guard(Constants::AUTH_GUARD_ADMINS)->id())->paginate(20);
 
         $buttons = [
             ['Add New',route('river.users.create'), 'btn btn-primary', 'btn-add-new'],
@@ -115,7 +115,7 @@ class UsersController extends Controller
             'name' => 'required|string|max:100',
             'email'  =>  'required|email|max:255||unique:users,id,'.$id,
         ]);
-    
+
 
         $user = Admin::FindOrFail($id);
         $user->name = $request->name;
