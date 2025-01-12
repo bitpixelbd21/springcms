@@ -35,9 +35,12 @@
                 <div class="card-body border-bottom py-3">
                     <div class="d-flex">
                         <div class="text-secondary">
-                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2">All <span>({{ $blogCount }})</span></a><span class="mr-2"> |</span>
-                            <a href=" #" class="mr-2">Published <Span class="ml-2">(2)</Span></a><span class="mr-2"> |</span>
-                            <a href="#" class="mr-2">Trashed <Span>(1)</Span></a>
+                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount }})</span></a><span class="mr-2"> |</span>
+                            <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2">
+                                Published <span class="ml-2">({{ $publishedCount }})</span>
+                            </a>
+                            <span class="mr-2"> |</span>
+                            <a href="#" class="mr-2 text-decoration-none text-red">Trashed <Span>(1)</Span></a>
                         </div>
                         <div class="ms-auto text-secondary">
 
@@ -55,15 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- search option end
-                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5>Blog List</h5>
-                    <form method="GET" action="{{ route('river.blog.index') }}" class="d-flex">
-                <input type="text" name="query" class="form-control form-control-sm" placeholder="Search blogs"
-                    value="{{ request('query') }}">
-                <button type="submit" class="btn btn-sm btn-primary ms-2">Search</button>
-                </form>
-            </div> -->
+
 
                 @if($all->count() == 0)
                 @include('river::admin.partials.nodata', ['link' => route('river.blog.create') ])
@@ -171,6 +166,9 @@
                 <div class="card-body">
                     {{ $all->links('pagination::bootstrap-5') }}
                 </div> --}}
+
+
+
             </div>
         </div>
     </div>

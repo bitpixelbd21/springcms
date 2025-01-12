@@ -18,11 +18,15 @@ use BitPixel\SpringCms\Models\Tag;
 
 class BlogController
 {
-    public function index()
+    public function index(Request $request)
     {
 
 
-        $all = Blog::paginate(20);
+        if ($request->has('published')) {
+            $all = Blog::where('is_published', 1)->paginate(20);
+        } else {
+            $all = Blog::paginate(20);
+        }
 
         $alls = Blog::with('tag')->get();
 
@@ -33,11 +37,15 @@ class BlogController
             // ['Import', route('river.datatypes.import'), 'btn btn-primary', '' /*label,link,class,id*/],
             // ['Download File', route('river.download.page'), 'btn btn-warning', '' /*label,link,class,id*/],
         ];
+
+        $publishedCount = Blog::where('is_published', 1)->count();
+
         $data = [
             'title' => 'Blogs',
             'all' => $all,
             '_top_buttons' => $buttons,
             'blogCount' => Blog::count(),
+            'publishedCount' => $publishedCount,
         ];
 
         return view('river::admin.blogs.index', $data);
