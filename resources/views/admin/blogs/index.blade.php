@@ -8,7 +8,7 @@
 
         <x-slot:breads>
             <li class="breadcrumb-item"><a href="{{route('river.admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="#">Blogs</a></li>
+            <li class="breadcrumb-item " aria-current="page"><a href="{{ route('river.blog.index') }}">Blogs</a></li>
         </x-slot:breads>
 
         <x-slot:buttons>
@@ -30,7 +30,94 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
+
+                <!--  search option start-->
+                <div class="card-body border-bottom py-3">
+                    <div class="d-flex">
+                        <div class="text-secondary">
+                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2">All <span>({{ $blogCount }})</span></a><span class="mr-2"> |</span>
+                            <a href=" #" class="mr-2">Published <Span class="ml-2">(2)</Span></a><span class="mr-2"> |</span>
+                            <a href="#" class="mr-2">Trashed <Span>(1)</Span></a>
+                        </div>
+                        <div class="ms-auto text-secondary">
+
+                            <div class="d-flex justify-content-between align-items-center mb-3 ">
+                                <form method="GET" action="{{ route('river.blogs.search') }}" class="d-flex">
+                                    <input
+                                        type="text"
+                                        name="query"
+                                        class="form-control form-control-sm"
+                                        placeholder="Search blogs"
+                                        value="{{ request('query') }}" />
+                                    <button type="submit" class="btn btn-primary btn-sm ms-2">Search</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- search option end
+                 <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Blog List</h5>
+                    <form method="GET" action="{{ route('river.blog.index') }}" class="d-flex">
+                <input type="text" name="query" class="form-control form-control-sm" placeholder="Search blogs"
+                    value="{{ request('query') }}">
+                <button type="submit" class="btn btn-sm btn-primary ms-2">Search</button>
+                </form>
+            </div> -->
+
                 @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.blog.create') ])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL.</th>
+                            <th>Slug</th>
+                            <th>Image</th>
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Is Published</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key => $a)
+                        <tr>
+                            <td>{{ ++$key }}</td>
+                            <td>{{ $a->slug }}</td>
+                            <td>
+                                <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
+                            </td>
+                            <td>{{ $a->category_id }}</td>
+                            <td>{{ $a->author_id }}</td>
+                            <td>{{ $a->is_published == 1 ? 'Active' : 'Inactive' }}</td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.blog.edit', $a->id) }}">Edit</a>
+                                    </div>
+                                    <div class="mx-1">
+                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog.destroy', $a->id) }}"
+                                            data-href="{{ route('river.blog.destroy', $a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+
+                <div class="card-body">
+                    {{ $all->appends(['query' => request('query')])->links('pagination::bootstrap-5') }}
+                </div>
+
+
+
+                {{-- @if($all->count() == 0)
                 @include('river::admin.partials.nodata', ['link' => route('river.blog.create') ])
                 @else
                 <table class="table">
@@ -50,40 +137,40 @@
                         @foreach($all as $key=>$a)
                         <tr>
                             <td>{{ ++$key }} </td>
-                            <td>{{ $a->slug }} </td>
+                <td>{{ $a->slug }} </td>
 
-                            <td>
-                                <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
-                            </td>
-                            <td> {{ $a->category_id}}</td>
-                            <td> {{ $a->author_id}}</td>
+                <td>
+                    <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
+                </td>
+                <td> {{ $a->category_id}}</td>
+                <td> {{ $a->author_id}}</td>
 
-                            <td>{{ ($a->is_published==1)?'Active':'Inactive' }} </td>
+                <td>{{ ($a->is_published==1)?'Active':'Inactive' }} </td>
 
-                            <td>
-                                <div class="d-flex justify-content-end">
-                                    <div>
-                                        <a class="btn btn-sm btn-primary"
-                                            href="{{ route('river.blog.edit',$a->id) }}"> Edit</a>
-                                    </div>
-                                    <div class="mx-1">
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <div>
+                            <a class="btn btn-sm btn-primary"
+                                href="{{ route('river.blog.edit',$a->id) }}"> Edit</a>
+                        </div>
+                        <div class="mx-1">
 
-                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog.destroy',$a->id) }}"
-                                            data-href="{{ route('river.blog.destroy',$a->id) }}">
-                                            Delete
-                                        </a>
-                                    </div>
-                                </div>
+                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog.destroy',$a->id) }}"
+                                data-href="{{ route('river.blog.destroy',$a->id) }}">
+                                Delete
+                            </a>
+                        </div>
+                    </div>
 
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
+                </td>
+                </tr>
+                @endforeach
+                </tbody>
                 </table>
                 @endif
                 <div class="card-body">
                     {{ $all->links('pagination::bootstrap-5') }}
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

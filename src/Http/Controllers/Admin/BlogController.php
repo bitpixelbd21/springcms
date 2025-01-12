@@ -36,7 +36,8 @@ class BlogController
         $data = [
             'title' => 'Blogs',
             'all' => $all,
-            '_top_buttons' => $buttons
+            '_top_buttons' => $buttons,
+            'blogCount' => Blog::count(),
         ];
 
         return view('river::admin.blogs.index', $data);
@@ -185,5 +186,39 @@ class BlogController
         Cache::forget(Constants::CACHE_KEY_BLOG);
         return redirect(route('river.blog.index'))
             ->with('success', 'Deleted!');
+    }
+
+
+    // public function search(Request $request)
+    // {
+    //     // Get the search query from the request
+    //     $query = $request->input('query');
+
+    //     // Fetch blogs where the title matches the query
+    //     $blogs = Blog::where('title', 'LIKE', '%' . $query . '%')->get();
+
+    //     // Return the view with search results and the original query
+    //     return view('blogs.index', [
+    //         'blogs' => $blogs,
+    //         'query' => $query,
+    //     ]);
+    // }
+
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        // Fetch blogs with optional search query
+        $blogs = Blog::when($query,
+            function ($q) use ($query) {
+                $q->where('title', 'LIKE', '%' . $query . '%');
+            }
+        )->paginate(10);
+
+        return view('river::admin.blogs.index', [
+            'all' => $blogs,
+            'query' => $query,
+        ]);
     }
 }
