@@ -35,7 +35,7 @@
                 <div class="card-body border-bottom py-3">
                     <div class="d-flex">
                         <div class="text-secondary">
-                        <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount    }})</span></a><span class="mr-2"> |</span>
+                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount    }})</span></a><span class="mr-2"> |</span>
                             <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2  text-decoration-none text-green">
                                 Published <span class="ml-2">({{ $publishedCount }})</span>
                             </a>
@@ -70,10 +70,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>SL.</th>
-                            <th>Title</th>
-                            <th>Slug</th>
-                            <th>Image</th>
+                            <th class="w-50">Title</th>
                             <th>Category</th>
                             <th>Author</th>
                             <th>Is Published</th>
@@ -83,23 +80,27 @@
                     <tbody>
                         @foreach($all as $key => $a)
                         <tr>
-                            <td>{{ ++$key }}</td>
-                            <td>{{ $a->title }}</td>
-                            <td>{{ $a->slug }}</td>
-                            <td>
+                            <td>{{ Str::limit($a->title, '120')  }}</td>
+                            <!-- <td>
                                 <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
-                            </td>
+                            </td> -->
                             <td>{{ $a->category_id }}</td>
                             <td>{{ $a->author_id }}</td>
-                            <td>{{ $a->is_published == 1 ? 'Active' : 'Inactive' }}</td>
                             <td>
-                                <div class="d-flex justify-content-end">
+                                @if($a->is_published == 1)
+                                <span class="badge bg-green text-green-fg px-2 py-2">Published</span>
+                                @else
+                                <span class="badge bg-blue text-blue-fg px-2 py-2">Drafted</span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-start">
                                     <div>
-                                        <a class="btn btn-sm btn-primary"
+                                        <a class="btn btn-sm btn-primary px-3 py-2   badge"
                                             href="{{ route('river.blog.edit', $a->id) }}">Edit</a>
                                     </div>
                                     <div class="mx-1">
-                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog.destroy', $a->id) }}"
+                                        <a class="btn btn-sm btn-danger confirm-delete px-3 py-1 rounded" href="{{ route('river.blog.destroy', $a->id) }}"
                                             data-href="{{ route('river.blog.destroy', $a->id) }}">
                                             Delete
                                         </a>
@@ -146,7 +147,13 @@
                 <td> {{ $a->category_id}}</td>
                 <td> {{ $a->author_id}}</td>
 
-                <td>{{ ($a->is_published==1)?'Active':'Inactive' }} </td>
+                <td>
+                    @if($a->is_published == 1)
+                    <span class="badge bg-green text-green-fg">Published</span>
+                    @else
+                    <span class="badge bg-blue text-blue-fg">Draft</span>
+                    @endif
+                </td>
 
                 <td>
                     <div class="d-flex justify-content-end">
