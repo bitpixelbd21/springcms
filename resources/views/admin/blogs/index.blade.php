@@ -35,7 +35,7 @@
                 <div class="card-body border-bottom py-3">
                     <div class="d-flex">
                         <div class="text-secondary">
-                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount }})</span></a><span class="mr-2"> |</span>
+                        <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount    }})</span></a><span class="mr-2"> |</span>
                             <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2  text-decoration-none text-green">
                                 Published <span class="ml-2">({{ $publishedCount }})</span>
                             </a>
@@ -49,7 +49,7 @@
                         <div class="ms-auto text-secondary">
 
                             <div class="d-flex justify-content-between align-items-center mb-3 ">
-                                <form method="GET" action="{{ route('river.blogs.search') }}" class="d-flex">
+                                <form method="GET" action="{{ route('river.blog.index') }}" class="d-flex">
                                     <input
                                         type="text"
                                         name="query"
@@ -71,6 +71,7 @@
                     <thead>
                         <tr>
                             <th>SL.</th>
+                            <th>Title</th>
                             <th>Slug</th>
                             <th>Image</th>
                             <th>Category</th>
@@ -83,6 +84,7 @@
                         @foreach($all as $key => $a)
                         <tr>
                             <td>{{ ++$key }}</td>
+                            <td>{{ $a->title }}</td>
                             <td>{{ $a->slug }}</td>
                             <td>
                                 <img src="/river/assets/{{ $a->image }}" style="width: 150px" />

@@ -20,36 +20,46 @@ class BlogController
 {
     public function index(Request $request)
     {
-
-
         if ($request->has('published')) {
             $all = Blog::where('is_published', 1)->paginate(20);
-        } elseif($request->has('draft')) {
+        } elseif ($request->has('draft')) {
             $all = Blog::where('is_published', 0)->paginate(20);
+        } elseif($request->input('query')) {
+
         } else{
-            $all = Blog::paginate(20);
+            $all = Blog::paginate(20);  // Fetch all blogs if no filter is applied
         }
 
-        $alls = Blog::with('tag')->get();
-
+        // Count values for top bar
+        $blogCount = Blog::count();  // Total blogs count
+        $publishedCount = Blog::where('is_published', 1)->count();  // Published blogs count
+        $draftCount = Blog::where('is_published', 0)->count();  // Draft blogs count
 
         $buttons = [
-            ['Add', route('river.blog.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],
-            // ['Export', route('river.datatypes.export'), 'btn btn-primary', '' /*label,link,class,id*/],
-            // ['Import', route('river.datatypes.import'), 'btn btn-primary', '' /*label,link,class,id*/],
-            // ['Download File', route('river.download.page'), 'btn btn-warning', '' /*label,link,class,id*/],
+            ['Add', route('river.blog.create'), 'btn btn-primary', 'btn-add-new'],
         ];
 
-        $publishedCount = Blog::where('is_published', 1)->count();
-        $draftCount = Blog::where('is_published', 0)->count();
+        if($request->input('query')){
+            $query = $request->input('query');
+
+            // Fetch blogs with optional search query
+            $all = Blog::when(
+                $query,
+                function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                }
+            )->paginate(10);
+        }
+
 
         $data = [
             'title' => 'Blogs',
             'all' => $all,
             '_top_buttons' => $buttons,
-            'blogCount' => Blog::count(),
+            'blogCount' => $blogCount,
             'publishedCount' => $publishedCount,
             'draftCount' => $draftCount,
+            // 'query' => $query,
         ];
 
         return view('river::admin.blogs.index', $data);
@@ -201,36 +211,23 @@ class BlogController
     }
 
 
+
+
+
     // public function search(Request $request)
     // {
-    //     // Get the search query from the request
     //     $query = $request->input('query');
 
-    //     // Fetch blogs where the title matches the query
-    //     $blogs = Blog::where('title', 'LIKE', '%' . $query . '%')->get();
+    //     // Fetch blogs with optional search query
+    //     $blogs = Blog::when($query,
+    //         function ($q) use ($query) {
+    //             $q->where('title', 'LIKE', '%' . $query . '%');
+    //         }
+    //     )->paginate(10);
 
-    //     // Return the view with search results and the original query
-    //     return view('blogs.index', [
-    //         'blogs' => $blogs,
+    //     return view('river::admin.blogs.index', [
+    //         'all' => $blogs,
     //         'query' => $query,
     //     ]);
     // }
-
-
-    public function search(Request $request)
-    {
-        $query = $request->input('query');
-
-        // Fetch blogs with optional search query
-        $blogs = Blog::when($query,
-            function ($q) use ($query) {
-                $q->where('title', 'LIKE', '%' . $query . '%');
-            }
-        )->paginate(10);
-
-        return view('river::admin.blogs.index', [
-            'all' => $blogs,
-            'query' => $query,
-        ]);
-    }
 }
