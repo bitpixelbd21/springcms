@@ -24,7 +24,9 @@ class BlogController
 
         if ($request->has('published')) {
             $all = Blog::where('is_published', 1)->paginate(20);
-        } else {
+        } elseif($request->has('draft')) {
+            $all = Blog::where('is_published', 0)->paginate(20);
+        } else{
             $all = Blog::paginate(20);
         }
 
@@ -39,6 +41,7 @@ class BlogController
         ];
 
         $publishedCount = Blog::where('is_published', 1)->count();
+        $draftCount = Blog::where('is_published', 0)->count();
 
         $data = [
             'title' => 'Blogs',
@@ -46,6 +49,7 @@ class BlogController
             '_top_buttons' => $buttons,
             'blogCount' => Blog::count(),
             'publishedCount' => $publishedCount,
+            'draftCount' => $draftCount,
         ];
 
         return view('river::admin.blogs.index', $data);

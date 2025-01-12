@@ -36,8 +36,12 @@
                     <div class="d-flex">
                         <div class="text-secondary">
                             <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount }})</span></a><span class="mr-2"> |</span>
-                            <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2">
+                            <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2  text-decoration-none text-green">
                                 Published <span class="ml-2">({{ $publishedCount }})</span>
+                            </a>
+                            <span class="mr-2"> |</span>
+                            <a href="{{ route('river.blog.index', ['draft' => 0]) }}" class="mr-2  text-decoration-none ">
+                                Draft <span class="ml-2">({{ $draftCount }})</span>
                             </a>
                             <span class="mr-2"> |</span>
                             <a href="#" class="mr-2 text-decoration-none text-red">Trashed <Span>(1)</Span></a>
