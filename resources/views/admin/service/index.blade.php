@@ -72,7 +72,7 @@
                 </div>
             </div>
             <!-- search option end -->
-             
+
             @if($all->count() == 0)
             @include('river::admin.partials.nodata', ['link' => route('river.service.create') ])
             @else
@@ -129,7 +129,7 @@
             </table>
             @endif
             <div class="card-body">
-                {{ $all->links('pagination::bootstrap-5') }}
+                {{ $all->appends(['query' => request('query')])->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

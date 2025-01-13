@@ -88,9 +88,9 @@
                             <td>{{ $a->author_id }}</td>
                             <td>
                                 @if($a->is_published == 1)
-                                <span class="badge bg-green text-green-fg px-2 py-2">Published</span>
+                                <span class="badge bg-green text-green-fg ">Published</span>
                                 @else
-                                <span class="badge bg-blue text-blue-fg px-2 py-2">Drafted</span>
+                                <span class="badge bg-blue text-blue-fg px-2">Drafted</span>
                                 @endif
                             </td>
                             <td>
