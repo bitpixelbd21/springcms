@@ -21,7 +21,7 @@ class BlogController
     {
 
         $queryStatus = 'all';
-       
+
 
         if ($request->input('status')) {
             $queryStatus = $request->input('status');
@@ -234,7 +234,16 @@ class BlogController
             ->with('success', 'Deleted!');
     }
 
+    public function show($slug ){
+        $all = Blog::find($slug);
 
+        $data = [
+            'title' =>   'Blog details',
+            'all' => $all
+        ];
+
+        return ('mamun');
+    }
 
 
 

@@ -50,7 +50,7 @@
                                 </label>
                             </div>
 
-                           
+
                             <div class="ms-auto text-secondary">
                                 <div class="d-flex justify-content-between align-items-center mb-3 ">
                                     <div class="d-flex">
@@ -75,17 +75,17 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="w-50">Title</th>
-                            <th>Category</th>
-                            <th>Author</th>
-                            <th>Is Published</th>
-                            <th>Action</th>
+                            <th class="w-50" style="font-size: 12px;">Title</th>
+                            <th style="font-size: 12px;">Category</th>
+                            <th style="font-size: 12px;">Author</th>
+                            <th style="font-size: 12px;">Is Published</th>
+                            <th style="font-size: 12px;">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($all as $key => $a)
                         <tr>
-                            <td>{{ Str::limit($a->title, '120')  }}</td>
+                            <td> <a class="text-decoration-none text-black" href="{{ route('river.blog.show', $a->slug) }}" data-href="{{ route('river.blog.show', $a->slug) }}" target="_blank" rel="noopener noreferrer">{{ Str::limit($a->title, '120')  }}</a></td>
                             <!-- <td>
                                 <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
                             </td> -->

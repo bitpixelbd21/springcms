@@ -109,7 +109,7 @@
                         <td>
                             <div class="d-flex justify-content-start">
                                 <div>
-                                    <a class="btn btn-sm btn-primary  px-3 py-1 rounded"
+                                    <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
                                         href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
                                 </div>
                                 <div class="mx-1">
