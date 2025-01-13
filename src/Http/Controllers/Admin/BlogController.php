@@ -13,21 +13,55 @@ use Illuminate\Support\Facades\File;
 use BitPixel\SpringCms\Models\Blog;
 use BitPixel\SpringCms\Models\BlogCategory;
 use BitPixel\SpringCms\Models\Tag;
-
-
+use Termwind\Components\Dd;
 
 class BlogController
 {
     public function index(Request $request)
     {
-        if ($request->has('published')) {
-            $all = Blog::where('is_published', 1)->paginate(20);
-        } elseif ($request->has('draft')) {
-            $all = Blog::where('is_published', 0)->paginate(20);
-        } elseif ($request->input('query')) {
-        } else {
-            $all = Blog::paginate(20);  // Fetch all blogs if no filter is applied
+
+        $queryStatus = 'all';
+       
+
+        if ($request->input('status')) {
+            $queryStatus = $request->input('status');
         }
+
+
+
+        if ($queryStatus == "all") {
+            $all = Blog::with('blogcategory');
+            if ($request->input('query')) {
+                $query = $request->input('query');
+                $all = $all->when($query, function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                })->paginate(20);
+            } else {
+                $all = $all->paginate(20);
+            }
+        } elseif ($queryStatus == "published") {
+            $all = Blog::where('is_published', 1);
+            if ($request->input('query')) {
+                $query = $request->input('query');
+                $all = $all->when($query, function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                })->paginate(20);
+            } else {
+                $all = $all->paginate(20);
+            }
+        } elseif ($queryStatus == "draft") {
+            $all = Blog::where('is_published', 0);
+            if ($request->input('query')) {
+                $query = $request->input('query');
+                $all = $all->when($query, function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                })->paginate(20);
+            } else {
+                $all = $all->paginate(20);
+            }
+        }
+
+
 
         // Count values for top bar
         $blogCount = Blog::count();  // Total blogs count
@@ -38,17 +72,6 @@ class BlogController
             ['Add', route('river.blog.create'), 'btn btn-primary', 'btn-add-new'],
         ];
 
-        if ($request->input('query')) {
-            $query = $request->input('query');
-
-            // Fetch blogs with optional search query
-            $all = Blog::when(
-                $query,
-                function ($q) use ($query) {
-                    $q->where('title', 'LIKE', '%' . $query . '%');
-                }
-            )->paginate(10);
-        }
 
 
         $data = [
@@ -58,8 +81,10 @@ class BlogController
             'blogCount' => $blogCount,
             'publishedCount' => $publishedCount,
             'draftCount' => $draftCount,
-       
+            'queryStatus' => $queryStatus
+
         ];
+
 
         return view('river::admin.blogs.index', $data);
     }

@@ -22,4 +22,8 @@ class BlogCategory extends Model
     // public function menuitem(){
     //     return $this->HasMany(MenuItem::class, 'menu_id');
     // }
+
+    public function blog(){
+        return $this->HasMany(Blog::class, 'category_id');
+    }
 }

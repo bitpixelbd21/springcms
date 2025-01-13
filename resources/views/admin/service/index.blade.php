@@ -94,7 +94,7 @@
                         <td>{{ $a->title }} </td>
                         <td> {{ $a->slug }} </td>
 
-                        <td> {{ $a->servicecategory ? $a->servicecategory->name : '' }}</td>
+                        <td> {{ $a->servicecategory ? $a->servicecategory->name : 'N/A' }}</td>
 
                         <td> {{ $a->sort_order}} </td>
 
