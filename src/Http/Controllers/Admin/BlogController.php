@@ -186,7 +186,7 @@ class BlogController
         $file->save();
 
         Cache::forget(Constants::CACHE_KEY_BLOG);
-        return redirect()->back()->with('success', 'Updated');
+        return redirect()->route('river.blog.index')->with('success', 'Updated');
     }
 
     public function destroy($id)
