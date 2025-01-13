@@ -96,10 +96,10 @@
                             <td>
                                 <div class="d-flex justify-content-start">
                                     <div>
-                                        <a class="btn btn-sm btn-primary px-3 py-2   badge"
+                                        <a class="btn btn-sm btn-secondary px-3 py-1 rounded"
                                             href="{{ route('river.blog.edit', $a->id) }}">Edit</a>
                                     </div>
-                                    <div class="mx-1">
+                                    <div class="mx-2">
                                         <a class="btn btn-sm btn-danger confirm-delete px-3 py-1 rounded" href="{{ route('river.blog.destroy', $a->id) }}"
                                             data-href="{{ route('river.blog.destroy', $a->id) }}">
                                             Delete
@@ -118,67 +118,6 @@
                 </div>
 
 
-
-                {{-- @if($all->count() == 0)
-                @include('river::admin.partials.nodata', ['link' => route('river.blog.create') ])
-                @else
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>SL. </th>
-                            <th> Slug</th>
-
-                            <th> Image</th>
-                            <th> Category</th>
-                            <th> Author</th>
-                            <th> Is Published</th>
-                            <th> Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($all as $key=>$a)
-                        <tr>
-                            <td>{{ ++$key }} </td>
-                <td>{{ $a->slug }} </td>
-
-                <td>
-                    <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
-                </td>
-                <td> {{ $a->category_id}}</td>
-                <td> {{ $a->author_id}}</td>
-
-                <td>
-                    @if($a->is_published == 1)
-                    <span class="badge bg-green text-green-fg">Published</span>
-                    @else
-                    <span class="badge bg-blue text-blue-fg">Draft</span>
-                    @endif
-                </td>
-
-                <td>
-                    <div class="d-flex justify-content-end">
-                        <div>
-                            <a class="btn btn-sm btn-primary"
-                                href="{{ route('river.blog.edit',$a->id) }}"> Edit</a>
-                        </div>
-                        <div class="mx-1">
-
-                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog.destroy',$a->id) }}"
-                                data-href="{{ route('river.blog.destroy',$a->id) }}">
-                                Delete
-                            </a>
-                        </div>
-                    </div>
-
-                </td>
-                </tr>
-                @endforeach
-                </tbody>
-                </table>
-                @endif
-                <div class="card-body">
-                    {{ $all->links('pagination::bootstrap-5') }}
-                </div> --}}
 
 
 

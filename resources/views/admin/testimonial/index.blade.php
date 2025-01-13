@@ -78,9 +78,9 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>SL. </th>
+                        <!-- <th>SL. </th> -->
                         <th> Name</th>
-                        <th> Image</th>
+                        <!-- <th> Image</th> -->
                         <th> Designation</th>
                         <th> message</th>
                         <th> sort_order</th>
@@ -91,23 +91,29 @@
                 <tbody>
                     @foreach($all as $key=>$a)
                     <tr>
-                        <td>{{ ++$key }} </td>
+                        <!-- <td>{{ ++$key }} </td> -->
                         <td>{{ $a->name }} </td>
-                        <td>
+                        <!-- <td>
                             <img src="{{$a->image}}" style="width: 150px" />
-                        </td>
+                        </td> -->
                         <td> {{$a->designation }}</td>
                         <td> {{$a->message }}</td>
                         <td> {{$a->sort_order }}</td>
-                        <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
                         <td>
-                            <div class="d-flex justify-content-end">
+                            @if($a->is_active == 1)
+                            <span class="badge bg-green text-green-fg px-2">Active</span>
+                            @else
+                            <span class="badge bg-blue text-blue-fg ">Inactive</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-start">
                                 <div>
-                                    <a class="btn btn-sm btn-primary"
+                                    <a class="btn btn-sm btn-primary  px-3 py-1 rounded"
                                         href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
                                 </div>
                                 <div class="mx-1">
-                                    <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.testimonial.destroy',$a->id) }}"
+                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.testimonial.destroy',$a->id) }}"
                                         data-href="{{ route('river.testimonial.destroy',$a->id) }}">
                                         Delete
                                     </a>
@@ -121,7 +127,7 @@
             </table>
             @endif
             <div class="card-body">
-                {{ $all->links('pagination::bootstrap-5') }}
+                {{ $all->appends(['query' => request('query')])->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

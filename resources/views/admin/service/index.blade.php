@@ -99,22 +99,22 @@
                         <td> {{ $a->sort_order}} </td>
 
                         <td>
-                            @if($a->is_published==1)
-                            <button class="btn btn-primary"> Yes</button>
+                            @if($a->is_published == 1)
+                            <span class="badge bg-green text-green-fg px-2">Active</span>
                             @else
-                            <button class="btn btn-danger"> No</button>
+                            <span class="badge bg-blue text-blue-fg ">Inactive</span>
                             @endif
                         </td>
 
                         <td>
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-start">
                                 <div>
-                                    <a class="btn btn-sm btn-primary"
+                                    <a class="btn btn-sm btn-secondary px-3 py-1 rounded"
                                         href="{{ route('river.service.edit',$a->id) }}"> Edit</a>
                                 </div>
                                 <div class="mx-1">
 
-                                    <a class="btn btn-sm btn-danger confirm-delete"
+                                    <a class="btn btn-sm btn-danger confirm-delete px-3 py-1 rounded"
                                         href="{{ route('river.service.destroy',$a->id) }}"
                                         data-href="{{ route('river.service.destroy',$a->id) }}">
                                         Delete
