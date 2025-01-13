@@ -58,7 +58,7 @@ class BlogController
             'blogCount' => $blogCount,
             'publishedCount' => $publishedCount,
             'draftCount' => $draftCount,
-            // 'query' => $query,
+       
         ];
 
         return view('river::admin.blogs.index', $data);

@@ -16,7 +16,7 @@ use BitPixel\SpringCms\Models\ServiceCategory;
 
 class ServiceController
 {
-    public function index()
+    public function index(Request $request)
     {
 
         // $all = Service::all();
@@ -28,6 +28,19 @@ class ServiceController
             // ['Import', route('river.datatypes.import'), 'btn btn-primary', '' /*label,link,class,id*/],
             // ['Download File', route('river.download.page'), 'btn btn-warning', '' /*label,link,class,id*/],
         ];
+
+        if ($request->input('query')) {
+            $query = $request->input('query');
+
+            // Fetch blogs with optional search query
+            $all = Service::when(
+                $query,
+                function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                }
+            )->paginate(10);
+        }
+
         $data = [
             'title' => 'Services',
             'all' => $all,

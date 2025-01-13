@@ -216,7 +216,7 @@ Route::group([
     Route::post('comments-approve/approves', [CommentController::class, 'approve'])->name('comments-approve.approves');
     Route::post('comments-pending/pending', [CommentController::class, 'pending'])->name('comments-pending.pending');
     // blog search
-    Route::get('blogs/search', [BlogController::class, 'search'])->name('blogs.search');
+    // Route::get('blogs/search', [BlogController::class, 'search'])->name('blogs.search');
 
 
     Route::resource('tag', TagController::class);
