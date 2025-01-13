@@ -24,9 +24,8 @@ class BlogController
             $all = Blog::where('is_published', 1)->paginate(20);
         } elseif ($request->has('draft')) {
             $all = Blog::where('is_published', 0)->paginate(20);
-        } elseif($request->input('query')) {
-
-        } else{
+        } elseif ($request->input('query')) {
+        } else {
             $all = Blog::paginate(20);  // Fetch all blogs if no filter is applied
         }
 
@@ -39,7 +38,7 @@ class BlogController
             ['Add', route('river.blog.create'), 'btn btn-primary', 'btn-add-new'],
         ];
 
-        if($request->input('query')){
+        if ($request->input('query')) {
             $query = $request->input('query');
 
             // Fetch blogs with optional search query
@@ -182,7 +181,7 @@ class BlogController
         $file->meta_description = $request->get('meta_description');
         $file->meta_image = $request->get('meta_image');
         $file->author_id = Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->id;
-        $file->is_published = $request->get('is_published');
+        $file->is_published = !empty($request->is_published) ? true : false;
         $file->published_at = $request->filled('is_published') ? date('Y-m-d') : null;
         $file->save();
 

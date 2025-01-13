@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- search option end -->
 
                 @if($all->count() == 0)
                 @include('river::admin.partials.nodata', ['link' => route('river.blog.create') ])
