@@ -188,7 +188,7 @@ class ServiceController
         $file->save();
 
         Cache::forget(Constants::CACHE_KEY_SERVICE);
-        return redirect()->back()->with('success', 'Updated');
+        return redirect()->route('river.service.index')->with('success', 'Updated');
 
     }
 
