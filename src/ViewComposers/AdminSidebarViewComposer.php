@@ -205,7 +205,8 @@ class AdminSidebarViewComposer
                 'is_active' =>
                     request()->routeIs('river.blog.*') ||
                     request()->routeIs('river.blog-category.*') ||
-                    request()->routeIs('river.tag.*'),
+                    request()->routeIs('river.tag.*') ||
+                    request()->routeIs('river.comments.*'),
                 'children' => [
                     [
                         'label' => ' All blogs',
