@@ -51,7 +51,7 @@ class AdminSidebarViewComposer
 
         $system_menus = [
             [
-                'label' => 'Website Settings',
+                'label' => 'Website',
                 'icon' => 'fas fa-tv',
                 'is_active' =>
                     request()->routeIs('river.sliders.*') ||
@@ -76,15 +76,15 @@ class AdminSidebarViewComposer
                         'is_active' => request()->routeIs('river.banners.*'),
                     ],
                     [
-                        'label' => 'Appearance',
+                        'label' => 'Settings',
                         'route' => 'river.store.front',
                         'is_active' => request()->routeIs('river.store.front'),
                     ],
-                    [
-                        'label' => 'Social Links',
-                        'route' => 'river.store-social-links',
-                        'is_active' => request()->routeIs('river.store-social-links'),
-                    ],
+                    // [
+                    //     'label' => 'Social Links',
+                    //     'route' => 'river.store-social-links',
+                    //     'is_active' => request()->routeIs('river.store-social-links'),
+                    // ],
                     [
                         'label' => 'Email settings',
                         'route' => 'river.store-email-setting',
