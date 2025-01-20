@@ -4,12 +4,12 @@
 @section('page-header')
 <x:river::header>
     <x-slot:title>
-        Backup
+        Site Backup
         </x-slot>
 
         <x-slot:breads>
             <li class="breadcrumb-item"><a href="{{route('river.admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="#">Backup</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#">Site Backup</a></li>
         </x-slot:breads>
 
         <x-slot:buttons>
@@ -32,8 +32,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center mb-3">
-                    <h4 class="mb-0">Site Backup</h4>
-                    <a class="btn btn-primary mx-3" href="{{ route('river.site-backup-store') }}">Download backup</a>
+                    <!-- <h4 class="mb-0">Site Backup</h4> -->
+                    <a class="btn btn-primary" href="{{ route('river.site-backup-store') }}">Download backup</a>
                 </div>
             </div>
         </div>
