@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <link href="/springcms/admin/assets/css/tabler.min.css" rel="stylesheet"/>
-    <link href="/springcms/admin/assets/css/tabler-flags.min.css" rel="stylesheet"/>
+    <!-- <link href="/springcms/admin/assets/css/tabler-flags.min.css" rel="stylesheet"/> -->
     <link href="/springcms/admin/assets/css/tabler-payments.min.css" rel="stylesheet"/>
     <link href="/springcms/admin/assets/css/tabler-vendors.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/springcms/admin/assets/css/toastr.min.css">
@@ -193,7 +193,7 @@
            var name_slug = $this.data('slug-field');
            $('input[name="'+name_slug+'"]').val(slug)
        });
-       
+
        $('.lfm-picker').filemanager('image', {prefix: window.hp_route_prefix});
     });
 </script>
