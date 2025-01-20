@@ -51,7 +51,9 @@ class BannersController extends Controller
      */
     public function store(Request $request, ImageUploadService $imageUploadService)
     {
-        $this->validate($request, [
+
+
+        $request->validate([
             'image' => 'required',
             'slug' => 'unique:river_banners'
         ]);
@@ -104,9 +106,12 @@ class BannersController extends Controller
      */
     public function update(Request $request, ImageUploadService $imageUploadService, $id)
     {
-        $this->validate($request, [
-            'slug' => 'unique:river_banners' . $id,
-        ]);
+        // $this->validate($request, [
+        //     'slug' => 'unique:river_banners' . $id,
+        // ]);
+        // $request->validate([
+        //     'slug' => 'unique:river_banners' . $id,
+        // ]);  
 
         $banner = Banner::find($id);
 
@@ -116,7 +121,7 @@ class BannersController extends Controller
         $banner->alt_text = $request->alt_text;
         $banner->save();
         Cache::forget(Constants::CACHE_KEY_BANNER);
-        return redirect()->route('river.banners.index')->with('success', 'Successfully Created Done!');
+        return redirect()->route('river.banners.index')->with('success', 'Successfully Updated Done!');
     }
 
     /**
