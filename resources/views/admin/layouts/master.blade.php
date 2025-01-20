@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <link href="/springcms/admin/assets/css/tabler.min.css" rel="stylesheet"/>
 
-    <link rel="stylesheet" type="text/css" href="/springcms/admin/assets/css/toastr.min.css">
     <link href="/springcms/admin/summernote-0.8.18-dist/summernote-bs5.min.css" rel="stylesheet">
     <link href="/springcms/admin/assets/css/toastr.min.css" rel="stylesheet"/>
 
