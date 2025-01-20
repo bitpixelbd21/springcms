@@ -2,6 +2,31 @@
 
 @section('website_setup') active pcoded-trigger @stop
 
+@section('page-header')
+<x:river::header>
+    <x-slot:title>
+        Email Settings
+        </x-slot>
+
+        <x-slot:breads>
+            <li class="breadcrumb-item"><a href="{{route('river.admin.dashboard')}}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#">Email Settings</a></li>
+        </x-slot:breads>
+
+        <x-slot:buttons>
+            <a class="btn btn-primary d-none d-sm-inline-block" id="btn-add-new">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Add new
+            </a>
+        </x-slot:buttons>
+
+</x:river::header>
+@stop
+
 @section('content')
 <div class="container-xl">
     <div class="row row-cards">
