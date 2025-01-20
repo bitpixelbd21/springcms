@@ -63,7 +63,7 @@ class TestimonialController
 
         $request->validate([
             'name' => 'required',
-            'required' => 'required' //TODO no space, valid blade file name
+            // 'required' => 'required' //TODO no space, valid blade file name
         ]);
 
         if ( $request->has('is_active')) {
@@ -102,7 +102,7 @@ class TestimonialController
     {
         $request->validate([
             'name' => 'required',
-            'required' => 'required'
+            // 'required' => 'required'
 
         ]);
 

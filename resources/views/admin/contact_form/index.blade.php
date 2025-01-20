@@ -37,7 +37,7 @@
         <div class="col-md-12">
             <div class="card">
                 @if($all->count() == 0)
-                @include('river::admin.partials.nodata', ['link' => nullh])
+                @include('river::admin.partials.nodata', ['link' => null])
                 @else
                 <table class="table">
                     <thead>
