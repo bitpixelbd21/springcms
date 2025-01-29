@@ -240,6 +240,12 @@ class AdminSidebarViewComposer
                 'route' => 'river.testimonial.index'
             ],
             [
+                'label' => 'API',
+                'icon' => 'fa-solid fa-comment-dots',
+                'is_active' => request()->routeIs('river.testimonial.*'),
+                'route' => 'river.testimonial.index'
+            ],
+            [
                 'label' => 'Service',
                 'icon' => 'fas fa-headset',
                 'is_active' =>
