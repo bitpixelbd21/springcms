@@ -23,7 +23,7 @@ class InstallController
     public function checkRequirements(Request $request)
     {
         $requirements = [
-            'PHP >= 8.0' => version_compare(PHP_VERSION, '8.0.0', '>='),
+            'PHP >= 8.2' => version_compare(PHP_VERSION, '8.2.0', '>='),
             'PDO Extension' => extension_loaded('pdo'),
             'OpenSSL Extension' => extension_loaded('openssl'),
             'Mbstring Extension' => extension_loaded('mbstring'),

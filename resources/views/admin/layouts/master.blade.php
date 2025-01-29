@@ -8,19 +8,13 @@
 
     <link rel="icon" type="image/png" href="{{river_settings('favicon')}}" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="theme-color" content="{{river_settings('theme_color')}}" />
 
-    <!-- CSS files -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
     <link href="/springcms/admin/assets/css/tabler.min.css" rel="stylesheet"/>
-
-    <link href="/springcms/admin/summernote-0.8.18-dist/summernote-bs5.min.css" rel="stylesheet">
-    <link href="/springcms/admin/assets/css/toastr.min.css" rel="stylesheet"/>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
-
-
 
     @routes
 
@@ -48,19 +42,14 @@
 
 <!-- Libs JS -->
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
-<script src="/springcms/admin/assets/js/toastr.min.js"></script>
-<script src="/springcms/admin/summernote-0.8.18-dist/summernote-bs5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/springcms/admin/dynamic-form.js" defer></script>
 <script src="https://cdn.tiny.cloud/1/49zw3h254k19bwnkh8tl02reg0pb5t75ndy9nm01w6afbql3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Tabler Core -->
-<script src="/springcms/admin/assets/js/tabler.min.js" defer></script>
-<script src="/springcms/admin/assets/js/demo.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/js/tabler.min.js"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/adapters/jquery.js"></script>
-{{--<script src="{{ asset('vendor/file-manager/js/file-manager.js') }}"></script>--}}
 
 <script>
     //single image preview
