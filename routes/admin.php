@@ -1,5 +1,6 @@
 <?php
 
+use BitPixel\SpringCms\Http\Controllers\Admin\ApiController;
 use BitPixel\SpringCms\Http\Controllers\Admin\FileUploadController;
 use BitPixel\SpringCms\Http\Controllers\Admin\GitHubController;
 use BitPixel\SpringCms\Http\Controllers\Admin\InstallController;
@@ -222,6 +223,8 @@ Route::group([
     Route::resource('tag', TagController::class);
 
     Route::resource('testimonial', TestimonialController::class);
+
+    Route::resource('api', ApiController::class);
 
     //service
     Route::resource('service', ServiceController::class);

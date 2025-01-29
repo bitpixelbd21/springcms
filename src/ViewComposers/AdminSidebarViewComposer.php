@@ -242,8 +242,8 @@ class AdminSidebarViewComposer
             [
                 'label' => 'API',
                 'icon' => 'fa-solid fa-comment-dots',
-                'is_active' => request()->routeIs('river.testimonial.*'),
-                'route' => 'river.testimonial.index'
+                'is_active' => request()->routeIs('river.api.*'),
+                'route' => 'river.api.index'
             ],
             [
                 'label' => 'Service',
