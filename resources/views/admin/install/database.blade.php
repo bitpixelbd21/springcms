@@ -160,7 +160,7 @@
       db_password: dbPassword,
       //create_database: createDatabase,
     };
-    fetch("{{ route('install.testDatabaseConnection') }}", {
+    fetch("/install/test-db", {
         method: 'POST',
         headers: {
           'X-CSRF-TOKEN': "{{ csrf_token() }}",
