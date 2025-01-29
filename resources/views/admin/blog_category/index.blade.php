@@ -35,58 +35,59 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => route('river.blog-category.create') ])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>SL. </td>
-                                <td> Name</td>
-                                <td>Slug</td>
-                                <td> Parent </td>
-                                <td> Is Active</td>
-                                <td> Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $key=>$a)
-                            <tr>
-                                <td>{{ ++$key }} </td>
-                                <td>{{ $a->name }} </td>
-                                <td>{{ $a->slug }} </td>
-                                <td>
-                                    @if($a->parent_id==0)
-                                    {{ '' }}
-                                    @else
-                                    {{ $a->parent_id }}
-                                    @endif
-                                </td>
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.blog-category.create') ])
+                @else
+                <table class="table table-vcenter card-table">
+                    <thead>
+                        <tr>
+                            <th>SL. </th>
+                            <th> Name</th>
+                            <th>Slug</th>
+                            <th> Parent </th>
+                            <th> Is Active</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
+                        <tr>
+                            <td>{{ ++$key }} </td>
+                            <td>{{ $a->name }} </td>
+                            <td>{{ $a->slug }} </td>
+                            <td>
+                                @if($a->parent_id==0)
+                                {{ '' }}
+                                @else
+                                {{ $a->parent_id }}
+                                @endif
+                            </td>
 
-                                <td>{{ ($a->is_active==1)?'Active':'Inactive' }} </td>
+                            <td>{{ ($a->is_active==1)?'Active':'Inactive' }} </td>
 
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <div>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('river.blog-category.edit',$a->id) }}"> Edit</a>
-                                        </div>
-                                        <div class="mx-1">
-
-                                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog-category.destroy',$a->id) }}"
-                                                data-href="{{ route('river.blog-category.destroy',$a->id) }}">
-                                                Delete
-                                            </a>
-                                        </div>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.blog-category.edit',$a->id) }}"> Edit</a>
                                     </div>
+                                    <div class="mx-1">
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.blog-category.destroy',$a->id) }}"
+                                            data-href="{{ route('river.blog-category.destroy',$a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+                    {{ $all->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

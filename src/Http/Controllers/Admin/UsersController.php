@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use BitPixel\SpringCms\Constants;
 use BitPixel\SpringCms\Models\Admin;
 use BitPixel\SpringCms\Models\Role;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -20,7 +21,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = Admin::where('id' ,'!=',Auth::guard(Constants::AUTH_GUARD_ADMINS)->id())->get();
+        $users = Admin::where('id' ,'!=',Auth::guard(Constants::AUTH_GUARD_ADMINS)->id())->paginate(20);
 
         $buttons = [
             ['Add New',route('river.users.create'), 'btn btn-primary', 'btn-add-new'],
@@ -62,7 +63,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        //dd($request->all());
+        $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
@@ -109,10 +111,11 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required|string|max:100',
             'email'  =>  'required|email|max:255||unique:users,id,'.$id,
         ]);
+
 
         $user = Admin::FindOrFail($id);
         $user->name = $request->name;

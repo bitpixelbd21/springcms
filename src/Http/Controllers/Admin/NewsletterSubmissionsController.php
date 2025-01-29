@@ -12,7 +12,7 @@ class NewsletterSubmissionsController extends Controller
 {
     public function index()
     {
-        $value= NewsletterSubmissions::all();
+        $value= NewsletterSubmissions::paginate(20);
         $data = [
             'title' => 'Newsletter Submissions',
             'value' => $value

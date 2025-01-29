@@ -35,43 +35,44 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => null])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Slug</th>
+                            <th scope="col" style="width: 5%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $a)
+                        <tr>
+                            <td>
+                                {{$a->singular}}
+                            </td>
+                            <td>
+                                {{$a->slug}}
+                            </td>
+                            <td>
+                                <div class="btn-list flex-nowrap">
+                                    <a href="{{route('river.datatypes.edit', $a->id)}}" class="btn btn-sm btn-info">
+                                        Edit
+                                    </a>
+                                    <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.datatypes.destroy', $a->id) }}"
+                                        data-href="{{ route('river.datatypes.destroy', $a->id) }}">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
                 <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => null])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Type</th>
-                                <th>Slug</th>
-                                <th scope="col" style="width: 5%"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $a)
-                            <tr>
-                                <td>
-                                    {{$a->singular}}
-                                </td>
-                                <td>
-                                    {{$a->slug}}
-                                </td>
-                                <td>
-                                    <div class="btn-list flex-nowrap">
-                                        <a href="{{route('river.datatypes.edit', $a->id)}}" class="btn btn-sm btn-info">
-                                            Edit
-                                        </a>
-                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.datatypes.destroy', $a->id) }}"
-                                            data-href="{{ route('river.datatypes.destroy', $a->id) }}">
-                                            Delete
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                    {{ $all->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

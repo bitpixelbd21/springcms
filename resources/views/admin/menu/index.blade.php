@@ -35,49 +35,50 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => route('river.menu.create') ])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>SL. </td>
-                                <td> Name</td>
-                                <td> Slug</td>
-                                <td> is Active</td>
-                                <td> Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $key=>$a)
-                            <tr>
-                                <td>{{ ++$key }} </td>
-                                <td>{{ $a->name }} </td>
-                                <td> {{ $a->slug }}</td>
-                                <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.menu.create') ])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL. </th>
+                            <th> Name</th>
+                            <th> Slug</th>
+                            <th> is Active</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
+                        <tr>
+                            <td>{{ ++$key }} </td>
+                            <td>{{ $a->name }} </td>
+                            <td> {{ $a->slug }}</td>
+                            <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
 
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <div>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('river.menu.edit',$a->id) }}"> Edit</a>
-                                        </div>
-                                        <div class="mx-1">
-
-                                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.menu.destroy',$a->id) }}"
-                                                data-href="{{ route('river.menu.destroy',$a->id) }}">
-                                                Delete
-                                            </a>
-                                        </div>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.menu.edit',$a->id) }}"> Edit</a>
                                     </div>
+                                    <div class="mx-1">
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                                        <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.menu.destroy',$a->id) }}"
+                                            data-href="{{ route('river.menu.destroy',$a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+                    {{ $all->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

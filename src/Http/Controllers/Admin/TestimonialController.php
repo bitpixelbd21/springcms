@@ -14,15 +14,28 @@ use BitPixel\SpringCms\Models\Testimonial;
 
 class TestimonialController
 {
-    public function index()
+    public function index(Request $request)
     {
 
-        $all = Testimonial::all();
+        $all = Testimonial::paginate(20);
 
         $buttons = [
             ['Add Testimonial', route('river.testimonial.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],
 
         ];
+
+        if ($request->input('query')) {
+            $query = $request->input('query');
+
+            // Fetch blogs with optional search query
+            $all = Testimonial::when(
+                $query,
+                function ($q) use ($query) {
+                    $q->where('name', 'LIKE', '%' . $query . '%');
+                }
+            )->paginate(10);
+        }
+
         $data = [
             'title' => 'Testimonial',
             'all' => $all,
@@ -50,7 +63,7 @@ class TestimonialController
 
         $request->validate([
             'name' => 'required',
-            'required' => 'required' //TODO no space, valid blade file name
+            // 'required' => 'required' //TODO no space, valid blade file name
         ]);
 
         if ( $request->has('is_active')) {
@@ -89,7 +102,7 @@ class TestimonialController
     {
         $request->validate([
             'name' => 'required',
-            'required' => 'required'
+            // 'required' => 'required'
 
         ]);
 

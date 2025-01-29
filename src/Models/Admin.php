@@ -16,7 +16,7 @@ class Admin extends Authenticatable
     ];
 
     public function blog(){
-        return $this->hasOne(Blog::class, 'author_id');
+        return $this->hasMany(Blog::class, 'author_id');
     }
 //    public $timestamps = false;
 }

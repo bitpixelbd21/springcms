@@ -17,7 +17,7 @@ class RiverPagesController extends Controller
      */
     public function index()
     {
-        $riverPages = RiverPage::all();
+        $riverPages = RiverPage::paginate(20);
         $buttons = [
             ['Add New', route('river.pages.create'), 'btn btn-primary', 'btn-add-new'],
         ];
@@ -56,7 +56,7 @@ class RiverPagesController extends Controller
     {
 
 
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
             'slug'  => 'required'
         ]);
@@ -118,7 +118,7 @@ class RiverPagesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate( [
             'title' => 'required',
             'slug'  => 'required'
         ]);

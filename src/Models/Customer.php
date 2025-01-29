@@ -51,4 +51,9 @@ class Customer extends Authenticatable
     {
         return Cache::has('user_online_check' . $this->id);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

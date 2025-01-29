@@ -19,7 +19,7 @@ class TagController
     {
 
 
-        $all = Tag::all();
+        $all = Tag::paginate(20);
 
         $buttons = [
             ['Add', route('river.tag.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],

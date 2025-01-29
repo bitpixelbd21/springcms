@@ -13,31 +13,78 @@ use Illuminate\Support\Facades\File;
 use BitPixel\SpringCms\Models\Blog;
 use BitPixel\SpringCms\Models\BlogCategory;
 use BitPixel\SpringCms\Models\Tag;
-
-
+use Termwind\Components\Dd;
 
 class BlogController
 {
-    public function index()
+    public function index(Request $request)
     {
 
+        $queryStatus = 'all';
 
-        $all = Blog::all();
 
-        $alls = Blog::with('tag')->get();
+        if ($request->input('status')) {
+            $queryStatus = $request->input('status');
+        }
 
+
+
+        if ($queryStatus == "all") {
+            $all = Blog::with('blogcategory');
+            if ($request->input('query')) {
+                $query = $request->input('query');
+                $all = $all->when($query, function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                })->paginate(20);
+            } else {
+                $all = $all->paginate(20);
+            }
+        } elseif ($queryStatus == "published") {
+            $all = Blog::where('is_published', 1);
+            if ($request->input('query')) {
+                $query = $request->input('query');
+                $all = $all->when($query, function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                })->paginate(20);
+            } else {
+                $all = $all->paginate(20);
+            }
+        } elseif ($queryStatus == "draft") {
+            $all = Blog::where('is_published', 0);
+            if ($request->input('query')) {
+                $query = $request->input('query');
+                $all = $all->when($query, function ($q) use ($query) {
+                    $q->where('title', 'LIKE', '%' . $query . '%');
+                })->paginate(20);
+            } else {
+                $all = $all->paginate(20);
+            }
+        }
+
+
+
+        // Count values for top bar
+        $blogCount = Blog::count();  // Total blogs count
+        $publishedCount = Blog::where('is_published', 1)->count();  // Published blogs count
+        $draftCount = Blog::where('is_published', 0)->count();  // Draft blogs count
 
         $buttons = [
-            ['Add', route('river.blog.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],
-            // ['Export', route('river.datatypes.export'), 'btn btn-primary', '' /*label,link,class,id*/],
-            // ['Import', route('river.datatypes.import'), 'btn btn-primary', '' /*label,link,class,id*/],
-            // ['Download File', route('river.download.page'), 'btn btn-warning', '' /*label,link,class,id*/],
+            ['Add', route('river.blog.create'), 'btn btn-primary', 'btn-add-new'],
         ];
+
+
+
         $data = [
             'title' => 'Blogs',
             'all' => $all,
-            '_top_buttons' => $buttons
+            '_top_buttons' => $buttons,
+            'blogCount' => $blogCount,
+            'publishedCount' => $publishedCount,
+            'draftCount' => $draftCount,
+            'queryStatus' => $queryStatus
+
         ];
+
 
         return view('river::admin.blogs.index', $data);
     }
@@ -159,12 +206,12 @@ class BlogController
         $file->meta_description = $request->get('meta_description');
         $file->meta_image = $request->get('meta_image');
         $file->author_id = Auth::guard(Constants::AUTH_GUARD_ADMINS)->user()->id;
-        $file->is_published = $request->get('is_published');
+        $file->is_published = !empty($request->is_published) ? true : false;
         $file->published_at = $request->filled('is_published') ? date('Y-m-d') : null;
         $file->save();
 
         Cache::forget(Constants::CACHE_KEY_BLOG);
-        return redirect()->back()->with('success', 'Updated');
+        return redirect()->route('river.blog.index')->with('success', 'Updated');
     }
 
     public function destroy($id)
@@ -186,4 +233,34 @@ class BlogController
         return redirect(route('river.blog.index'))
             ->with('success', 'Deleted!');
     }
+
+    public function show($slug ){
+        $all = Blog::find($slug);
+
+        $data = [
+            'title' =>   'Blog details',
+            'all' => $all
+        ];
+
+        return ('mamun');
+    }
+
+
+
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('query');
+
+    //     // Fetch blogs with optional search query
+    //     $blogs = Blog::when($query,
+    //         function ($q) use ($query) {
+    //             $q->where('title', 'LIKE', '%' . $query . '%');
+    //         }
+    //     )->paginate(10);
+
+    //     return view('river::admin.blogs.index', [
+    //         'all' => $blogs,
+    //         'query' => $query,
+    //     ]);
+    // }
 }

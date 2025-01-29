@@ -36,48 +36,49 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                        @include('river::admin.partials.nodata', ['link' => null ])
-                    @else
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td>SL. </td>
-                                    <td> Name</td>
-                                    <td> is Active</td>
-                                    <td> Notification email</td>
-                                    <td> Action</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($all as $key=>$a)
-                                <tr>
-                                    <td>{{ ++$key }} </td>
-                                    <td>{{ $a->name }} </td>
-                                    <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
-                                    <td> {{ $a->email }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-end">
-                                            <div>
-                                                <a class="btn btn-sm btn-primary"
-                                                    href="{{ route('river.contact-form.edit',$a->id) }}"> Edit</a>
-                                            </div>
-                                            <div class="mx-1">
-                                                <form method="POST" action={{ route('river.contact-form.destroy',$a->id)}}>
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="btn btn-sm btn-danger"> Delete </button>
-                                                </form>
-                                            </div>
-                                        </div>
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => null])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL. </th>
+                            <th> Name</th>
+                            <th> is Active</th>
+                            <th> Notification email</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
+                        <tr>
+                            <td>{{ ++$key }} </td>
+                            <td>{{ $a->name }} </td>
+                            <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
+                            <td> {{ $a->email }}</td>
+                            <td>
+                                <div class="d-flex justify-content-end">
+                                    <div>
+                                        <a class="btn btn-sm btn-primary"
+                                            href="{{ route('river.contact-form.edit',$a->id) }}"> Edit</a>
+                                    </div>
+                                    <div class="mx-1">
+                                        <form method="POST" action={{ route('river.contact-form.destroy',$a->id)}}>
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-sm btn-danger"> Delete </button>
+                                        </form>
+                                    </div>
+                                </div>
 
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+                    {{ $all->links('pagination::bootstrap-5') }}
                 </div>
             </div>
         </div>

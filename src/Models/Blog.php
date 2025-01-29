@@ -30,4 +30,8 @@ class Blog extends Model
     public function admin(){
         return $this->belongsTo(Admin::class, 'author_id');
     }
+
+    public function blogcategory(){
+        return $this->belongsTo(BlogCategory::class, 'category_id');
+    }
 }

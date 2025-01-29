@@ -35,59 +35,103 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    @if($all->count() == 0)
-                    @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
-                    @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>SL. </td>
-                                <td> Name</td>
-                                <td> Image</td>
-                                <td> Designation</td>
-                                <td> message</td>
-                                <td> sort_order</td>
-                                <td> is Active</td>
-                                <td> Action</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($all as $key=>$a)
-                            <tr>
-                                <td>{{ ++$key }} </td>
-                                <td>{{ $a->name }} </td>
-                                <td>
-                                    <img src="{{$a->image}}" style="width: 150px" />
-                                </td>
-                                <td> {{$a->designation }}</td>
-                                <td> {{$a->message }}</td>
-                                <td> {{$a->sort_order }}</td>
-                                <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
-                                <td>
-                                    <div class="d-flex justify-content-end">
-                                        <div>
-                                            <a class="btn btn-sm btn-primary"
-                                                href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
-                                        </div>
-                                        <div class="mx-1">
-                                            <a class="btn btn-sm btn-danger confirm-delete" href="{{ route('river.testimonial.destroy',$a->id) }}"
-                                                data-href="{{ route('river.testimonial.destroy',$a->id) }}">
-                                                Delete
-                                            </a>
-                                        </div>
-                                    </div>
+                <!--  search option start-->
+                <div class="card-body border-bottom py-3">
+                    <div class="d-flex">
+                        <!-- count area start -->
+                        {{-- <div class="text-secondary">
+                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount    }})</span></a><span class="mr-2"> |</span>
+                        <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2  text-decoration-none text-green">
+                            Published <span class="ml-2">({{ $publishedCount }})</span>
+                        </a>
+                        <span class="mr-2"> |</span>
+                        <a href="{{ route('river.blog.index', ['draft' => 0]) }}" class="mr-2  text-decoration-none ">
+                            Draft <span class="ml-2">({{ $draftCount }})</span>
+                        </a>
+                        <span class="mr-2"> |</span>
+                        <a href="#" class="mr-2 text-decoration-none text-red">Trashed <Span>(1)</Span></a>
+                    </div> --}}
+                    <!-- count area end -->
 
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
+                    <!-- search area start -->
+                    <div class="ms-auto text-secondary">
+                        <div class="d-flex justify-content-between align-items-center ">
+                            <form method="GET" action="{{ route('river.testimonial.index') }}" class="d-flex">
+                                <input
+                                    type="text"
+                                    name="query"
+                                    class="form-control form-control-sm"
+                                    placeholder="Search Testimonial"
+                                    value="{{ request('query') }}" />
+                                <button type="submit" class="btn btn-primary btn-sm ms-2">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- search area end -->
                 </div>
+            </div>
+            <!-- search option end -->
+
+            @if($all->count() == 0)
+            @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
+            @else
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- <th>SL. </th> -->
+                        <th> Name</th>
+                        <!-- <th> Image</th> -->
+                        <th> Designation</th>
+                        <th> message</th>
+                        <th> sort_order</th>
+                        <th> is Active</th>
+                        <th> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($all as $key=>$a)
+                    <tr>
+                        <!-- <td>{{ ++$key }} </td> -->
+                        <td>{{ $a->name }} </td>
+                        <!-- <td>
+                            <img src="{{$a->image}}" style="width: 150px" />
+                        </td> -->
+                        <td> {{$a->designation }}</td>
+                        <td> {{$a->message }}</td>
+                        <td> {{$a->sort_order }}</td>
+                        <td>
+                            @if($a->is_active == 1)
+                            <span class="badge bg-green text-green-fg px-2">Active</span>
+                            @else
+                            <span class="badge bg-blue text-blue-fg ">Inactive</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-start">
+                                <div>
+                                    <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
+                                        href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
+                                </div>
+                                <div class="mx-1">
+                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.testimonial.destroy',$a->id) }}"
+                                        data-href="{{ route('river.testimonial.destroy',$a->id) }}">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
+            <div class="card-body">
+                {{ $all->appends(['query' => request('query')])->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
+</div>
 </div>
 @stop
 

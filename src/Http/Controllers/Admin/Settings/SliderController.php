@@ -36,7 +36,12 @@ class SliderController extends Controller
     public function store(Request $request, ImageUploadService $imageUploadService)
     {
         // dd($request->all());
-        $this->validate($request, [
+        // $this->validate($request, [
+        //     'image' => 'required',
+        //     'group' => 'required'
+        // ]);
+
+        $request->validate([
             'image' => 'required',
             'group' => 'required'
         ]);

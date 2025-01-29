@@ -57,7 +57,7 @@
                                     <div class="form-group mb-3 row">
                                         <label class="col-3 col-form-label ">Sort Order</label>
                                         <div class="col">
-                                            <input type="text" class="form-control" name="sort_order"
+                                            <input type="number" class="form-control" name="sort_order"
                                                    value="{{ $type->sort_order }}">
                                         </div>
                                     </div>
