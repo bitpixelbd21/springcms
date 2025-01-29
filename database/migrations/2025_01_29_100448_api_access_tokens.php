@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('token')->unique();
             // $table->timestamp('created_at')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(0);
             $table->timestamp('expires_at')->nullable();
-            $table->boolean('is_read_only')->default(false);
+            $table->boolean('is_read_only')->default(0);
             $table->timestamps();
         });
     }

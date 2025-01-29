@@ -10,11 +10,11 @@
 
         <x-slot:breads>
             <li class="breadcrumb-item"><a href="{{route('river.admin.dashboard')}}">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="#">Testimonials</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#">API Access Token</a></li>
         </x-slot:breads>
 
         <x-slot:buttons>
-            <a href="{{route('river.testimonial.create')}}" class="btn btn-primary d-none d-sm-inline-block">
+            <a href="{{route('river.api.create')}}" class="btn btn-primary d-none d-sm-inline-block">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
@@ -78,27 +78,18 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <!-- <th>SL. </th> -->
-                        <th> Name</th>
-                        <!-- <th> Image</th> -->
-                        <th> Designation</th>
-                        <th> message</th>
-                        <th> sort_order</th>
-                        <th> is Active</th>
+                        <th> Token</th>
+                        <th> Is Active</th>
+                        <th> Is Read Only</th>
+                        <th> Created At</th>
+                        <th> Expired At</th>
                         <th> Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($all as $key=>$a)
                     <tr>
-                        <!-- <td>{{ ++$key }} </td> -->
-                        <td>{{ $a->name }} </td>
-                        <!-- <td>
-                            <img src="{{$a->image}}" style="width: 150px" />
-                        </td> -->
-                        <td> {{$a->designation }}</td>
-                        <td> {{$a->message }}</td>
-                        <td> {{$a->sort_order }}</td>
+                        <td>{{ Str::limit($a->token, 40) }} </td>
                         <td>
                             @if($a->is_active == 1)
                             <span class="badge bg-green text-green-fg px-2">Active</span>
@@ -107,14 +98,23 @@
                             @endif
                         </td>
                         <td>
+                            @if($a->is_read_only == 1)
+                            <span class="badge bg-green text-green-fg px-2">Read</span>
+                            @else
+                            <span class="badge bg-blue text-blue-fg ">Not Read</span>
+                            @endif
+                        </td>
+                        <td> {{$a->created_at }}</td>
+                        <td> {{$a->expires_at }}</td>
+                        <td>
                             <div class="d-flex justify-content-start">
                                 <div>
                                     <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
-                                        href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
+                                        href="{{ route('river.api.edit',$a->id) }}"> Edit</a>
                                 </div>
                                 <div class="mx-1">
-                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.testimonial.destroy',$a->id) }}"
-                                        data-href="{{ route('river.testimonial.destroy',$a->id) }}">
+                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.api.destroy',$a->id) }}"
+                                        data-href="{{ route('river.api.destroy',$a->id) }}">
                                         Delete
                                     </a>
                                 </div>
