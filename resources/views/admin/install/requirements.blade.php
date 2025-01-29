@@ -74,7 +74,7 @@
               {{-- <a href="#" class="btn btn-link link-secondary">
                 Set up later
               </a> --}}
-              <a href="{{ route('install.database') }}" class="btn btn-primary">
+              <a href="/install/check-requirements" class="btn btn-primary">
                 Next
               </a>
             </div>
