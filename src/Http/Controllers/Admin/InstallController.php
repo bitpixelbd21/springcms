@@ -30,6 +30,7 @@ class InstallController
             'Tokenizer Extension' => extension_loaded('tokenizer'),
             'JSON Extension' => extension_loaded('json'),
             'cURL Extension' => extension_loaded('curl'),
+            'Zip Extension' => extension_loaded('zip'),
             'Writable Storage Directory' => is_writable(storage_path()),
         ];
 

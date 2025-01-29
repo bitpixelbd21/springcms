@@ -74,7 +74,7 @@
               {{-- <a href="#" class="btn btn-link link-secondary">
                 Set up later
               </a> --}}
-              <a href="/install/check-requirements" class="btn btn-primary">
+              <a href="{{ route('install.database') }}" class="btn btn-primary">
                 Next
               </a>
             </div>
@@ -86,7 +86,7 @@
 @push('scripts')
 <script>
       document.addEventListener('DOMContentLoaded', function () {
-        fetch("{{ route('install.checkRequirements') }}")
+        fetch("/install/check-requirements")
           .then(response => response.json())
           .then(data => {
               let list = document.getElementById('requirements-list');
