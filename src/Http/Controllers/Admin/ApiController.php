@@ -89,10 +89,7 @@ class ApiController
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'token' => 'required',
 
-        ]);
 
         // if ( $request->has('is_active')) {
         //     $is_active = 1;
@@ -101,8 +98,9 @@ class ApiController
         //  }
 
         $file = ApiAccessToken::find($id);
-        $file->token = $request->get('token');
+        // $file->token = $request->get('token');
         // $file->image = $request->get('image');
+        $file->name = $request->get('name');
         $file->expires_at = $request->get('expires_at');
         $file->created_at = $request->get('created_at');
         $file->is_active =  $request->get('is_active');

@@ -57,6 +57,7 @@ class AdminSidebarViewComposer
                     request()->routeIs('river.sliders.*') ||
                     request()->routeIs('river.banners.*')||
                     request()->routeIs('river.store.front')||
+                    request()->routeIs('river.api.index')||
                     request()->routeIs('river.store-social-links')||
                     request()->routeIs('river.store-email-setting')||
                     request()->routeIs('river.site-backup')||
@@ -79,6 +80,12 @@ class AdminSidebarViewComposer
                         'label' => 'Settings',
                         'route' => 'river.store.front',
                         'is_active' => request()->routeIs('river.store.front'),
+                    ],
+                    [
+                        'label' => 'API',
+                        'icon' => 'fa-solid fa-comment-dots',
+                        'is_active' => request()->routeIs('river.api.*'),
+                        'route' => 'river.api.index'
                     ],
                     // [
                     //     'label' => 'Social Links',
@@ -239,12 +246,12 @@ class AdminSidebarViewComposer
                 'is_active' => request()->routeIs('river.testimonial.*'),
                 'route' => 'river.testimonial.index'
             ],
-            [
-                'label' => 'API',
-                'icon' => 'fa-solid fa-comment-dots',
-                'is_active' => request()->routeIs('river.api.*'),
-                'route' => 'river.api.index'
-            ],
+            // [
+            //     'label' => 'API',
+            //     'icon' => 'fa-solid fa-comment-dots',
+            //     'is_active' => request()->routeIs('river.api.*'),
+            //     'route' => 'river.api.index'
+            // ],
             [
                 'label' => 'Service',
                 'icon' => 'fas fa-headset',

@@ -35,103 +35,71 @@
     <div class="row row-cards">
         <div class="col-md-12">
             <div class="card">
-                <!--  search option start-->
-                <div class="card-body border-bottom py-3">
-                    <div class="d-flex">
-                        <!-- count area start -->
-                        {{-- <div class="text-secondary">
-                            <a href="{{ route('river.blog.index') }}" class="text-black mr-2 text-decoration-none">All <span>({{ $blogCount    }})</span></a><span class="mr-2"> |</span>
-                        <a href="{{ route('river.blog.index', ['published' => 1]) }}" class="mr-2  text-decoration-none text-green">
-                            Published <span class="ml-2">({{ $publishedCount }})</span>
-                        </a>
-                        <span class="mr-2"> |</span>
-                        <a href="{{ route('river.blog.index', ['draft' => 0]) }}" class="mr-2  text-decoration-none ">
-                            Draft <span class="ml-2">({{ $draftCount }})</span>
-                        </a>
-                        <span class="mr-2"> |</span>
-                        <a href="#" class="mr-2 text-decoration-none text-red">Trashed <Span>(1)</Span></a>
-                    </div> --}}
-                    <!-- count area end -->
 
-                    <!-- search area start -->
-                    <div class="ms-auto text-secondary">
-                        <div class="d-flex justify-content-between align-items-center ">
-                            <form method="GET" action="{{ route('river.testimonial.index') }}" class="d-flex">
-                                <input
-                                    type="text"
-                                    name="query"
-                                    class="form-control form-control-sm"
-                                    placeholder="Search Testimonial"
-                                    value="{{ request('query') }}" />
-                                <button type="submit" class="btn btn-primary btn-sm ms-2">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- search area end -->
+
+                @if($all->count() == 0)
+                @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
+                @else
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th> Name</th>
+                            <th> Is Active</th>
+                            <th> Is Read Only</th>
+                            <th> Token</th>
+                            <th> Created At</th>
+                            <th> Expired At</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($all as $key=>$a)
+                        <tr>
+                            <td>{{ Str::limit($a->name, 40) }} </td>
+                            <td>
+                                @if($a->is_active == 1)
+                                <span class="badge bg-green text-green-fg px-2">Active</span>
+                                @else
+                                <span class="badge bg-blue text-blue-fg ">Inactive</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($a->is_read_only == 1)
+                                <span class="badge bg-green text-green-fg px-2">Read</span>
+                                @else
+                                <span class="badge bg-blue text-blue-fg ">Not Read</span>
+                                @endif
+                            </td>
+                            <td><a class="btn btn-sm btn-primary  px-3 py-1 rounded"
+                                    href="{{ route('river.api.edit',$a->id) }}"> View</a></td>
+                            <td> {{$a->created_at }}</td>
+                            <td> {{$a->expires_at }}</td>
+                            <td>
+                                <div class="d-flex justify-content-start">
+                                    <div>
+                                        <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
+                                            href="{{ route('river.api.edit',$a->id) }}"> Edit</a>
+                                    </div>
+                                    <div class="mx-1">
+                                        <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.api.destroy',$a->id) }}"
+                                            data-href="{{ route('river.api.destroy',$a->id) }}">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @endif
+                <div class="card-body">
+                    {{ $all->appends(['query' => request('query')])->links('pagination::bootstrap-5') }}
                 </div>
-            </div>
-            <!-- search option end -->
-
-            @if($all->count() == 0)
-            @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
-            @else
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th> Token</th>
-                        <th> Is Active</th>
-                        <th> Is Read Only</th>
-                        <th> Created At</th>
-                        <th> Expired At</th>
-                        <th> Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($all as $key=>$a)
-                    <tr>
-                        <td>{{ Str::limit($a->token, 40) }} </td>
-                        <td>
-                            @if($a->is_active == 1)
-                            <span class="badge bg-green text-green-fg px-2">Active</span>
-                            @else
-                            <span class="badge bg-blue text-blue-fg ">Inactive</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if($a->is_read_only == 1)
-                            <span class="badge bg-green text-green-fg px-2">Read</span>
-                            @else
-                            <span class="badge bg-blue text-blue-fg ">Not Read</span>
-                            @endif
-                        </td>
-                        <td> {{$a->created_at }}</td>
-                        <td> {{$a->expires_at }}</td>
-                        <td>
-                            <div class="d-flex justify-content-start">
-                                <div>
-                                    <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
-                                        href="{{ route('river.api.edit',$a->id) }}"> Edit</a>
-                                </div>
-                                <div class="mx-1">
-                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.api.destroy',$a->id) }}"
-                                        data-href="{{ route('river.api.destroy',$a->id) }}">
-                                        Delete
-                                    </a>
-                                </div>
-                            </div>
-
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @endif
-            <div class="card-body">
-                {{ $all->appends(['query' => request('query')])->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
-</div>
 </div>
 @stop
 

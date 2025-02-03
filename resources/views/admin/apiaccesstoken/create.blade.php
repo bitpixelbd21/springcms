@@ -66,13 +66,13 @@
                                     <div class="col d-flex ">
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="1" name="is_active">
+                                            <input class="form-check-input" type="checkbox" value="1" name="is_active">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Active
                                             </label>
                                         </div>
                                         <div class="form-check mx-2">
-                                            <input class="form-check-input" type="radio" value="0" name="is_active">
+                                            <input class="form-check-input" type="checkbox" value="0" name="is_active">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Inactive
                                             </label>
@@ -86,13 +86,13 @@
                                     <div class="col d-flex ">
 
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" value="1" name="is_read_only">
+                                            <input class="form-check-input" type="checkbox" value="1" name="is_read_only">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Read
                                             </label>
                                         </div>
                                         <div class="form-check mx-2">
-                                            <input class="form-check-input" type="radio" value="0" name="is_read_only">
+                                            <input class="form-check-input" type="checkbox" value="0" name="is_read_only">
                                             <label class="form-check-label" for="flexRadioDefault2">
                                                 Not Read
                                             </label>
