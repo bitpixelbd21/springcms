@@ -46,9 +46,9 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group mb-3 row">
-                                    <label class="col-3 col-form-label required">Token</label>
+                                    <label class="col-3 col-form-label required">Name</label>
                                     <div class="col">
-                                        <input type="text" class="form-control" name="token" value="{{ $type->token }}">
+                                        <input type="text" class="form-control" name="name" value="{{ $type->name }}">
                                     </div>
                                 </div>
 

@@ -9,7 +9,7 @@ class ApiAccessToken extends Model
 {
     use HasFactory;
 
-    // public $table = 'river_faq';
+    public $table = 'river_api_access_tokens';
 
     protected $guarded = ['id',];
 

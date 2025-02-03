@@ -12,6 +12,7 @@ use BitPixel\SpringCms\Commands\Generators\MakeMigrationCommand;
 use BitPixel\SpringCms\Commands\Generators\MakeModelCommand;
 use BitPixel\SpringCms\Commands\Generators\MakeViewFilesCommand;
 use BitPixel\SpringCms\Commands\Generators\ScaffoldCommand;
+use BitPixel\SpringCms\Http\Middleware\AccessTokenMiddleware;
 use BitPixel\SpringCms\Http\Middleware\Authenticate;
 use BitPixel\SpringCms\Http\Middleware\CheckIfInstalled;
 use BitPixel\SpringCms\Http\Middleware\CheckRole;
@@ -74,6 +75,7 @@ class SpringCmsServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('river.checkrole', CheckRole::class);
         $this->app['router']->aliasMiddleware('river.checkIfInstalled', CheckIfInstalled::class);
         $this->app['router']->aliasMiddleware('river.redirectIfInstalled', RedirectIfInstalled::class);
+        $this->app['router']->aliasMiddleware('river.access_token', AccessTokenMiddleware::class);
     }
 
     private function configureRoutes(): void

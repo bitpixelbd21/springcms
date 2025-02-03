@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('api_access_tokens', function (Blueprint $table) {
+        Schema::create('river_api_access_tokens', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('token')->unique();
-            // $table->timestamp('created_at')->nullable();
             $table->boolean('is_active')->default(0);
             $table->timestamp('expires_at')->nullable();
             $table->boolean('is_read_only')->default(0);
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('api_access_tokens');
+        Schema::dropIfExists('river_api_access_tokens');
     }
 };

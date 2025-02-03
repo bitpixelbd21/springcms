@@ -18,26 +18,7 @@ class ApiController
 {
     public function index(Request $request)
     {
-
-        //dd('mamun');
         $all = ApiAccessToken::paginate(20);
-
-        // $buttons = [
-        //     ['Add Testimonial', route('river.testimonial.create'), 'btn btn-primary', 'btn-add-new' /*label,link,class,id*/],
-
-        // ];
-
-        // if ($request->input('query')) {
-        //     $query = $request->input('query');
-
-        //     // Fetch blogs with optional search query
-        //     $all = Testimonial::when(
-        //         $query,
-        //         function ($q) use ($query) {
-        //             $q->where('name', 'LIKE', '%' . $query . '%');
-        //         }
-        //     )->paginate(10);
-        // }
 
         $data = [
             'title' => 'API Access Token',
@@ -53,7 +34,7 @@ class ApiController
 
         ];
         $data = [
-            'title' => 'Testimonial',
+            'title' => 'Create Access Token',
             '_top_buttons' => $buttons
         ];
 
@@ -64,8 +45,7 @@ class ApiController
     {
 
         $request->validate([
-            'token' => 'required',
-            // 'required' => 'required' //TODO no space, valid blade file name
+            'name' => 'required',
         ]);
 
         // if ( $request->has('is_active')) {
@@ -81,8 +61,8 @@ class ApiController
         // }
 
         $file = ApiAccessToken::create([
-            'token' => $request->token,
-            // 'image' => $request->image,
+            'name' => $request->name,
+            'token' => bin2hex(random_bytes(32)),
             'expires_at' => $request->expires_at,
             'is_active' => $request->is_active,
             'is_read_only' => $request->is_read_only,

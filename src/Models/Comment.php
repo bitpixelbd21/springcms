@@ -11,11 +11,7 @@ class Comment extends Model
 
     protected $fillable = ['customer_id', 'content'];
 
-    // Relationship with User
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $table = 'river_comments';
 
     // Relationship with Post
     public function river_customers()

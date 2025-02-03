@@ -1,0 +1,108 @@
+{
+	"info": {
+		"_postman_id": "afe8701c-c389-4351-8504-818d041c48c7",
+		"name": "SpringCMS API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "594866"
+	},
+	"item": [
+		{
+			"name": "home data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{HOST}}/api/homedata",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"homedata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "blogs",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{HOST}}/api/blogs?category=kuka",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"api",
+						"blogs"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "dev",
+							"disabled": true
+						},
+						{
+							"key": "category",
+							"value": "kuka"
+						},
+						{
+							"key": "tag",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "TOKEN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
