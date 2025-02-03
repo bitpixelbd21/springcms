@@ -89,7 +89,7 @@
                             <!-- <td>
                                 <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
                             </td> -->
-                            <td>{{ $a->blogcategory ? $a->blogcategory->name : '' }}</td>
+                            <td>{{ $a->blogcategory ? $a->blogcategory->name : 'N/A' }}</td>
 
                             <td>{{ $a->admin->name }}</td>
                             <td>
