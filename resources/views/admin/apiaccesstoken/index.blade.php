@@ -53,6 +53,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach($all as $key=>$a)
                         <tr>
                             <td>{{ Str::limit($a->name, 40) }} </td>
@@ -70,26 +71,47 @@
                                 <span class="badge bg-blue text-blue-fg ">Not Read</span>
                                 @endif
                             </td>
-                            <td><a class="btn btn-sm btn-primary  px-3 py-1 rounded"
-                                    href="{{ route('river.api.edit',$a->id) }}"> View</a></td>
+                            <td>
+                                <a class="btn btn-sm btn-primary px-3 py-1 rounded" data-bs-toggle="modal" data-bs-target="#tokenModal{{$key}}">
+                                    View
+                                </a>
+                            </td>
                             <td> {{$a->created_at }}</td>
                             <td> {{$a->expires_at }}</td>
                             <td>
                                 <div class="d-flex justify-content-start">
                                     <div>
-                                        <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
+                                        <a class="btn btn-sm btn-secondary px-3 py-1 rounded"
                                             href="{{ route('river.api.edit',$a->id) }}"> Edit</a>
                                     </div>
                                     <div class="mx-1">
-                                        <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.api.destroy',$a->id) }}"
+                                        <a class="btn btn-sm btn-danger confirm-delete px-3 py-1 rounded" href="{{ route('river.api.destroy',$a->id) }}"
                                             data-href="{{ route('river.api.destroy',$a->id) }}">
                                             Delete
                                         </a>
                                     </div>
                                 </div>
-
                             </td>
                         </tr>
+
+                        <!-- Modal for each token -->
+                        <div class="modal fade" id="tokenModal{{$key}}" tabindex="-1" aria-labelledby="tokenModalLabel{{$key}}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="tokenModalLabel{{$key}}">Your Token</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" id="tokenInput{{$key}}" class="form-control" value="{{$a->token}}" readonly>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" onclick="copyToken('tokenInput{{$key}}')">Copy Token</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         @endforeach
                     </tbody>
                 </table>
@@ -104,6 +126,18 @@
 @stop
 
 @push('scripts')
+<!-- model js start -->
+<script>
+    function copyToken(inputId) {
+        let tokenInput = document.getElementById(inputId);
+        tokenInput.select();
+        tokenInput.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(tokenInput.value);
+        alert("Token copied to clipboard!");
+    }
+</script>
+<!-- model js end -->
+
 <script>
     // $('#btn-add-new').click(function (e) {
     //     e.preventDefault();
