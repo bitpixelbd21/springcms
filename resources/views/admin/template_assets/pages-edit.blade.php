@@ -39,7 +39,7 @@
     <div class="container-xl">
         <div class="row row-cards">
 
-            <form action="{{ route('river.file-upload') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('river.file-upload', [], false) }}" method="post" enctype="multipart/form-data">
                 @csrf
                   <div class="form-group">
                       <label for="document">Css, js, jpg, png  </label>
@@ -65,7 +65,7 @@
 <script>
     var uploadedDocumentMap = {}
     Dropzone.options.documentDropzone = {
-      url: "{{ route('river.file-upload') }}",
+      url: "{{ route('river.file-upload', [], false) }}",
       maxFilesize: 2, // MB
       addRemoveLinks: true,
       headers: {
