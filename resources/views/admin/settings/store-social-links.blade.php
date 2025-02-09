@@ -14,7 +14,7 @@
                             <label class="col-md-4">Facebook link</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="facebook"
-                                       value=" {{ river_settings('facebook') }}">     
+                                       value=" {{ river_settings('facebook') }}">
                             </div>
                             <div class="col-md-2">
                                 <button data-url="@{{river_settings('facebook')}}" class="btn btn-icon btn-copy"  data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Copied">
@@ -61,8 +61,8 @@
                             </div>
                         </div>
 
-                        
-                        <div class="form-group row mb-3">
+
+                    {{--     <div class="form-group row mb-3">
                             <label class="col-md-4">Google Map lat</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="google_map_lat"
@@ -74,9 +74,9 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg>
                                 </button>
                             </div>
-                            
+
                         </div>
-                        <div class="form-group row mb-3">
+                    <div class="form-group row mb-3">
                             <label class="col-md-4">Google Map lon</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="google_map_lon"
@@ -87,7 +87,7 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg>
                                 </button>
                             </div>
-                        </div>
+                        </div> -- }}
                         {{-- <div class="form-group row mb-0 float-right">
                             <div class="col-md-8">
                                 <button type="submit" class="btn btn-primary waves-effect waves-light mr-1">
@@ -207,7 +207,7 @@
                     </form>
                 </div>
             </div> --}}
-            
+
 
         </div>
     </div>
