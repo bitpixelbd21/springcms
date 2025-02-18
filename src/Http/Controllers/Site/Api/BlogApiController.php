@@ -43,4 +43,24 @@ class BlogApiController extends Controller
         // Return paginated response
         return response()->json($blogs);
     }
+    
+    public function show(Request $request, $id)
+    {
+        $blog = Blog::with('tag', 'blogcategory')->find($id);
+
+        if (!$blog) {
+            return response()->json(['message' => 'Blog not found'], 404);
+        }
+
+        
+        $tags = Tag::all();
+        $categories = BlogCategory::all();
+
+        return response()->json([
+            'blog' => $blog,
+            'tags' => $tags,
+            'categories' => $categories
+        ]);
+    }
+
 }

@@ -15,6 +15,7 @@ Route::group([
 ], function () {
     Route::get('/homedata', [HomeApiController::class, 'index']);
     Route::get('/blogs', [BlogApiController::class, 'index']);
+    Route::get('/blogs/{id}', [BlogApiController::class, 'show']);
 });
 
 Route::group([
