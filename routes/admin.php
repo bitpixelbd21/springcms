@@ -33,6 +33,7 @@ use BitPixel\SpringCms\Http\Controllers\Admin\TestimonialController;
 use BitPixel\SpringCms\Http\Controllers\Admin\ServiceController;
 use BitPixel\SpringCms\Http\Controllers\Admin\ServiceCategoryController;
 use BitPixel\SpringCms\Http\Controllers\Admin\NewsletterSubmissionsController;
+use BitPixel\SpringCms\Http\Controllers\Admin\PortfolioController;
 use BitPixel\SpringCms\Http\Controllers\Admin\TemplateAssetsController;
 
 
@@ -223,6 +224,7 @@ Route::group([
     Route::resource('tag', TagController::class);
 
     Route::resource('testimonial', TestimonialController::class);
+    Route::resource('portfolios', PortfolioController::class);
 
     Route::resource('api', ApiController::class);
 

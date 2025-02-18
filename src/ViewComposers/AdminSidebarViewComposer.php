@@ -246,6 +246,12 @@ class AdminSidebarViewComposer
                 'is_active' => request()->routeIs('river.testimonial.*'),
                 'route' => 'river.testimonial.index'
             ],
+            [
+                'label' => 'Portfolios',
+                'icon' => 'fa-solid fa-comment-dots',
+                'is_active' => request()->routeIs('river.portfolios.*'),
+                'route' => 'river.portfolios.index'
+            ],
             // [
             //     'label' => 'API',
             //     'icon' => 'fa-solid fa-comment-dots',
