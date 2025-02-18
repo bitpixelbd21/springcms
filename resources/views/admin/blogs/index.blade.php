@@ -89,9 +89,9 @@
                             <!-- <td>
                                 <img src="/river/assets/{{ $a->image }}" style="width: 150px" />
                             </td> -->
-                            <td>{{ $a->blogcategory ? $a->blogcategory->name : 'N/A' }}</td>
+                            <td>{{ $a->blogcategory?->name }}</td>
 
-                            <td>{{ $a->admin->name }}</td>
+                            <td>{{ $a->admin?->name }}</td>
                             <td>
                                 @if($a->is_published == 1)
                                 <span class="badge bg-green text-green-fg ">Published</span>

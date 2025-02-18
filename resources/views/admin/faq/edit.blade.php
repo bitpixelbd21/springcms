@@ -75,13 +75,13 @@
                                         <div class="col d-flex ">
 
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="1" name="is_active" @if($type->is_active==1)  checked  @endif >
+                                                <input class="form-check-input" type="radio" value="1" name="is_published" @if($type->is_published==1)  checked  @endif >
                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                   Active
                                                 </label>
                                               </div>
                                               <div class="form-check mx-2">
-                                                <input class="form-check-input" type="radio" value="0" name="is_active" @if($type->is_active==0)  checked  @endif>
+                                                <input class="form-check-input" type="radio" value="0" name="is_published" @if($type->is_published==0)  checked  @endif>
                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                   Inactive
                                                 </label>

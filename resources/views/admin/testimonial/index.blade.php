@@ -100,7 +100,7 @@
                         <td> {{$a->message }}</td>
                         <td> {{$a->sort_order }}</td>
                         <td>
-                            @if($a->is_active == 1)
+                            @if($a->is_published == 1)
                             <span class="badge bg-green text-green-fg px-2">Active</span>
                             @else
                             <span class="badge bg-blue text-blue-fg ">Inactive</span>

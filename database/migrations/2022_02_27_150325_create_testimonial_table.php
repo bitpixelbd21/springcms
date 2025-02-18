@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('designation')->nullable();
             $table->string('message')->nullable();
             $table->integer('sort_order')->default(1);
-            $table->boolean('is_active')->default(0)->nullable();
+            $table->boolean('is_published')->default(0)->nullable();
             $table->timestamps();
         });
     }

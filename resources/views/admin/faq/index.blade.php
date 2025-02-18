@@ -59,7 +59,7 @@
                             <td> {{$a->answer }}</td>
                             <td> {{$a->sort_order }}</td>
                             <td> {{$a->type }}</td>
-                            <td>{{ ($a->is_active==1)? 'Active':'Inactive' }} </td>
+                            <td>{{ ($a->is_published==1)? 'Active':'Inactive' }} </td>
                             <td>
                                 <div class="d-flex justify-content-end">
                                     <div>
