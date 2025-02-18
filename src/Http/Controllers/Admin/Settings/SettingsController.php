@@ -15,7 +15,7 @@ class SettingsController extends Controller
         'name', 'phone', 'email', 'address', 'header_text', 'facebook', 'twitter', 'instagram', 'about',
         'footertext', 'map_code', 'imo_whatsup', 'meta_title', 'theme_color', 'open_hour', 'notice', 'facebook_client_id', 'facebook_client_secret', 'youtube',
         'google_client_id', 'google_client_secret', 'LinkedIn', 'google_map_lat', 'google_map_lon', 'gmail_name', 'gmail_password', 'newsletter_submission',
-        'favicon', 'header_logo', 'footer_logo', 'header_code', 'footer_code','global_css','global_js'
+        'favicon', 'header_logo', 'footer_logo', 'header_code', 'footer_code','global_css','global_js', 'footer_text'
     ];
 
     protected $settingsImages = [];

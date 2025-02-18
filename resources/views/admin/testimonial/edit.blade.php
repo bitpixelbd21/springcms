@@ -100,23 +100,23 @@
                                     </div>
 
                                     <div class="form-group mb-3 row">
-                                        <label class="col-3 col-form-label ">Is Published</label>
-                                        <div class="col d-flex ">
-
+                                        <label class="col-3 col-form-label"></label>
+                                        <div class="col d-flex">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" value="1" name="is_published" @if($type->is_published==1)  checked  @endif >
-                                                <label class="form-check-label" for="flexRadioDefault1">
-                                                  Active
+                                                <input 
+                                                    class="form-check-input" 
+                                                    type="checkbox" 
+                                                    value="1" 
+                                                    name="is_published" 
+                                                    id="is_published"
+                                                    @if($type->is_published == 1) checked @endif>
+                                                <label class="form-check-label" for="is_published">
+                                                    Published
                                                 </label>
-                                              </div>
-                                              <div class="form-check mx-2">
-                                                <input class="form-check-input" type="radio" value="0" name="is_published" @if($type->is_published==0)  checked  @endif>
-                                                <label class="form-check-label" for="flexRadioDefault2">
-                                                  Inactive
-                                                </label>
-                                              </div>
+                                            </div>
                                         </div>
                                     </div>
+
 
                                     <div class="form-footer">
                                         <button type="submit" class="btn btn-primary">Update</button>

@@ -76,7 +76,7 @@ class FaqController
         $file->question = $request->get('question');
         $file->answer = $request->get('answer');
         $file->sort_order = $request->get('sort_order');
-        $file->is_active = $request->get('is_active');
+        $file->is_published = $request->has('is_published') ? 1 : 0;
         $file->type = $request->get('type');
         $file->save();
 

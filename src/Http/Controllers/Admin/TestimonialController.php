@@ -66,10 +66,10 @@ class TestimonialController
             // 'required' => 'required' //TODO no space, valid blade file name
         ]);
 
-        if ( $request->has('is_active')) {
-            $is_active = 1;
+        if ( $request->has('is_published')) {
+            $is_published = 1;
          } else{
-            $is_active = 0;
+            $is_published = 0;
          }
 
         $file = Testimonial::create([
@@ -78,7 +78,7 @@ class TestimonialController
             'designation' => $request->designation,
             'message' => $request->message,
             'sort_order' => $request->sort_order,
-            'is_active' => $is_active,
+            'is_published' => $is_published,
         ]);
         Cache::forget(Constants::CACHE_KEY_TESTIMONIAL);
         return redirect(route('river.testimonial.index', $file->id))
@@ -106,19 +106,13 @@ class TestimonialController
 
         ]);
 
-        if ( $request->has('is_active')) {
-            $is_active = 1;
-         } else{
-            $is_active = 0;
-         }
-
         $file = Testimonial::find($id);
         $file->name = $request->get('name');
         $file->image = $request->get('image');
         $file->designation = $request->get('designation');
         $file->message = $request->get('required');
         $file->sort_order = $request->get('sort_order');
-        $file->is_active =  $is_active;
+        $file->is_published = $request->has('is_published') ? 1 : 0;
         $file->save();
 
         Cache::forget(Constants::CACHE_KEY_TESTIMONIAL);
