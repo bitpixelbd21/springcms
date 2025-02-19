@@ -44,9 +44,9 @@ class BlogApiController extends Controller
         return response()->json($blogs);
     }
     
-    public function show(Request $request, $id)
+    public function show(Request $request, $slug)
     {
-        $blog = Blog::with('tag', 'blogcategory')->find($id);
+        $blog = Blog::with('tag', 'blogcategory')->where('slug', $slug)->first();
 
         if (!$blog) {
             return response()->json(['message' => 'Blog not found'], 404);

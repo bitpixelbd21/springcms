@@ -76,6 +76,7 @@ class TestimonialController
             'name' => $request->name,
             'image' => $request->image,
             'designation' => $request->designation,
+            'company_name' => $request->company_name,
             'message' => $request->message,
             'sort_order' => $request->sort_order,
             'is_published' => $is_published,
@@ -110,6 +111,7 @@ class TestimonialController
         $file->name = $request->get('name');
         $file->image = $request->get('image');
         $file->designation = $request->get('designation');
+        $file->company_name = $request->get('company_name');
         $file->message = $request->get('required');
         $file->sort_order = $request->get('sort_order');
         $file->is_published = $request->has('is_published') ? 1 : 0;

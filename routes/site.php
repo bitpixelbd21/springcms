@@ -1,6 +1,7 @@
 <?php
 
 use BitPixel\SpringCms\Http\Controllers\Site\Api\BlogApiController;
+use BitPixel\SpringCms\Http\Controllers\Site\Api\ContactFormApiController;
 use Illuminate\Support\Facades\Route;
 use BitPixel\SpringCms\Http\Controllers\Site\HomeController;
 use BitPixel\SpringCms\Http\Controllers\Site\PageController;
@@ -8,6 +9,7 @@ use BitPixel\SpringCms\Http\Controllers\Site\BlogController;
 use BitPixel\SpringCms\Http\Controllers\Site\ServiceController;
 use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
 use BitPixel\SpringCms\Http\Controllers\Site\Api\HomeApiController;
+use BitPixel\SpringCms\Models\ContactFormSubmission;
 
 Route::group([
     'middleware' => ['river.access_token'],
@@ -15,7 +17,8 @@ Route::group([
 ], function () {
     Route::get('/homedata', [HomeApiController::class, 'index']);
     Route::get('/blogs', [BlogApiController::class, 'index']);
-    Route::get('/blogs/{id}', [BlogApiController::class, 'show']);
+    Route::get('/blogs/{slug}', [BlogApiController::class, 'show']);
+    Route::post('/contact-us', [ContactFormApiController::class, 'submit']);
 });
 
 Route::group([

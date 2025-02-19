@@ -6,7 +6,7 @@
 @section('page-header')
     <x:river::header>
         <x-slot:title>
-            Edit Testimonial
+            Edit Portfolio
         </x-slot>
 
         <x-slot:breads>
@@ -44,7 +44,7 @@
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="tab-pane active show p-5" id="general" role="tabpanel">
-                                <form action="{{ route('river.portfolio.update', $type->id) }}" method="POST"
+                                <form action="{{ route('river.portfolios.update', $type->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')

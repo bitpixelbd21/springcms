@@ -6,7 +6,7 @@
 @section('page-header')
     <x:river::header>
         <x-slot:title>
-            Add Testimonial
+            Add Portfolio
         </x-slot>
 
         <x-slot:breads>
@@ -44,7 +44,7 @@
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="tab-pane active show p-5" id="general" role="tabpanel">
-                                <form action="{{ route('river.portfolio.store') }}" method="POST"
+                                <form action="{{ route('river.portfolios.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
@@ -69,7 +69,7 @@
 
                                     <!-- Content Field -->
                                     <div class="form-group mb-3 row">
-                                        <label class="col-3 col-form-label required">Content</label>
+                                        <label class="col-3 col-form-label">Content</label>
                                         <div class="col">
                                             <textarea class="form-control" name="content" rows="4"></textarea>
                                         </div>

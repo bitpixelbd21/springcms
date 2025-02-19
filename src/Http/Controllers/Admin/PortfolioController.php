@@ -24,7 +24,7 @@ class PortfolioController
             $query = $request->input('query');
 
             // Fetch blogs with optional search query
-            $all = Testimonial::when(
+            $all = Portfolio::when(
                 $query,
                 function ($q) use ($query) {
                     $q->where('name', 'LIKE', '%' . $query . '%');
@@ -59,11 +59,9 @@ class PortfolioController
     {
         // Validate incoming request data
         $request->validate([
-            'title'        => 'required|string|max:255',                             
-            'slug'         => 'required|string|unique:river_portfolios,slug|max:255',
-            'content'      => 'required|string',                                     
-            'sort_order'   => 'nullable|integer|min:1',                              
-            'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  
+            'title'        => 'required|string',                             
+            'slug'         => 'required|string|unique:river_portfolios,slug',                                 
+            'sort_order'   => 'nullable|integer|min:1',
             'is_published' => 'nullable|boolean',                                    
         ]);
 
@@ -77,7 +75,7 @@ class PortfolioController
             'content'      => $request->input('content'),
             'short_desc'   => $request->input('short_desc'),
             'icon'         => $request->input('icon'),
-            'image'        => $request->input('image'),         // Assuming you're storing the image path
+            'image'        => $request->input('image'),
             'sort_order'   => $request->input('sort_order', 1), // Default to 1 if not provided
             'is_published' => $is_published,
         ]);
@@ -88,7 +86,7 @@ class PortfolioController
 
     public function edit($id)
     {
-        $file = Testimonial::find($id);
+        $file = Portfolio::find($id);
 
         $data = [
             'title' => 'Edit Testimonial: ' . $file->name,
@@ -102,12 +100,11 @@ class PortfolioController
     {
         // Validate incoming request data
         $request->validate([
-            'title'        => 'required|string|max:255',                                          // Validate title
-            'slug'         => 'required|string|unique:river_portfolios,slug,' . $id . '|max:255', // Validate slug for uniqueness excluding current record
-            'content'      => 'required|string',                                                  // Validate content
-            'sort_order'   => 'nullable|integer|min:1',                                           // Validate sort_order
-            'image'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',               // Validate image file (optional)
-            'is_published' => 'nullable|boolean',                                                 // Validate is_published as boolean
+            'title'        => 'required|string',
+            'slug'         => 'required|string|unique:river_portfolios,slug,' . $id . '',
+            'content'      => 'required|string',
+            'sort_order'   => 'nullable|integer|min:1',
+            'is_published' => 'nullable|boolean',
         ]);
 
         // Find the existing portfolio record
@@ -123,7 +120,7 @@ class PortfolioController
             'content'      => $request->input('content'),
             'short_desc'   => $request->input('short_desc'),
             'icon'         => $request->input('icon'),
-            'image'        => $request->input('image'),         // Assuming you're storing the image path
+            'image'        => $request->input('image'),
             'sort_order'   => $request->input('sort_order', 1), // Default to 1 if not provided
             'is_published' => $is_published,
         ]);

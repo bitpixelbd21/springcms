@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('designation')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('message')->nullable();
             $table->integer('sort_order')->default(1);
             $table->boolean('is_published')->default(0)->nullable();

@@ -102,11 +102,11 @@
                             <div class="d-flex justify-content-start">
                                 <div>
                                     <a class="btn btn-sm btn-secondary  px-3 py-1 rounded"
-                                        href="{{ route('river.testimonial.edit',$a->id) }}"> Edit</a>
+                                        href="{{ route('river.portfolios.edit',$a->id) }}"> Edit</a>
                                 </div>
                                 <div class="mx-1">
-                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.testimonial.destroy',$a->id) }}"
-                                        data-href="{{ route('river.testimonial.destroy',$a->id) }}">
+                                    <a class="btn btn-sm btn-danger confirm-delete  px-3 py-1 rounded" href="{{ route('river.portfolios.destroy',$a->id) }}"
+                                        data-href="{{ route('river.portfolios.destroy',$a->id) }}">
                                         Delete
                                     </a>
                                 </div>

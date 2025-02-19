@@ -53,7 +53,12 @@
                                         </div>
                                     </div> --}}
 
-
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label ">Company name</label>
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="company_name">
+                                        </div>
+                                    </div>
                                     <div class="form-group mb-3 row">
                                         <label class="col-3 col-form-label ">Designation</label>
                                         <div class="col">
