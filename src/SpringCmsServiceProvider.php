@@ -37,6 +37,9 @@ class SpringCmsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../public' => public_path('springcms'),
         ], 'springcms-assets');
+        $this->publishes([
+            __DIR__.'/../config/springcms.php' => config_path('springcms.php'),
+        ], ['springcms-config']);
 
 
         //viewcomposers

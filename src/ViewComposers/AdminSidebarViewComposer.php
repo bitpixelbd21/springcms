@@ -42,7 +42,8 @@ class AdminSidebarViewComposer
         $menus[] = [
             'label' => 'Dashboard',
             'route' => 'river.admin.dashboard',
-            'icon' => 'feather icon-home'
+            'icon' => 'feather icon-home',
+            'sort_order' => 1
         ];
 
         if (count($datatypes)) {
@@ -53,6 +54,7 @@ class AdminSidebarViewComposer
             [
                 'label' => 'Website',
                 'icon' => 'fas fa-tv',
+                'sort_order' => 10,
                 'is_active' =>
                     request()->routeIs('river.sliders.*') ||
                     request()->routeIs('river.banners.*')||
@@ -121,6 +123,7 @@ class AdminSidebarViewComposer
             ],
             [
                 'label' => 'Template manager',
+                'sort_order' => 20,
                 'is_active' =>
                     request()->routeIs('river.template-pages.*') ||
                     request()->routeIs('river.template-assets.*'),
@@ -144,7 +147,8 @@ class AdminSidebarViewComposer
             ],
             [
                 'label' => 'Data Types',
-                'icon' => 'fas fa-tv', //feather icon-box
+                'icon' => 'fas fa-tv',
+                'sort_order' => 30,
                 'is_active' => request()->routeIs('river.datatypes.*'),
                 'children' => [
                     [
@@ -156,7 +160,8 @@ class AdminSidebarViewComposer
             ],
             [
                 'label' => 'Users',
-                'icon' => 'fas fa-user', //feather icon-box
+                'icon' => 'fas fa-user',
+                'sort_order' => 40,
                 'is_active' => request()->routeIs('river.users.*'),
                 'route' => 'river.users.index',
             ],
@@ -168,12 +173,14 @@ class AdminSidebarViewComposer
             [
                 'label' => 'Pages',
                 'icon' => 'fas fa-folder',
+                'sort_order' => 50,
                 'is_active' => request()->routeIs('river.pages.*'),
                 'route' => 'river.pages.index',
             ],
             [
                 'label' => 'Contact Form',
                 'icon' => 'fas fa-file-contract',
+                'sort_order' => 60,
                 'is_active' => request()->routeIs('river.river.contact-form.*'),
                 'route' => 'river.contact-form.index',
             ],
@@ -184,6 +191,7 @@ class AdminSidebarViewComposer
             // ],
             [
                 'label' => 'Newsletter Submissions',
+                'sort_order' => 70,
                 'icon' =>  'fa-solid fa-envelope',
                 'is_active' => request()->routeIs('river.newslatter-submissions.*'),
                 'route' => 'river.newslatter-submissions.index'
@@ -191,24 +199,28 @@ class AdminSidebarViewComposer
             [
                 'label' => 'Contact Form Submission',
                 'icon' =>  'fa-solid fa-envelope',
+                'sort_order' => 80,
                 'is_active' => request()->routeIs('river.Contact-form.*'),
                 'route' => 'river.Contact-form'
             ],
             [
                 'label' => 'FAQ',
                 'icon' => 'fas fa-comments',
+                'sort_order' => 90,
                 'is_active' => request()->routeIs('river.faq.*'),
                 'route' => 'river.faq.index'
             ],
             [
                 'label' => 'Menu',
                 'icon' => 'fas fa-bars',
+                'sort_order' => 100,
                 'is_active' => request()->routeIs('river.menu.*'),
                 'route' => 'river.menu.index'
             ],
             [
                 'label' => 'Blogs',
                 'icon' => 'fas fa-th-large',
+                'sort_order' => 110,
                 'is_active' =>
                     request()->routeIs('river.blog.*') ||
                     request()->routeIs('river.blog-category.*') ||
@@ -243,11 +255,13 @@ class AdminSidebarViewComposer
             [
                 'label' => 'Testimonial',
                 'icon' => 'fa-solid fa-comment-dots',
+                'sort_order' => 120,
                 'is_active' => request()->routeIs('river.testimonial.*'),
                 'route' => 'river.testimonial.index'
             ],
             [
                 'label' => 'Portfolios',
+                'sort_order' => 130,
                 'icon' => 'fa-solid fa-comment-dots',
                 'is_active' => request()->routeIs('river.portfolios.*'),
                 'route' => 'river.portfolios.index'
@@ -261,6 +275,7 @@ class AdminSidebarViewComposer
             [
                 'label' => 'Service',
                 'icon' => 'fas fa-headset',
+                'sort_order' => 130,
                 'is_active' =>
                     request()->routeIs('river.service.*') ||
                     request()->routeIs('river.service-category.*'),
@@ -279,18 +294,37 @@ class AdminSidebarViewComposer
             ],
             [
                 'label' => 'Configuration',
+                'sort_order' => 140,
                 'icon' => 'fa-solid fa-comment-dots',
                 'is_active' => request()->routeIs('river.configuration'),
                 'route' => 'river.configuration'
             ],
             [
                 'label' => 'File manager',
+                'sort_order' => 150,
                 'icon' => 'fa-solid fa-file-lines',
                 'is_active' => request()->routeIs('river.file-manager'),
                 'route' => 'river.file-manager'
             ],
         ];
-        $menus = array_merge($menus, $system_menus);
+
+        $user_defined_menus = config('springcms.sidebar_menus');
+
+        $menus = array_merge($menus, $system_menus, $user_defined_menus);
+
+        // Sort the main menu
+        usort($menus, function ($a, $b) {
+            return $a['sort_order'] <=> $b['sort_order'];
+        });
+
+        // Sort the children menus if they exist
+        // foreach ($system_menus as &$menu) {
+        //     if (isset($menu['children'])) {
+        //         usort($menu['children'], function ($a, $b) {
+        //             return $a['sort_order'] <=> $b['sort_order'];
+        //         });
+        //     }
+        // }
 
         /*if (RolesCache::isDeveloper()) {
             $menus = array_merge($menus, $system_menus);

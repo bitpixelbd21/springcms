@@ -31,7 +31,7 @@
             <ul class="navbar-nav pt-lg-3">
 
                 @foreach($menus as $menu)
-                    <li @class(["nav-item","dropdown active"=>$menu['is_active'] ?? false]) >
+                    <li @class(["nav-item","dropdown active"=>$menu['is_active'] ?? false]) data-sort-order="{{ $menu['sort_order'] ?? '' }}">
                         <a class="nav-link {{array_key_exists('children', $menu) ? ' dropdown-toggle' : ''}}"
                            href="{{array_key_exists('route', $menu) ? route($menu['route']) : 'javascript:void(0)'}}"
                            data-bs-toggle="{{array_key_exists('children', $menu) ? 'dropdown' : ''}}"
