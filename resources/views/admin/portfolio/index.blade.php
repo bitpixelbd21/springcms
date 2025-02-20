@@ -14,7 +14,7 @@
         </x-slot:breads>
 
         <x-slot:buttons>
-            <a href="{{route('river.testimonial.create')}}" class="btn btn-primary d-none d-sm-inline-block">
+            <a href="{{route('river.portfolios.create')}}" class="btn btn-primary d-none d-sm-inline-block">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
@@ -56,7 +56,7 @@
                     <!-- search area start -->
                     <div class="ms-auto text-secondary">
                         <div class="d-flex justify-content-between align-items-center ">
-                            <form method="GET" action="{{ route('river.testimonial.index') }}" class="d-flex">
+                            <form method="GET" action="{{ route('river.portfolios.index') }}" class="d-flex">
                                 <input
                                     type="text"
                                     name="query"
@@ -73,7 +73,7 @@
             <!-- search option end -->
 
             @if($all->count() == 0)
-            @include('river::admin.partials.nodata', ['link' => route('river.testimonial.create') ])
+            @include('river::admin.partials.nodata', ['link' => route('river.portfolios.create') ])
             @else
             <table class="table">
                 <thead>

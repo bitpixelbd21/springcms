@@ -16,7 +16,7 @@
         </x-slot:breads>
 
         <x-slot:buttons>
-            <a href="{{ route('river.testimonial.index') }}" class="btn">
+            <a href="{{ route('river.portfolios.index') }}" class="btn">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24"
                     height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
