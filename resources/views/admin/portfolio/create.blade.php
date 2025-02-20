@@ -47,7 +47,6 @@
                                 <form action="{{ route('river.portfolios.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
-                                    @method('PUT')
 
                                     <!-- Title Field -->
                                     <div class="form-group mb-3 row">
