@@ -4,8 +4,8 @@
        <i class="fa fa-picture-o"></i> Choose
      </a>
    </span>
-   <input id="{{$name}}" class="form-control" type="text" name="{{$name}}" value="{{ $default }}">
+   <input id="{{$name}}" class="form-control" type="text" name="{{$name}}" value="{{ $default ?? '' }}">
 </div>
 <span id="{{$name}}-holder" style="margin-top:15px;max-height:100px;">
-    <img class="imageThumb" id="favicon" src="{{ $default }}" style="width: 80px; height: 80px">
+    <img class="imageThumb" id="favicon" src="{{ $default ?? '' }}" style="width: 80px; height: 80px">
 </span>
