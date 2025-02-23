@@ -101,6 +101,56 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Client</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="client" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Category</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="category" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Project Name</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="project_name" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Overview</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="overview" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Problem</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="problem" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Challenges</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="challenges" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-3 row">
+                                        <label class="col-3 col-form-label">Solutions</label>
+                                        <div class="col">
+                                            <textarea class="form-control" name="solutions" rows="3"></textarea>
+                                        </div>
+                                    </div>
+
+
                                     <!-- Sort Order Field -->
                                     <div class="form-group mb-3 row">
                                         <label class="col-3 col-form-label">Sort Order</label>

@@ -76,6 +76,13 @@ class PortfolioController
             'short_desc'   => $request->input('short_desc'),
             'icon'         => $request->input('icon'),
             'image'        => $request->input('image'),
+            'client' => $request->input('client'),
+            'category' => $request->input('category'),
+            'project_name' => $request->input('project_name'),
+            'overview' => $request->input('overview'),
+            'problem' => $request->input('problem'),
+            'challenges' => $request->input('challenges'),
+            'solutions' => $request->input('solutions'),
             'sort_order'   => $request->input('sort_order', 1), // Default to 1 if not provided
             'is_published' => $is_published,
         ]);
@@ -121,6 +128,13 @@ class PortfolioController
             'short_desc'   => $request->input('short_desc'),
             'icon'         => $request->input('icon'),
             'image'        => $request->input('image'),
+            'client' => $request->input('client'),
+            'category' => $request->input('category'),
+            'project_name' => $request->input('project_name'),
+            'overview' => $request->input('overview'),
+            'problem' => $request->input('problem'),
+            'challenges' => $request->input('challenges'),
+            'solutions' => $request->input('solutions'),
             'sort_order'   => $request->input('sort_order', 1), // Default to 1 if not provided
             'is_published' => $is_published,
         ]);

@@ -22,6 +22,13 @@ return new class extends Migration
             $table->text('short_desc')->nullable();
             $table->string('icon')->nullable();
             $table->string('image')->nullable();
+            $table->string('client')->nullable();
+            $table->string('category')->nullable();
+            $table->string('project_name')->nullable();
+            $table->text('overview')->nullable();
+            $table->text('problem')->nullable();
+            $table->text('challenges')->nullable();
+            $table->text('solutions')->nullable();
             $table->integer('sort_order')->default(1)->nullable();
             $table->boolean('is_published')->default(0)->nullable();
             $table->timestamps();

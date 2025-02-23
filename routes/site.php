@@ -9,7 +9,8 @@ use BitPixel\SpringCms\Http\Controllers\Site\BlogController;
 use BitPixel\SpringCms\Http\Controllers\Site\ServiceController;
 use BitPixel\SpringCms\Http\Controllers\Site\ContactFormSubmissionController;
 use BitPixel\SpringCms\Http\Controllers\Site\Api\HomeApiController;
-use BitPixel\SpringCms\Models\ContactFormSubmission;
+use BitPixel\SpringCms\Http\Controllers\Site\Api\PortfoliosApiController;
+use BitPixel\SpringCms\Http\Controllers\Site\Api\ServicesApiController;
 
 Route::group([
     'middleware' => ['river.access_token'],
@@ -19,6 +20,10 @@ Route::group([
     Route::get('/blogs', [BlogApiController::class, 'index']);
     Route::get('/blogs/{slug}', [BlogApiController::class, 'show']);
     Route::post('/contact-us', [ContactFormApiController::class, 'submit']);
+    Route::get('/services', [ServicesApiController::class, 'index']);
+    Route::get('/services/{slug}', [ServicesApiController::class, 'show']);
+    Route::get('/portfolios', [PortfoliosApiController::class, 'index']);
+    Route::get('/portfolios/{slug}', [PortfoliosApiController::class, 'show']);
 });
 
 Route::group([

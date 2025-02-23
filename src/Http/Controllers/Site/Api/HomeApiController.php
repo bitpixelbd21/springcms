@@ -50,12 +50,4 @@ class HomeApiController extends Controller
         return response()->json($data);
     }
 
-    public function single_entries_show($slug)
-    {
-
-        $data = DataEntry::where('slug', $slug)->first();
-
-        return view('_cache.single-data', compact('data'));
-    }
-
 }
