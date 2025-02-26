@@ -14,9 +14,9 @@ class RolesCache
     {
         $role = self::getAuthRole();
         $user = Auth::guard('admins')->user();
+        if ($user->is_developer) return true;
 
         if ($role == null) return false;
-        if ($user->is_developer) return true;
 
         $check = $role->permissions->first(function ($value, $key) use($permission, $type){
             return (($value->permission == $permission)

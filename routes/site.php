@@ -2,6 +2,7 @@
 
 use BitPixel\SpringCms\Http\Controllers\Site\Api\BlogApiController;
 use BitPixel\SpringCms\Http\Controllers\Site\Api\ContactFormApiController;
+use BitPixel\SpringCms\Http\Controllers\Site\Api\DataTypeApiController;
 use Illuminate\Support\Facades\Route;
 use BitPixel\SpringCms\Http\Controllers\Site\HomeController;
 use BitPixel\SpringCms\Http\Controllers\Site\PageController;
@@ -24,6 +25,7 @@ Route::group([
     Route::get('/services/{slug}', [ServicesApiController::class, 'show']);
     Route::get('/portfolios', [PortfoliosApiController::class, 'index']);
     Route::get('/portfolios/{slug}', [PortfoliosApiController::class, 'show']);
+    Route::get('/data-types/{slug}/entries', [DataTypeApiController::class, 'index']);
 });
 
 Route::group([

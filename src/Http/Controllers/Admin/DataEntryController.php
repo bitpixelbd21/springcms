@@ -95,7 +95,8 @@ class DataEntryController
             'method' => 'POST',
             'data' => [],
             'type' => $d,
-            'default_value' => $default_value
+            'default_value' => $default_value,
+            'data_slug' => $slug
         ];
 
         return view('river::admin.dataentries.create', $data);
@@ -140,7 +141,8 @@ class DataEntryController
             'action' => route('river.data-entries.update', ['slug' => $slug, 'id' => $id]),
             'method' => 'PUT',
             'data' => $entryAsArray,
-            'default_value' => $default_value
+            'default_value' => $default_value,
+            'data_slug' => $slug
         ];
 
         return view('river::admin.dataentries.create', $data);
