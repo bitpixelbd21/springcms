@@ -309,6 +309,7 @@ class AdminSidebarViewComposer
         ];
 
         $user_defined_menus = config('springcms.sidebar_menus');
+        if($user_defined_menus === null) $user_defined_menus = [];
 
         $menus = array_merge($menus, $system_menus, $user_defined_menus);
 
@@ -346,6 +347,7 @@ class AdminSidebarViewComposer
             if ($type->show_on_menu) {
                 $m = [
                     'label' => $type->plural,
+                    'sort_order' => 35, //hardcoded sort order, TODO allow user to configure this
                     'children' => [
                         [
                             'label' => 'All ' . $type->plural,
