@@ -20,7 +20,7 @@ class Blog extends Model
         return $q->where('slug', $slug);
     }
 
-    public function scopePublished($q, $slug)
+    public function scopePublished($q)
     {
         return $q->where('is_published', 1);
     }
