@@ -38,7 +38,11 @@ class BlogApiController extends Controller
         }
 
         // Paginate the results, you can adjust the per page limit
-        $blogs = $query->with('tag')->with('blogcategory')->paginate(10);
+        $blogs = $query->with('tag')
+        ->with('blogcategory')
+        ->with('author')
+        ->published()
+        ->paginate(10);
 
         // Return paginated response
         return response()->json($blogs);
@@ -46,7 +50,7 @@ class BlogApiController extends Controller
     
     public function show(Request $request, $slug)
     {
-        $blog = Blog::with('tag', 'blogcategory')->where('slug', $slug)->first();
+        $blog = Blog::with('tag', 'blogcategory', 'author')->where('slug', $slug)->first();
 
         if (!$blog) {
             return response()->json(['message' => 'Blog not found'], 404);

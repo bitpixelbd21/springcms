@@ -20,6 +20,11 @@ class Blog extends Model
         return $q->where('slug', $slug);
     }
 
+    public function scopePublished($q, $slug)
+    {
+        return $q->where('is_published', 1);
+    }
+
     // public function menuitem(){
     //     return $this->HasMany(MenuItem::class, 'menu_id');
     // }
@@ -28,7 +33,7 @@ class Blog extends Model
         return $this->belongsToMany(Tag::class, 'river_blog_tag', 'blog_id', 'tag_id');
     }
 
-    public function admin(){
+    public function author(){
         return $this->belongsTo(Admin::class, 'author_id');
     }
 

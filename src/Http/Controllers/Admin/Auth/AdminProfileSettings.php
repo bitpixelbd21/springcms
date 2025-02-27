@@ -54,19 +54,31 @@ class AdminProfileSettings extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
-            'name' => 'required',
-            'email' =>'required'
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:river_admins,email,' . $id,
+            'bio' => 'nullable|string|max:1000',
+            'facebook' => 'nullable|url',
+            'instagram' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'youtube' => 'nullable|url',
+            'twitter' => 'nullable|url'
         ]);
 
-            $file= Admin::find($id);
+        $file= Admin::find($id);
 
-            $file->name = $request->name;
-            $file->email = $request->email;
-            $file->image = $request->image;
+        $file->name = $request->name;
+        $file->email = $request->email;
+        $file->image = $request->image;
+        $file->bio = $request->input('bio');
+        $file->facebook = $request->input('facebook');
+        $file->instagram = $request->input('instagram');
+        $file->linkedin = $request->input('linkedin');
+        $file->youtube = $request->input('youtube');
+        $file->twitter = $request->input('twitter');
 
-            $file->save();
+        $file->save();
 
-            return redirect()->back()->with('success', 'Updated');
+        return redirect()->back()->with('success', 'Updated');
     }
 
     public function update_password(Request $request, $id) {

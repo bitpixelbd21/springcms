@@ -52,62 +52,84 @@
               <div class="card-body">
                 <h2 class="mb-4">My Account</h2>
                 <h3 class="card-title">Profile Details</h3>
-                <form method="post" action="{{ route('river.admin-update',$data->id) }}" enctype="multipart/form-data" >
-                @csrf
-                    {{-- <div class="row align-items-center">
-                        <div class="col-auto"><span class="avatar avatar-xl" style="background-image: url(/river/assets/000m.jpg)"></span>
-                        </div>
-                        <div class="col-auto"><a href="#" class="btn">
-                            Change avatar
-                          </a>
-                        </div>
-                        <div class="col-auto"><a href="#" class="btn btn-ghost-danger">
-                            Delete avatar
-                          </a>
-                      </div>
-                    </div> --}}
+                <form method="post" action="{{ route('river.admin-update', $data->id) }}" enctype="multipart/form-data">
+                  @csrf
 
-                    <div class="form-group mb-3 row">
+                  {{-- Image field --}}
+                  <div class="form-group mb-3 row">
                       <div class="form-group">
                           <label>Image <small class="text-warning"></small></label>
-                          @include('river::admin.components.image-picker', ['name' => 'image', 'default' => $data->image ])
+                          @include('river::admin.components.image-picker', ['name' => 'image', 'default' => $data->image])
                       </div>
                   </div>
 
-
-
-
-                    <div class="row g-3">
-
+                  {{-- Name field --}}
+                  <div class="row g-3">
                       <div class="col-md">
-                       <div class="form-label">Name</div>
-                       <input type="text" class="form-control" name="name" value="{{ $data->name }}">
+                          <div class="form-label">Name</div>
+                          <input type="text" class="form-control" name="name" value="{{ $data->name }}">
                       </div>
-
-
-                    </div>
-
-                <div>
-                  <div class="row mt-3 ">
-                    <div class="col-md">
-                      <div class="form-label">Email</div>
-                      <input type="text" name="email" class="form-control" value=" {{ $data->email }}">
-                    </div>
-
                   </div>
-                </div>
-                <div class="card-footer bg-transparent mt-auto">
-                  <div class="btn-list justify-content-end">
-                    <a href="{{ route('river.admin-settings') }}" class="btn">
-                      Cancel
-                    </a>
-                    <button type="submit" href="#" class="btn btn-primary">
-                      Submit
-                    </button>
-                  </div>
-                </div>
 
-                </form>
+                  {{-- Email field --}}
+                  <div class="row mt-3">
+                      <div class="col-md">
+                          <div class="form-label">Email</div>
+                          <input type="text" name="email" class="form-control" value="{{ $data->email }}">
+                      </div>
+                  </div>
+
+                  {{-- Bio field --}}
+                  <div class="row mt-3">
+                      <div class="col-md">
+                          <div class="form-label">Bio</div>
+                          <textarea name="bio" class="form-control">{{ $data->bio }}</textarea>
+                      </div>
+                  </div>
+
+                  {{-- Social Media Links --}}
+                  <div class="row mt-3">
+                      <div class="col-md">
+                          <div class="form-label">Facebook</div>
+                          <input type="url" name="facebook" class="form-control" value="{{ $data->facebook }}">
+                      </div>
+                      <div class="col-md">
+                          <div class="form-label">Instagram</div>
+                          <input type="url" name="instagram" class="form-control" value="{{ $data->instagram }}">
+                      </div>
+                  </div>
+
+                  <div class="row mt-3">
+                      <div class="col-md">
+                          <div class="form-label">LinkedIn</div>
+                          <input type="url" name="linkedin" class="form-control" value="{{ $data->linkedin }}">
+                      </div>
+                      <div class="col-md">
+                          <div class="form-label">YouTube</div>
+                          <input type="url" name="youtube" class="form-control" value="{{ $data->youtube }}">
+                      </div>
+                  </div>
+
+                  <div class="row mt-3">
+                      <div class="col-md">
+                          <div class="form-label">Twitter</div>
+                          <input type="url" name="twitter" class="form-control" value="{{ $data->twitter }}">
+                      </div>
+                  </div>
+
+                  {{-- Submit and Cancel buttons --}}
+                  <div class="card-footer bg-transparent mt-auto">
+                      <div class="btn-list justify-content-end">
+                          <a href="{{ route('river.admin-settings') }}" class="btn">
+                              Cancel
+                          </a>
+                          <button type="submit" class="btn btn-primary">
+                              Submit
+                          </button>
+                      </div>
+                  </div>
+              </form>
+
 
             </div>
           </div>

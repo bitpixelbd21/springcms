@@ -9,6 +9,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
     public $table = 'river_admins';
+    protected $hidden = [
+        'password',
+        'is_developer',
+        'role_id'
+    ];
 
     protected $fillable = [
         'key',
